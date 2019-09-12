@@ -1,0 +1,102 @@
+# Metadata for List of Kindergarten Services
+---
+Identifier: '8463d776-67a2-43ff-b563-e8bb9de2b7f3'
+Name: 'list-of-kindergarten-services'
+Title: 'List of Kindergarten Services'
+Description: 'This dataset contains a list of services provided by the kindergarten
+  centres. For a full list of kindergarten centres, please refer to the dataset on
+  "List of Kindergarten Centres" (Link here: https://data.gov.sg/dataset/list-of-kindergartens)'
+Topics:
+  - 'Society'
+Keywords:
+  - 'Children'
+  - 'Family'
+  - 'Parents'
+Publisher:
+  Name: 'Early Childhood Development Agency'
+  Admin 1:
+    Name: 'Nur Aisyah Rapii'
+    Department: 'ECDA'
+    Email: 'nur_aisyah_rapii@ecda.gov.sg'
+Sources:
+  - 'Early Childhood Development Agency'
+License: 'https://data.gov.sg/open-data-licence'
+Frequency: 'Quarterly'
+Coverage: '2017-10-25 to 2019-01-02'
+Last Updated: '2019-03-20T00:22:39.956446'
+Resources:
+  -
+    Identifier: '71c559b8-1acc-4b55-bb84-643f02805275'
+    Title: 'List of Kindergarten Services'
+    Url: 'https://storage.data.gov.sg/list-of-kindergarten-services/resources/list-of-kindergarten-services-2019-03-20T00-10-21Z.csv'
+    Format: 'CSV'
+    Coverage: '2017-10-25 to 2019-01-02'
+    Description: 'This dataset contains a list of services provided by the kindergarten
+      centres. For a full list of kindergarten centres, please refer to the dataset
+      on "List of Kindergarten Centres" (Link here: https://data.gov.sg/dataset/list-of-kindergartens)'
+    Last Updated: '2019-03-20T00:10:21.143910'
+    Schema:
+      -
+        Name: 'centre_code'
+        Title: 'Centre code'
+        Type: 'text'
+        Sub Type: 'general'
+        Description: 'Unique identifier for kindergarten centre. Refer to https://data.gov.sg/dataset/list-of-kindergartens
+          for kindergarten centre details.'
+      -
+        Name: 'centre_name'
+        Title: 'Centre name'
+        Type: 'text'
+        Sub Type: 'general'
+      -
+        Name: 'levels_offered'
+        Title: 'Levels offered'
+        Type: 'text'
+        Sub Type: 'general'
+      -
+        Name: 'programme_hours'
+        Title: 'Programme hours'
+        Type: 'text'
+        Sub Type: 'general'
+        Description: '"na" : Data not available or not applicable'
+      -
+        Name: 'second_languages_offered'
+        Title: 'Second languages offered'
+        Type: 'text'
+        Sub Type: 'general'
+        Description: '"na" : Data not available or not applicable'
+      -
+        Name: 'vacancy'
+        Title: 'Vacancy'
+        Type: 'text'
+        Sub Type: 'general'
+      -
+        Name: 'registration_fee'
+        Title: 'Registration fee'
+        Type: 'text'
+        Sub Type: 'general'
+        Description:
+          - 'Fees provided in Singapore Dollars (S$).'
+          - '"na" : Data not available or not applicable'
+      -
+        Name: 'fees_sc'
+        Title: 'Fees sc'
+        Type: 'text'
+        Sub Type: 'general'
+        Description:
+          - 'Fees provided in Singapore Dollars (S$).'
+          - '"na" : Data not available or not applicable'
+      -
+        Name: 'fee_pr'
+        Title: 'Fee pr'
+        Type: 'text'
+        Sub Type: 'general'
+        Description:
+          - 'Fees provided in Singapore Dollars (S$).'
+          - '"na" : Data not available or not applicable'
+      -
+        Name: 'last_updated'
+        Title: 'Last updated'
+        Type: 'datetime'
+        Sub Type: 'date'
+        Format: 'YYYY-MM-DD'
