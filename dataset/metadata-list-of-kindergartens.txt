@@ -1,0 +1,91 @@
+# Metadata for List of Kindergartens
+---
+Identifier: '1a3079d9-1745-4479-bf02-f2ae8ddcefd3'
+Name: 'list-of-kindergartens'
+Title: 'List of Kindergartens'
+Description: 'This dataset includes a list of active kindergartens'
+Topics:
+  - 'Infrastructure'
+  - 'Society'
+Keywords:
+  - 'Children'
+  - 'Family'
+  - 'Parents'
+Publisher:
+  Name: 'Early Childhood Development Agency'
+  Admin 1:
+    Name: 'Nur Aisyah Rapii'
+    Department: 'ECDA'
+    Email: 'nur_aisyah_rapii@ecda.gov.sg'
+Sources:
+  - 'Early Childhood Development Agency'
+License: 'https://data.gov.sg/open-data-licence'
+Frequency: 'Quarterly'
+Coverage: '2017-10-25 to 2017-10-25'
+Last Updated: '2018-11-28T02:28:47.044704'
+Resources:
+  -
+    Identifier: '0ba90baa-31fa-4c3a-87d5-6057a4cff882'
+    Title: 'List of Kindergarten Centres'
+    Url: 'https://storage.data.gov.sg/list-of-kindergartens/resources/list-of-kindergarten-centres-2018-11-28T02-28-46Z.csv'
+    Format: 'CSV'
+    Coverage: '2017-10-25 to 2017-10-25'
+    Last Updated: '2018-11-28T02:28:46.717146'
+    Schema:
+      -
+        Name: 'centre_code'
+        Title: 'Centre code'
+        Type: 'text'
+        Sub Type: 'general'
+        Description: 'Unique identifier for kindergarten centre'
+      -
+        Name: 'centre_name'
+        Title: 'Centre name'
+        Type: 'text'
+        Sub Type: 'general'
+      -
+        Name: 'organisation_type'
+        Title: 'Organisation type'
+        Type: 'text'
+        Sub Type: 'general'
+        Description:
+          - 'NFP: Not For Profit'
+          - 'AOP: Anchor Operators'
+      -
+        Name: 'centre_contact_no'
+        Title: 'Centre contact no'
+        Type: 'text'
+        Sub Type: 'general'
+        Description: '"na" : Data not available or not applicable'
+      -
+        Name: 'centre_email_address'
+        Title: 'Centre email address'
+        Type: 'text'
+        Sub Type: 'email'
+        Description: '"na" : Data not available or not applicable'
+      -
+        Name: 'centre_address'
+        Title: 'Centre address'
+        Type: 'text'
+        Sub Type: 'general'
+      -
+        Name: 'postal_code'
+        Title: 'Postal code'
+        Type: 'text'
+        Sub Type: 'postal_code'
+      -
+        Name: 'centre_website'
+        Title: 'Centre website'
+        Type: 'text'
+        Sub Type: 'url'
+        Description: '"na" : Data not available or not applicable'
+      -
+        Name: 'spark_certified'
+        Title: 'Spark certified'
+        Type: 'text'
+        Sub Type: 'general'
+      -
+        Name: 'last_updated'
+        Title: 'Last updated'
+        Type: 'text'
+        Sub Type: 'general'
