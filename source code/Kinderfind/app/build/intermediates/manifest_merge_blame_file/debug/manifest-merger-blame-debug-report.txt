@@ -1,0 +1,130 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.kinderfind"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="23"
+8-->/Users/seanpoh/Github/kinderfinder/source code/Kinderfind/app/src/main/AndroidManifest.xml
+9        android:targetSdkVersion="29" />
+9-->/Users/seanpoh/Github/kinderfinder/source code/Kinderfind/app/src/main/AndroidManifest.xml
+10
+11    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+11-->/Users/seanpoh/Github/kinderfinder/source code/Kinderfind/app/src/main/AndroidManifest.xml:49:5-79
+11-->/Users/seanpoh/Github/kinderfinder/source code/Kinderfind/app/src/main/AndroidManifest.xml:49:22-76
+12
+13    <!-- Include required permissions for Google Maps API to run. -->
+14    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+14-->[com.google.android.gms:play-services-maps:17.0.0] /Users/seanpoh/.gradle/caches/transforms-2/files-2.1/71410d59386dba98cbe61d29bc62f196/play-services-maps-17.0.0/AndroidManifest.xml:23:5-79
+14-->[com.google.android.gms:play-services-maps:17.0.0] /Users/seanpoh/.gradle/caches/transforms-2/files-2.1/71410d59386dba98cbe61d29bc62f196/play-services-maps-17.0.0/AndroidManifest.xml:23:22-76
+15    <uses-permission android:name="android.permission.INTERNET" />
+15-->[com.google.android.gms:play-services-maps:17.0.0] /Users/seanpoh/.gradle/caches/transforms-2/files-2.1/71410d59386dba98cbe61d29bc62f196/play-services-maps-17.0.0/AndroidManifest.xml:24:5-67
+15-->[com.google.android.gms:play-services-maps:17.0.0] /Users/seanpoh/.gradle/caches/transforms-2/files-2.1/71410d59386dba98cbe61d29bc62f196/play-services-maps-17.0.0/AndroidManifest.xml:24:22-64
+16
+17    <uses-feature
+17-->[com.google.android.gms:play-services-maps:17.0.0] /Users/seanpoh/.gradle/caches/transforms-2/files-2.1/71410d59386dba98cbe61d29bc62f196/play-services-maps-17.0.0/AndroidManifest.xml:26:5-28:35
+18        android:glEsVersion="0x00020000"
+18-->[com.google.android.gms:play-services-maps:17.0.0] /Users/seanpoh/.gradle/caches/transforms-2/files-2.1/71410d59386dba98cbe61d29bc62f196/play-services-maps-17.0.0/AndroidManifest.xml:27:9-41
+19        android:required="true" />
+19-->[com.google.android.gms:play-services-maps:17.0.0] /Users/seanpoh/.gradle/caches/transforms-2/files-2.1/71410d59386dba98cbe61d29bc62f196/play-services-maps-17.0.0/AndroidManifest.xml:28:9-32
+20
+21    <application
+21-->/Users/seanpoh/Github/kinderfinder/source code/Kinderfind/app/src/main/AndroidManifest.xml:5:5-47:19
+22        android:allowBackup="true"
+22-->/Users/seanpoh/Github/kinderfinder/source code/Kinderfind/app/src/main/AndroidManifest.xml:6:9-35
+23        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+23-->[androidx.core:core:1.1.0] /Users/seanpoh/.gradle/caches/transforms-2/files-2.1/c527b78844be871c44103f6f45a963fb/core-1.1.0/AndroidManifest.xml:24:18-86
+24        android:debuggable="true"
+25        android:icon="@mipmap/ic_launcher"
+25-->/Users/seanpoh/Github/kinderfinder/source code/Kinderfind/app/src/main/AndroidManifest.xml:7:9-43
+26        android:label="@string/app_name"
+26-->/Users/seanpoh/Github/kinderfinder/source code/Kinderfind/app/src/main/AndroidManifest.xml:8:9-41
+27        android:roundIcon="@mipmap/ic_launcher_round"
+27-->/Users/seanpoh/Github/kinderfinder/source code/Kinderfind/app/src/main/AndroidManifest.xml:9:9-54
+28        android:supportsRtl="true"
+28-->/Users/seanpoh/Github/kinderfinder/source code/Kinderfind/app/src/main/AndroidManifest.xml:10:9-35
+29        android:testOnly="true"
+30        android:theme="@style/AppTheme" >
+30-->/Users/seanpoh/Github/kinderfinder/source code/Kinderfind/app/src/main/AndroidManifest.xml:11:9-40
+31        <activity
+31-->/Users/seanpoh/Github/kinderfinder/source code/Kinderfind/app/src/main/AndroidManifest.xml:13:9-17:20
+32            android:name="com.example.kinderfind.RegisterActivity"
+32-->/Users/seanpoh/Github/kinderfinder/source code/Kinderfind/app/src/main/AndroidManifest.xml:14:13-45
+33            android:label="Registration"
+33-->/Users/seanpoh/Github/kinderfinder/source code/Kinderfind/app/src/main/AndroidManifest.xml:15:13-41
+34            android:windowSoftInputMode="adjustResize" >
+34-->/Users/seanpoh/Github/kinderfinder/source code/Kinderfind/app/src/main/AndroidManifest.xml:16:13-55
+35        </activity>
+36        <activity
+36-->/Users/seanpoh/Github/kinderfinder/source code/Kinderfind/app/src/main/AndroidManifest.xml:19:9-28:20
+37            android:name="com.example.kinderfind.LoginActivity"
+37-->/Users/seanpoh/Github/kinderfinder/source code/Kinderfind/app/src/main/AndroidManifest.xml:20:13-42
+38            android:label="@string/title_activity_login"
+38-->/Users/seanpoh/Github/kinderfinder/source code/Kinderfind/app/src/main/AndroidManifest.xml:21:13-57
+39            android:windowSoftInputMode="adjustResize" >
+39-->/Users/seanpoh/Github/kinderfinder/source code/Kinderfind/app/src/main/AndroidManifest.xml:22:13-55
+40            <intent-filter>
+40-->/Users/seanpoh/Github/kinderfinder/source code/Kinderfind/app/src/main/AndroidManifest.xml:23:13-27:29
+41                <action android:name="android.intent.action.MAIN" />
+41-->/Users/seanpoh/Github/kinderfinder/source code/Kinderfind/app/src/main/AndroidManifest.xml:24:17-69
+41-->/Users/seanpoh/Github/kinderfinder/source code/Kinderfind/app/src/main/AndroidManifest.xml:24:25-66
+42
+43                <category android:name="android.intent.category.LAUNCHER" />
+43-->/Users/seanpoh/Github/kinderfinder/source code/Kinderfind/app/src/main/AndroidManifest.xml:26:17-77
+43-->/Users/seanpoh/Github/kinderfinder/source code/Kinderfind/app/src/main/AndroidManifest.xml:26:27-74
+44            </intent-filter>
+45        </activity>
+46        <!--
+47             The API key for Google Maps-based APIs is defined as a string resource.
+48             (See the file "res/values/google_maps_api.xml").
+49             Note that the API key is linked to the encryption key used to sign the APK.
+50             You need a different API key for each encryption key, including the release key that is used to
+51             sign the APK for publishing.
+52             You can define the keys for the debug and release targets in src/debug/ and src/release/.
+53        -->
+54        <activity
+54-->/Users/seanpoh/Github/kinderfinder/source code/Kinderfind/app/src/main/AndroidManifest.xml:37:9-39:68
+55            android:name="com.example.kinderfind.MapsActivity"
+55-->/Users/seanpoh/Github/kinderfinder/source code/Kinderfind/app/src/main/AndroidManifest.xml:38:13-41
+56            android:label="@string/title_activity_maps" />
+56-->/Users/seanpoh/Github/kinderfinder/source code/Kinderfind/app/src/main/AndroidManifest.xml:39:13-56
+57
+58        <meta-data
+58-->/Users/seanpoh/Github/kinderfinder/source code/Kinderfind/app/src/main/AndroidManifest.xml:41:9-43:55
+59            android:name="com.google.android.geo.API_KEY"
+59-->/Users/seanpoh/Github/kinderfinder/source code/Kinderfind/app/src/main/AndroidManifest.xml:42:13-58
+60            android:value="@string/google_maps_key" />
+60-->/Users/seanpoh/Github/kinderfinder/source code/Kinderfind/app/src/main/AndroidManifest.xml:43:13-52
+61        <meta-data
+61-->/Users/seanpoh/Github/kinderfinder/source code/Kinderfind/app/src/main/AndroidManifest.xml:44:9-46:57
+62            android:name="preloaded_fonts"
+62-->/Users/seanpoh/Github/kinderfinder/source code/Kinderfind/app/src/main/AndroidManifest.xml:45:13-43
+63            android:resource="@array/preloaded_fonts" />
+63-->/Users/seanpoh/Github/kinderfinder/source code/Kinderfind/app/src/main/AndroidManifest.xml:46:13-54
+64        <!-- Needs to be explicitly declared on P+ -->
+65        <uses-library
+65-->[com.google.android.gms:play-services-maps:17.0.0] /Users/seanpoh/.gradle/caches/transforms-2/files-2.1/71410d59386dba98cbe61d29bc62f196/play-services-maps-17.0.0/AndroidManifest.xml:33:9-35:40
+66            android:name="org.apache.http.legacy"
+66-->[com.google.android.gms:play-services-maps:17.0.0] /Users/seanpoh/.gradle/caches/transforms-2/files-2.1/71410d59386dba98cbe61d29bc62f196/play-services-maps-17.0.0/AndroidManifest.xml:34:13-50
+67            android:required="false" />
+67-->[com.google.android.gms:play-services-maps:17.0.0] /Users/seanpoh/.gradle/caches/transforms-2/files-2.1/71410d59386dba98cbe61d29bc62f196/play-services-maps-17.0.0/AndroidManifest.xml:35:13-37
+68
+69        <activity
+69-->[com.google.android.gms:play-services-base:17.0.0] /Users/seanpoh/.gradle/caches/transforms-2/files-2.1/291563c6708268cf4683b088770f2b39/play-services-base-17.0.0/AndroidManifest.xml:23:9-26:75
+70            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+70-->[com.google.android.gms:play-services-base:17.0.0] /Users/seanpoh/.gradle/caches/transforms-2/files-2.1/291563c6708268cf4683b088770f2b39/play-services-base-17.0.0/AndroidManifest.xml:24:13-79
+71            android:exported="false"
+71-->[com.google.android.gms:play-services-base:17.0.0] /Users/seanpoh/.gradle/caches/transforms-2/files-2.1/291563c6708268cf4683b088770f2b39/play-services-base-17.0.0/AndroidManifest.xml:25:13-37
+72            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+72-->[com.google.android.gms:play-services-base:17.0.0] /Users/seanpoh/.gradle/caches/transforms-2/files-2.1/291563c6708268cf4683b088770f2b39/play-services-base-17.0.0/AndroidManifest.xml:26:13-72
+73
+74        <meta-data
+74-->[com.google.android.gms:play-services-basement:17.0.0] /Users/seanpoh/.gradle/caches/transforms-2/files-2.1/5910504b12dc0377bfc988d3c1371730/jetified-play-services-basement-17.0.0/AndroidManifest.xml:23:9-25:69
+75            android:name="com.google.android.gms.version"
+75-->[com.google.android.gms:play-services-basement:17.0.0] /Users/seanpoh/.gradle/caches/transforms-2/files-2.1/5910504b12dc0377bfc988d3c1371730/jetified-play-services-basement-17.0.0/AndroidManifest.xml:24:13-58
+76            android:value="@integer/google_play_services_version" />
+76-->[com.google.android.gms:play-services-basement:17.0.0] /Users/seanpoh/.gradle/caches/transforms-2/files-2.1/5910504b12dc0377bfc988d3c1371730/jetified-play-services-basement-17.0.0/AndroidManifest.xml:25:13-66
+77    </application>
+78
+79</manifest>
