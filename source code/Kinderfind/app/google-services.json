@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "454180296763",
+    "firebase_url": "https://kinderfind-82954.firebaseio.com",
+    "project_id": "kinderfind-82954",
+    "storage_bucket": "kinderfind-82954.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:454180296763:android:4659ce374382f79d4a241e",
+        "android_client_info": {
+          "package_name": "com.example.kinderfind"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "454180296763-lkgq6fhili721c1pma728q9lf0gkgb1j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.kinderfind",
+            "certificate_hash": "51eb9c6ac1394999a42f14f0bb9132bb7a4e600d"
+          }
+        },
+        {
+          "client_id": "454180296763-l2ig2qb6t9bn1nsgqma0cjn07ri0qm28.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJqUESftG-MWgOJ9XyRIAVfUXzxKEsDSM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "454180296763-l2ig2qb6t9bn1nsgqma0cjn07ri0qm28.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

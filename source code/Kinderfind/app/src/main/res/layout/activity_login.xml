@@ -24,7 +24,7 @@
             android:textSize="40sp" />
 
         <EditText
-            android:id="@+id/emailText"
+            android:id="@+id/loginEmailTxt"
             android:layout_width="match_parent"
             android:layout_height="45sp"
             android:layout_marginStart="20sp"
@@ -40,7 +40,7 @@
             android:layout_below="@id/textView"/>
 
         <EditText
-            android:id="@+id/passwordText"
+            android:id="@+id/loginPassTxt"
             android:layout_width="match_parent"
             android:layout_height="45sp"
             android:layout_marginTop="10sp"
@@ -53,7 +53,7 @@
             android:textSize="16sp"
             android:padding="10dp"
             android:inputType="textPassword"
-            android:layout_below="@id/emailText"/>
+            android:layout_below="@id/loginEmailTxt"/>
 
         <Button
             android:id="@+id/loginBtn"
@@ -67,7 +67,7 @@
             android:textSize="16sp"
             android:textColor="@color/colorWhite"
             android:text="Login"
-            android:layout_below="@id/passwordText"/>
+            android:layout_below="@id/loginPassTxt"/>
 
         <Button
             android:id="@+id/registerBtn"
@@ -82,6 +82,25 @@
             android:text="Register"
             android:textSize="16sp"
             android:layout_below="@id/loginBtn"/>
+
+        <ProgressBar
+            android:id="@+id/loginProgressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="183dp"
+            android:layout_marginTop="391dp"
+            android:layout_marginEnd="180dp"
+            android:layout_marginBottom="292dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
 
     </RelativeLayout>
 
