@@ -1,4 +1,4 @@
-package com.example.kinderfind;
+package com.example.kinderfind.activities;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.location.Location;
 
+import com.example.kinderfind.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;

@@ -1,4 +1,4 @@
-package com.example.kinderfind;
+package com.example.kinderfind.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Button;
-import android.view.View.OnClickListener;
 import android.view.View;
 import android.widget.EditText;
 import android.app.AlertDialog;
@@ -17,6 +16,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 
+import com.example.kinderfind.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;

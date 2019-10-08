@@ -13,18 +13,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".UserProfileActivity"></activity>
+        <activity android:name=".activities.UserProfileActivity"></activity>
         <activity
-            android:name=".RegisterActivity"
+            android:name=".activities.RegisterActivity"
             android:label="Registration"
             android:windowSoftInputMode="adjustResize"
-            android:parentActivityName="LoginActivity">
+            android:parentActivityName=".activities.LoginActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="LoginActivity" />
+                android:value=".activities.LoginActivity" />
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name=".activities.LoginActivity"
             android:label="@string/title_activity_login"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
@@ -41,7 +41,7 @@
              You can define the keys for the debug and release targets in src/debug/ and src/release/.
         -->
         <activity
-            android:name=".MapsActivity"
+            android:name=".activities.MapsActivity"
             android:label="@string/title_activity_maps">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
