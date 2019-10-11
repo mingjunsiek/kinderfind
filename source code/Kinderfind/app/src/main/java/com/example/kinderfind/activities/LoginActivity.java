@@ -14,8 +14,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.view.View;
 import android.widget.EditText;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -56,9 +54,6 @@ public class LoginActivity extends AppCompatActivity {
         passwordTb = findViewById(R.id.loginPassTxt);
         registerBtn = findViewById(R.id.registerBtn);
         progressBar = findViewById(R.id.loginProgressBar);
-
-        progressBar.setVisibility(View.INVISIBLE);
-
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,7 +100,7 @@ public class LoginActivity extends AppCompatActivity {
                         });
 
 
-                progressBar.setVisibility(View.INVISIBLE);
+                //progressBar.setVisibility(View.INVISIBLE);
             }
         });
 

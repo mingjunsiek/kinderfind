@@ -7,11 +7,13 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 import models.Kindergarten;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.location.Location;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -34,9 +36,11 @@ import com.google.android.gms.maps.model.MarkerOptions;
 //import com.google.android.gms.maps.GoogleMap;
 //import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.Marker;
+import com.google.firebase.auth.FirebaseAuth;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
-        GoogleMap.OnMarkerClickListener {
+public class MapsActivity extends FragmentActivity implements
+        OnMapReadyCallback,
+        GoogleMap.OnMarkerClickListener{
 
     private GoogleMap mMap;
     private boolean mLocationPermissionGranted;
@@ -47,6 +51,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private final LatLng mDefaultLocation = new LatLng(1.3553794, 103.8677444);
     private LocalStorage localStorage;
+    private ImageButton profileBtn;
 
     private CameraPosition mCameraPosition;
     private Location mCurrentLocation;
@@ -58,10 +63,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     // location retrieved by the Fused Location Provider.
     private Location mLastKnownLocation;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+        //declare constructors
+        profileBtn = findViewById(R.id.mainProfileBtn);
+        localStorage = new LocalStorage(getApplicationContext());
 
         if (savedInstanceState != null) {
             mCurrentLocation = savedInstanceState.getParcelable(KEY_LOCATION);
@@ -82,7 +92,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
         rlp.setMargins(0, 0, 50, 50);
 
-        localStorage = new LocalStorage(getApplicationContext());
+        profileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(MapsActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+                Log.d(TAG, "onClick: profilebtn");;
+            }
+        });
     }
 
     private void getLocationPermission() {

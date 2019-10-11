@@ -6,4 +6,5 @@
     <color name="colorFav">#F5A620</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorTransparent">#00000000</color>
+    <color name="colorDarkTransparent">#80FFFFFF</color>
 </resources>
