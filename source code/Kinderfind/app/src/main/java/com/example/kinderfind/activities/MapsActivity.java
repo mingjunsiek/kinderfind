@@ -13,6 +13,7 @@ import android.util.Log;
 import android.location.Location;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.example.kinderfind.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -27,20 +28,22 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 import java.util.ArrayList;
-//import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.MarkerOptions;
+
 //import com.google.android.libraries.places.api.Places;
 //import com.google.android.gms.maps.GoogleMap;
 //import com.google.android.gms.maps.SupportMapFragment;
-//import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.Marker;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
+        GoogleMap.OnMarkerClickListener {
 
     private GoogleMap mMap;
     private boolean mLocationPermissionGranted;
     private static final String TAG = MapsActivity.class.getSimpleName();
     private static final String KEY_CAMERA_POSITION = "camera_position";
     private static final String KEY_LOCATION = "location";
-    private static final int DEFAULT_ZOOM = 12;
+    private static final int DEFAULT_ZOOM = 14;
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private final LatLng mDefaultLocation = new LatLng(1.3553794, 103.8677444);
     private LocalStorage localStorage;
@@ -80,7 +83,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         rlp.setMargins(0, 0, 50, 50);
 
         localStorage = new LocalStorage(getApplicationContext());
-        ArrayList<Kindergarten> kindergartenArrayList = localStorage.getFromSharedPreferences();
     }
 
     private void getLocationPermission() {
@@ -121,6 +123,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public void onMapReady(GoogleMap map) {
         mMap = map;
+
+        getMarkers();
 
         // Prompt the user for permission.
         getLocationPermission();
@@ -180,6 +184,54 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         } catch (SecurityException e)  {
             Log.e("Exception: %s", e.getMessage());
         }
+    }
+
+    public void getMarkers(){
+
+        if (mMap == null) {
+            return;
+        }
+        try {
+
+            ArrayList<Kindergarten> kindergartenArrayList = localStorage.getFromSharedPreferences();
+            if(kindergartenArrayList.size() != 0){
+                for (Kindergarten k: kindergartenArrayList){
+
+                    mMap.addMarker(new MarkerOptions()
+                            .position(new LatLng(k.getLatitude(), k.getLongtitude()))
+                            .title(k.getCentre_name())).setTag(k.getCenter_code());
+
+                    // Set a listener for marker click.
+                    mMap.setOnMarkerClickListener((GoogleMap.OnMarkerClickListener) this);
+
+
+                }
+            }
+            else
+                Log.d(TAG, "getMarkers: empty kindergartenArraylist");
+
+        }
+        catch (SecurityException e){
+            Log.d(TAG, "getMarkers: unable to store markers");
+        }
+    }
+
+    /** Called when the user clicks a marker. */
+    @Override
+    public boolean onMarkerClick(final Marker marker) {
+
+        // Retrieve the centrecode from the marker.
+        String centreCode = (String) marker.getTag();
+
+        if (centreCode != null) {
+            Toast.makeText(this, "the centre code is " +centreCode,
+                    Toast.LENGTH_SHORT).show();
+        }
+
+        // Return false to indicate that we have not consumed the event and that we wish
+        // for the default behavior to occur (which is for the camera to move such that the
+        // marker is centered and for the marker's info window to open, if it has one).
+        return false;
     }
 
     @Override

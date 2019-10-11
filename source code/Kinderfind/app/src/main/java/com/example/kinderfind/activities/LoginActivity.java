@@ -130,6 +130,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 // Check if user is signed in (non-null) and update UI accordingly.
                 FirebaseUser user = auth.getCurrentUser();
+
                 if(isDataCompleted && user!=null){
 
                     progressBar.setVisibility(View.VISIBLE);
