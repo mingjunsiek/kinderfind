@@ -1,9 +1,11 @@
 package com.example.kinderfind.activities;
 
+import adapters.LocalStorage;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
+import models.Kindergarten;
 
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -23,6 +25,8 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+
+import java.util.ArrayList;
 //import com.google.android.gms.maps.model.MarkerOptions;
 //import com.google.android.libraries.places.api.Places;
 //import com.google.android.gms.maps.GoogleMap;
@@ -39,6 +43,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private static final int DEFAULT_ZOOM = 12;
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private final LatLng mDefaultLocation = new LatLng(1.3553794, 103.8677444);
+    private LocalStorage localStorage;
 
     private CameraPosition mCameraPosition;
     private Location mCurrentLocation;
@@ -73,6 +78,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         rlp.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0);
         rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
         rlp.setMargins(0, 0, 50, 50);
+
+        localStorage = new LocalStorage(getApplicationContext());
+        ArrayList<Kindergarten> kindergartenArrayList = localStorage.getFromSharedPreferences();
     }
 
     private void getLocationPermission() {
