@@ -1,5 +1,6 @@
 package com.example.kinderfind.activities;
 
+import adapters.KindergartenSearchAdapter;
 import adapters.LocalStorage;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -32,11 +33,9 @@ import com.google.android.gms.tasks.Task;
 import java.util.ArrayList;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-//import com.google.android.libraries.places.api.Places;
-//import com.google.android.gms.maps.GoogleMap;
-//import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.Marker;
 import com.google.firebase.auth.FirebaseAuth;
+import com.arlib.floatingsearchview.FloatingSearchView;
 
 public class MapsActivity extends FragmentActivity implements
         OnMapReadyCallback,
@@ -52,6 +51,8 @@ public class MapsActivity extends FragmentActivity implements
     private final LatLng mDefaultLocation = new LatLng(1.3553794, 103.8677444);
     private LocalStorage localStorage;
     private ImageButton profileBtn;
+    private KindergartenSearchAdapter kindergartenSearchAdapter;
+    private ArrayList<Kindergarten> kindergartenArrayList;
 
     private CameraPosition mCameraPosition;
     private Location mCurrentLocation;
@@ -72,6 +73,8 @@ public class MapsActivity extends FragmentActivity implements
         //declare constructors
         profileBtn = findViewById(R.id.mainProfileBtn);
         localStorage = new LocalStorage(getApplicationContext());
+
+        FloatingSearchView pSearchView = findViewById(R.id.floating_search_view);
 
         if (savedInstanceState != null) {
             mCurrentLocation = savedInstanceState.getParcelable(KEY_LOCATION);
@@ -101,6 +104,28 @@ public class MapsActivity extends FragmentActivity implements
                 startActivity(intent);
                 finish();
                 Log.d(TAG, "onClick: profilebtn");;
+            }
+        });
+
+
+        pSearchView.setOnQueryChangeListener(new FloatingSearchView.OnQueryChangeListener() {
+            @Override
+            public void onSearchTextChanged(String oldQuery, final String newQuery) {
+
+                kindergartenSearchAdapter.getFilter().filter(newQuery);
+
+                if (kindergartenSearchAdapter.getItemCount() == 0) {
+//                    mBottomSheetBehavior.setPeekHeight(UnitConversionUtil.convertDpToPx(100));
+//
+//                    title.setText("No Results Available");
+                }
+                else {
+
+                    Log.d(TAG, "onSearchTextChanged: have something");
+//                    mBottomSheetBehavior.setPeekHeight(UnitConversionUtil.convertDpToPx(300));
+//
+//                    title.setText("Hawker Centres Nearby");
+                }
             }
         });
     }
@@ -213,7 +238,9 @@ public class MapsActivity extends FragmentActivity implements
         }
         try {
 
-            ArrayList<Kindergarten> kindergartenArrayList = localStorage.getFromSharedPreferences();
+            kindergartenArrayList = localStorage.getFromSharedPreferences();
+            kindergartenSearchAdapter = new KindergartenSearchAdapter(kindergartenArrayList, MapsActivity.this);
+
             if(kindergartenArrayList.size() != 0){
                 for (Kindergarten k: kindergartenArrayList){
 
