@@ -1,4 +1,4 @@
-package adapters;
+package com.example.kinderfind.adapters;
 
 import android.content.Context;
 import android.util.Log;
@@ -9,7 +9,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
-import models.Kindergarten;
+import com.example.kinderfind.models.Kindergarten;
 
 public class DbAdapter {
 

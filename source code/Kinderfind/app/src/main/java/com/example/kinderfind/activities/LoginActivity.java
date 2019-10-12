@@ -1,7 +1,7 @@
 package com.example.kinderfind.activities;
 
-import adapters.DbAdapter;
-import adapters.FirebaseSuccessListener;
+import com.example.kinderfind.adapters.DbAdapter;
+import com.example.kinderfind.adapters.FirebaseSuccessListener;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -61,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
                 String email = emailTb.getText().toString();
                 final String password = passwordTb.getText().toString();
 
-                hideSoftKeyboard(LoginActivity.this);
+                //hideSoftKeyboard(LoginActivity.this);
 
                 if (TextUtils.isEmpty(email)) {
                     Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
@@ -79,15 +79,11 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
                 progressBar.setVisibility(View.VISIBLE);
-
                 //authenticate user
                 auth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                // If sign in fails, display a message to the user. If sign in succeeds
-                                // the auth state listener will be notified and logic to handle the
-                                // signed in user can be handled in the listener.
                                 progressBar.setVisibility(View.GONE);
                                 if (!task.isSuccessful()) {
                                     Toast.makeText(LoginActivity.this, getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
@@ -98,9 +94,8 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                             }
                         });
+                progressBar.setVisibility(View.INVISIBLE);
 
-
-                //progressBar.setVisibility(View.INVISIBLE);
             }
         });
 

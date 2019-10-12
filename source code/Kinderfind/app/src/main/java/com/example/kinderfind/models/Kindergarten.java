@@ -1,4 +1,4 @@
-package models;
+package com.example.kinderfind.models;
 
 public class Kindergarten {
 

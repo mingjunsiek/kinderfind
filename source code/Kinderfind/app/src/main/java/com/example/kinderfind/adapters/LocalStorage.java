@@ -1,4 +1,4 @@
-package adapters;
+package com.example.kinderfind.adapters;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -11,7 +11,7 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-import models.Kindergarten;
+import com.example.kinderfind.models.Kindergarten;
 
 public class LocalStorage {
 
