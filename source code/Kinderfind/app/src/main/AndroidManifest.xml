@@ -14,6 +14,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".activities.UserProfileActivity"></activity>
+
         <activity
             android:name=".activities.RegisterActivity"
             android:label="Registration"
@@ -43,11 +44,6 @@
         <activity
             android:name=".activities.MapsActivity"
             android:label="@string/title_activity_maps">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <meta-data
