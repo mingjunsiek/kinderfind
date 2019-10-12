@@ -27,6 +27,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
+        <com.arlib.floatingsearchview.FloatingSearchView
+            android:id="@+id/floating_search_view"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:fontFamily="@font/roboto_bold"
+            app:floatingSearch_close_search_on_keyboard_dismiss="true"
+            app:floatingSearch_dimBackground="false"
+            app:floatingSearch_leftActionMode="showSearch"
+            app:floatingSearch_searchHint="Search for a Kindergarten Centre"
+            app:floatingSearch_showSearchKey="false"
+            app:floatingSearch_viewTextColor="@color/black" />
+
         <ImageButton
             android:id="@+id/mainProfileBtn"
             android:layout_width="92px"
