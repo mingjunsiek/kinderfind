@@ -112,7 +112,7 @@ public class RegisterActivity extends AppCompatActivity {
                                                     progressBar.setVisibility(View.GONE);
                                                     Log.d(TAG, "User profile updated.");
                                                     sendVerification(user);
-                                                    startActivity(new Intent(RegisterActivity.this, UserProfileActivity.class));
+                                                    startActivity(new Intent(RegisterActivity.this, MapsActivity.class));
                                                     finish();
                                                 }
                                             });
