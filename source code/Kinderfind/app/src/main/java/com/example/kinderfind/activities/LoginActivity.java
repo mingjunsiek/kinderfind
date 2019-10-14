@@ -84,7 +84,7 @@ public class LoginActivity extends AppCompatActivity {
                         .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                progressBar.setVisibility(View.GONE);
+                                progressBar.setVisibility(View.INVISIBLE);
                                 if (!task.isSuccessful()) {
                                     Toast.makeText(LoginActivity.this, getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
                                 } else {
@@ -111,7 +111,6 @@ public class LoginActivity extends AppCompatActivity {
 
     public void onStart() {
         super.onStart();
-
         DbAdapter dbAdapter = new DbAdapter();
         dbAdapter.readDataFromKindergarten(getApplicationContext(), new FirebaseSuccessListener() {
 
@@ -120,19 +119,15 @@ public class LoginActivity extends AppCompatActivity {
 
                 // Check if user is signed in (non-null) and update UI accordingly.
                 FirebaseUser user = auth.getCurrentUser();
-
-                if(isDataCompleted && user!=null){
-
-                    progressBar.setVisibility(View.VISIBLE);
-                    //you know the value is true, here you can update or request any change for example you can do this
-                    Log.d(TAG, "onKindergartenDataCompleted: true");
-                    Log.d(TAG, "onStart: signed in " +user.getDisplayName());
+                progressBar.setVisibility(View.VISIBLE);
+                if(user!=null){
+                    progressBar.setVisibility(View.INVISIBLE);
                     Intent intent = new Intent(LoginActivity.this, MapsActivity.class);
                     startActivity(intent);
                     finish();
-
                 }else{
-                    Log.d(TAG, "onKindergartenDataCompleted: dataisloaded but user is null");
+                    progressBar.setVisibility(View.INVISIBLE);
+                    Log.d(TAG, "onKindergartenDataCompleted: data is loaded but user is null");
                 }
             }
         });

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="8dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginTop="8dp">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/kindergarten_name_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Kindergarten Name"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textStyle="bold"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+        <TextView
+            android:id="@+id/kindergarten_add_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Kindergarten Address"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="@color/black"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

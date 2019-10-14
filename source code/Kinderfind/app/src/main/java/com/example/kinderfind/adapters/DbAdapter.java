@@ -7,6 +7,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.nio.file.WatchEvent;
 import java.util.ArrayList;
 
 import com.example.kinderfind.models.Kindergarten;
@@ -16,14 +18,16 @@ public class DbAdapter {
     private DatabaseReference dbRef;
     private FirebaseDatabase database;
     private static final String TAG = "Firebase";
-    private static ArrayList<Kindergarten> kindergartenArrayList;
+    private static ArrayList<Kindergarten> kindergartenArrayList = new ArrayList<Kindergarten>();
 
     public DbAdapter(){
 
         database = FirebaseDatabase.getInstance();
 
     }
-
+    public ArrayList<Kindergarten> getKindergartenArrayList(){
+        return kindergartenArrayList;
+    }
     public void readDataFromKindergarten(final Context context, final FirebaseSuccessListener firebaseSL){
 
         dbRef = database.getReference("kindergarten");
@@ -33,7 +37,6 @@ public class DbAdapter {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
 
-                kindergartenArrayList = new ArrayList<Kindergarten>();
                 String cCode,cName, cAddress, cContact, cEmail, cWebsite, cLastUpdated,
                         cOrganisation, cPlaceId, cPostalcode, cIsSpark;
                 double lat, longt;
@@ -67,7 +70,6 @@ public class DbAdapter {
                 LocalStorage localStorage = new LocalStorage(context);
                 localStorage.storeIntoSharedPreferences(kindergartenArrayList);
                 firebaseSL.onKindergartenDataCompleted(true);
-
 
                 //List<Kindergarten> kindergartenArrayList = new ArrayList<>();
 //                for (DataSnapshot unit : dataSnapshot.getChildren()){

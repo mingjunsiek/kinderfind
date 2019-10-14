@@ -13,13 +13,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activities.UserProfileActivity"></activity>
 
+        <activity android:name=".activities.InformationActivity"
+            android:parentActivityName=".activities.MapsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.MapsActivity" />
+        </activity>
+        <activity android:name=".activities.UserProfileActivity" />
         <activity
             android:name=".activities.RegisterActivity"
             android:label="Registration"
-            android:windowSoftInputMode="adjustResize"
-            android:parentActivityName=".activities.LoginActivity">
+            android:parentActivityName=".activities.LoginActivity"
+            android:windowSoftInputMode="adjustResize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.LoginActivity" />
@@ -30,6 +36,7 @@
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -43,8 +50,7 @@
         -->
         <activity
             android:name=".activities.MapsActivity"
-            android:label="@string/title_activity_maps">
-        </activity>
+            android:label="@string/title_activity_maps"></activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

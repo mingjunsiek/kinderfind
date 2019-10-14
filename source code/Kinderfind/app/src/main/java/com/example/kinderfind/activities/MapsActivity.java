@@ -1,25 +1,35 @@
 package com.example.kinderfind.activities;
 
 
-import adapters.KindergartenSearchAdapter;
-import adapters.LocalStorage;
+import com.example.kinderfind.adapters.DbAdapter;
+import com.example.kinderfind.adapters.FirebaseSuccessListener;
+import com.example.kinderfind.adapters.KindergartenAdapter;
+import com.example.kinderfind.adapters.LocalStorage;
+
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.kinderfind.models.Kindergarten;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.location.Location;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.kinderfind.R;
+import com.example.kinderfind.utils.UnitConversionUtil;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -31,16 +41,20 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import com.google.android.gms.maps.model.Marker;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.firebase.auth.FirebaseAuth;
 import com.arlib.floatingsearchview.FloatingSearchView;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MapsActivity extends FragmentActivity implements
         OnMapReadyCallback,
-        GoogleMap.OnMarkerClickListener{
+        GoogleMap.OnMarkerClickListener {
 
     private GoogleMap mMap;
     private boolean mLocationPermissionGranted;
@@ -52,9 +66,15 @@ public class MapsActivity extends FragmentActivity implements
     private final LatLng mDefaultLocation = new LatLng(1.3553794, 103.8677444);
     private LocalStorage localStorage;
     private ImageButton profileBtn;
-    private KindergartenSearchAdapter kindergartenSearchAdapter;
-    private ArrayList<Kindergarten> kindergartenArrayList;
 
+    private ArrayList<Kindergarten> kindergartenArrayList = new ArrayList<>();
+    private RecyclerView recyclerView;
+    private ProgressBar progressBar;
+
+    private BottomSheetBehavior bottomSheetBehavior;
+    private TextView title;
+    private KindergartenAdapter kindergartenAdapter;
+    
     private CameraPosition mCameraPosition;
     private Location mCurrentLocation;
 
@@ -70,6 +90,34 @@ public class MapsActivity extends FragmentActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+        progressBar = findViewById(R.id.mapProgressBar);
+
+        //Scroll View
+        View scrollView = findViewById(R.id.kindergarten_sv);
+        bottomSheetBehavior = BottomSheetBehavior.from(scrollView);
+        bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View view, int i) {
+                if (i == BottomSheetBehavior.STATE_HIDDEN)
+                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+            }
+
+            @Override
+            public void onSlide(@NonNull View view, float v) {
+
+            }
+        });
+
+        startAsyncTask();
+        System.out.println("After Async: "+kindergartenArrayList);
+        //Kindergarten Recycler View
+        title = findViewById(R.id.title_tv);
+        recyclerView = findViewById(R.id.kindergarten_rv);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setHasFixedSize(true);
+
+        //kindergartenAdapter = new KindergartenAdapter(kindergartenArrayList, this);
+        //recyclerView.setAdapter(kindergartenAdapter);
 
         //declare constructors
         profileBtn = findViewById(R.id.mainProfileBtn);
@@ -104,31 +152,79 @@ public class MapsActivity extends FragmentActivity implements
                 Intent intent = new Intent(MapsActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
-                Log.d(TAG, "onClick: profilebtn");;
+                Log.d(TAG, "onClick: profilebtn");
+                ;
             }
         });
 
-
+        // Search bar query
         pSearchView.setOnQueryChangeListener(new FloatingSearchView.OnQueryChangeListener() {
             @Override
             public void onSearchTextChanged(String oldQuery, final String newQuery) {
 
-                kindergartenSearchAdapter.getFilter().filter(newQuery);
+                //kindergartenAdapter.getFilter().filter(newQuery);
 
-                if (kindergartenSearchAdapter.getItemCount() == 0) {
-//                    mBottomSheetBehavior.setPeekHeight(UnitConversionUtil.convertDpToPx(100));
-//
-//                    title.setText("No Results Available");
-                }
-                else {
+                if (kindergartenAdapter.getItemCount() == 0) {
+                    bottomSheetBehavior.setPeekHeight(UnitConversionUtil.convertDpToPx(100));
+
+                    title.setText("No Results Available");
+                } else {
 
                     Log.d(TAG, "onSearchTextChanged: have something");
-//                    mBottomSheetBehavior.setPeekHeight(UnitConversionUtil.convertDpToPx(300));
-//
-//                    title.setText("Hawker Centres Nearby");
+                    bottomSheetBehavior.setPeekHeight(UnitConversionUtil.convertDpToPx(300));
+
+                    title.setText("Hawker Centres Nearby");
                 }
             }
         });
+    }
+
+    public void startAsyncTask(){
+        loadData task = new loadData(this);
+        task.execute();
+    }
+
+    private static class loadData extends AsyncTask<String, Void, String>{
+        private WeakReference<MapsActivity> activityWeakReference;
+
+        loadData(MapsActivity activity){
+            activityWeakReference = new WeakReference<MapsActivity>(activity);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            MapsActivity activity = activityWeakReference.get();
+            if(activity == null || activity.isFinishing()){
+                return;
+            }
+            activity.progressBar.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            MapsActivity activity = activityWeakReference.get();
+            if(activity == null || activity.isFinishing()){
+                return "Null or Empty";
+            }
+            System.out.println("doInBackground: "+activity.kindergartenArrayList);
+            return "Loaded Data";
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            MapsActivity activity = activityWeakReference.get();
+            if(activity == null || activity.isFinishing()){
+                return;
+            }
+            activity.kindergartenArrayList = activity.localStorage.getFromSharedPreferences();
+            activity.kindergartenAdapter = new KindergartenAdapter(activity.kindergartenArrayList, activity);
+            activity.recyclerView.setAdapter(activity.kindergartenAdapter);
+            System.out.println("onPostExecute: "+activity.kindergartenArrayList);
+            activity.progressBar.setVisibility(View.INVISIBLE);
+        }
     }
 
     private void getLocationPermission() {
@@ -169,7 +265,7 @@ public class MapsActivity extends FragmentActivity implements
 
     public void onMapReady(GoogleMap map) {
         mMap = map;
-
+        System.out.println("ON MAP READY");
         getMarkers();
 
         // Prompt the user for permission.
@@ -195,7 +291,7 @@ public class MapsActivity extends FragmentActivity implements
                 mLastKnownLocation = null;
                 getLocationPermission();
             }
-        } catch (SecurityException e)  {
+        } catch (SecurityException e) {
             Log.e("Exception: %s", e.getMessage());
         }
     }
@@ -227,44 +323,35 @@ public class MapsActivity extends FragmentActivity implements
                     }
                 });
             }
-        } catch (SecurityException e)  {
+        } catch (SecurityException e) {
             Log.e("Exception: %s", e.getMessage());
         }
     }
 
-    public void getMarkers(){
-
+    public void getMarkers() {
         if (mMap == null) {
             return;
         }
         try {
 
             kindergartenArrayList = localStorage.getFromSharedPreferences();
-            kindergartenSearchAdapter = new KindergartenSearchAdapter(kindergartenArrayList, MapsActivity.this);
-
-            if(kindergartenArrayList.size() != 0){
-                for (Kindergarten k: kindergartenArrayList){
-
+            if (kindergartenArrayList.size() != 0) {
+                for (Kindergarten k : kindergartenArrayList) {
                     mMap.addMarker(new MarkerOptions()
                             .position(new LatLng(k.getLatitude(), k.getLongtitude()))
                             .title(k.getCentre_name())).setTag(k.getCenter_code());
-
                     // Set a listener for marker click.
                     mMap.setOnMarkerClickListener((GoogleMap.OnMarkerClickListener) this);
-
-
                 }
-            }
-            else
+            } else
                 Log.d(TAG, "getMarkers: empty kindergartenArraylist");
-
-        }
-        catch (SecurityException e){
+        } catch (SecurityException e) {
             Log.d(TAG, "getMarkers: unable to store markers");
         }
     }
-
-    /** Called when the user clicks a marker. */
+    /**
+     * Called when the user clicks a marker.
+     */
     @Override
     public boolean onMarkerClick(final Marker marker) {
 
@@ -272,7 +359,7 @@ public class MapsActivity extends FragmentActivity implements
         String centreCode = (String) marker.getTag();
 
         if (centreCode != null) {
-            Toast.makeText(this, "the centre code is " +centreCode,
+            Toast.makeText(this, "the centre code is " + centreCode,
                     Toast.LENGTH_SHORT).show();
         }
 
