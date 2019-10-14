@@ -32,14 +32,12 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-
-    <ProgressBar
-        android:id="@+id/mapProgressBar"
-        style="?android:attr/progressBarStyle"
+    <View
+        android:id="@+id/shadow"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="invisible"
-        android:layout_toStartOf="@id/kindergarten_sv"/>
+        android:layout_height="24dp"
+        android:background="@drawable/shadow"
+        app:layout_anchor="@id/kindergarten_sv" />
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/kindergarten_sv"
@@ -57,13 +55,13 @@
             android:orientation="vertical"
             android:padding="11dp">
 
-<!--            <androidx.cardview.widget.CardView-->
-<!--                android:layout_width="30dp"-->
-<!--                android:layout_height="5dp"-->
-<!--                android:layout_gravity="center"-->
-<!--                app:cardElevation="0dp"-->
-<!--                app:cardBackgroundColor="@color/light_gray"-->
-<!--                app:cardCornerRadius="2dp"/>-->
+            <androidx.cardview.widget.CardView
+                android:layout_width="30dp"
+                android:layout_height="5dp"
+                android:layout_gravity="center"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="@color/light_gray"
+                app:cardCornerRadius="2dp"/>
 
             <RelativeLayout
                 android:id="@+id/relative_layout"

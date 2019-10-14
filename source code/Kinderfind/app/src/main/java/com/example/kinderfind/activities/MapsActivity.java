@@ -23,7 +23,6 @@ import android.util.Log;
 import android.location.Location;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -69,7 +68,6 @@ public class MapsActivity extends FragmentActivity implements
 
     private ArrayList<Kindergarten> kindergartenArrayList = new ArrayList<>();
     private RecyclerView recyclerView;
-    private ProgressBar progressBar;
 
     private BottomSheetBehavior bottomSheetBehavior;
     private TextView title;
@@ -90,7 +88,6 @@ public class MapsActivity extends FragmentActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-        progressBar = findViewById(R.id.mapProgressBar);
 
         //Scroll View
         View scrollView = findViewById(R.id.kindergarten_sv);
@@ -109,7 +106,6 @@ public class MapsActivity extends FragmentActivity implements
         });
 
         startAsyncTask();
-        System.out.println("After Async: "+kindergartenArrayList);
         //Kindergarten Recycler View
         title = findViewById(R.id.title_tv);
         recyclerView = findViewById(R.id.kindergarten_rv);
@@ -140,9 +136,9 @@ public class MapsActivity extends FragmentActivity implements
 
         View locationButton = ((View) mapFragment.getView().findViewById(Integer.parseInt("1")).getParent()).findViewById(Integer.parseInt("2"));
         RelativeLayout.LayoutParams rlp = (RelativeLayout.LayoutParams) locationButton.getLayoutParams();
-        rlp.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0);
-        rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
-        rlp.setMargins(0, 0, 50, 50);
+        rlp.addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE);
+        rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, 0);
+        rlp.setMargins(0, 200, 50, 0);
 
         profileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -199,7 +195,6 @@ public class MapsActivity extends FragmentActivity implements
             if(activity == null || activity.isFinishing()){
                 return;
             }
-            activity.progressBar.setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -208,7 +203,6 @@ public class MapsActivity extends FragmentActivity implements
             if(activity == null || activity.isFinishing()){
                 return "Null or Empty";
             }
-            System.out.println("doInBackground: "+activity.kindergartenArrayList);
             return "Loaded Data";
         }
 
@@ -222,8 +216,6 @@ public class MapsActivity extends FragmentActivity implements
             activity.kindergartenArrayList = activity.localStorage.getFromSharedPreferences();
             activity.kindergartenAdapter = new KindergartenAdapter(activity.kindergartenArrayList, activity);
             activity.recyclerView.setAdapter(activity.kindergartenAdapter);
-            System.out.println("onPostExecute: "+activity.kindergartenArrayList);
-            activity.progressBar.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -265,7 +257,6 @@ public class MapsActivity extends FragmentActivity implements
 
     public void onMapReady(GoogleMap map) {
         mMap = map;
-        System.out.println("ON MAP READY");
         getMarkers();
 
         // Prompt the user for permission.
