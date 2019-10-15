@@ -1,6 +1,6 @@
 package com.example.kinderfind.activities;
 
-import com.example.kinderfind.adapters.DbAdapter;
+import com.example.kinderfind.controller.DbController;
 import com.example.kinderfind.adapters.FirebaseSuccessListener;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -111,8 +111,8 @@ public class LoginActivity extends AppCompatActivity {
 
     public void onStart() {
         super.onStart();
-        DbAdapter dbAdapter = new DbAdapter();
-        dbAdapter.readDataFromKindergarten(getApplicationContext(), new FirebaseSuccessListener() {
+        DbController dbController = new DbController();
+        dbController.readDataFromKindergarten(getApplicationContext(), new FirebaseSuccessListener() {
 
             @Override
             public void onKindergartenDataCompleted(boolean isDataCompleted) {

@@ -1,8 +1,6 @@
 package com.example.kinderfind.activities;
 
 
-import com.example.kinderfind.adapters.DbAdapter;
-import com.example.kinderfind.adapters.FirebaseSuccessListener;
 import com.example.kinderfind.adapters.KindergartenAdapter;
 import com.example.kinderfind.adapters.LocalStorage;
 
@@ -42,6 +40,7 @@ import com.google.android.gms.tasks.Task;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -49,12 +48,12 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.firebase.auth.FirebaseAuth;
 import com.arlib.floatingsearchview.FloatingSearchView;
-import com.google.firebase.auth.FirebaseUser;
 
 public class MapsActivity extends FragmentActivity implements
         OnMapReadyCallback,
         GoogleMap.OnMarkerClickListener {
 
+    //google map declarations
     private GoogleMap mMap;
     private boolean mLocationPermissionGranted;
     private static final String TAG = MapsActivity.class.getSimpleName();
@@ -63,25 +62,28 @@ public class MapsActivity extends FragmentActivity implements
     private static final int DEFAULT_ZOOM = 14;
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private final LatLng mDefaultLocation = new LatLng(1.3553794, 103.8677444);
-    private LocalStorage localStorage;
-    private ImageButton profileBtn;
-
-    private ArrayList<Kindergarten> kindergartenArrayList = new ArrayList<>();
-    private RecyclerView recyclerView;
-
-    private BottomSheetBehavior bottomSheetBehavior;
-    private TextView title;
-    private KindergartenAdapter kindergartenAdapter;
-    
     private CameraPosition mCameraPosition;
     private Location mCurrentLocation;
-
     // The entry point to the Fused Location Provider.
     private FusedLocationProviderClient mFusedLocationProviderClient;
-
     // The geographical location where the device is currently located. That is, the last-known
     // location retrieved by the Fused Location Provider.
     private Location mLastKnownLocation;
+
+    private RecyclerView recyclerView;
+
+    private KindergartenAdapter kindergartenAdapter;
+
+    //local storage
+    private LocalStorage localStorage;
+    //kindergarten arraylist
+    private ArrayList<Kindergarten> kindergartenArrayList = new ArrayList<>();
+    //search view
+    private FloatingSearchView pSearchView;
+
+    //for bottom sheet
+    private BottomSheetBehavior bottomSheetBehavior;
+    private TextView title;
 
 
     @Override
@@ -89,9 +91,25 @@ public class MapsActivity extends FragmentActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
+        //declaration of variable
+        ImageButton profileBtn = findViewById(R.id.mainProfileBtn);
+        localStorage = new LocalStorage(getApplicationContext());
+        pSearchView = findViewById(R.id.floating_search_view);
+
         //Scroll View
         View scrollView = findViewById(R.id.kindergarten_sv);
         bottomSheetBehavior = BottomSheetBehavior.from(scrollView);
+
+        //Kindergarten Recycler View
+        title = findViewById(R.id.title_tv);
+        recyclerView = findViewById(R.id.kindergarten_rv);
+
+        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+
+        //------start calling functions--------
+
         bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
             public void onStateChanged(@NonNull View view, int i) {
@@ -104,42 +122,32 @@ public class MapsActivity extends FragmentActivity implements
 
             }
         });
-
+        //start async task
         startAsyncTask();
-        //Kindergarten Recycler View
-        title = findViewById(R.id.title_tv);
-        recyclerView = findViewById(R.id.kindergarten_rv);
+
+        //recyclerview
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
-
         //kindergartenAdapter = new KindergartenAdapter(kindergartenArrayList, this);
         //recyclerView.setAdapter(kindergartenAdapter);
 
-        //declare constructors
-        profileBtn = findViewById(R.id.mainProfileBtn);
-        localStorage = new LocalStorage(getApplicationContext());
-
-        FloatingSearchView pSearchView = findViewById(R.id.floating_search_view);
-
+        //googlemap
         if (savedInstanceState != null) {
             mCurrentLocation = savedInstanceState.getParcelable(KEY_LOCATION);
             mCameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION);
         }
-
         // Construct a FusedLocationProviderClient.
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        //set google map locate me button
         View locationButton = ((View) mapFragment.getView().findViewById(Integer.parseInt("1")).getParent()).findViewById(Integer.parseInt("2"));
         RelativeLayout.LayoutParams rlp = (RelativeLayout.LayoutParams) locationButton.getLayoutParams();
         rlp.addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE);
         rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, 0);
         rlp.setMargins(0, 200, 50, 0);
 
+        //profile button
         profileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -158,7 +166,7 @@ public class MapsActivity extends FragmentActivity implements
             @Override
             public void onSearchTextChanged(String oldQuery, final String newQuery) {
 
-                //kindergartenAdapter.getFilter().filter(newQuery);
+                kindergartenAdapter.getFilter().filter(newQuery.trim());
 
                 if (kindergartenAdapter.getItemCount() == 0) {
                     bottomSheetBehavior.setPeekHeight(UnitConversionUtil.convertDpToPx(100));
@@ -166,13 +174,25 @@ public class MapsActivity extends FragmentActivity implements
                     title.setText("No Results Available");
                 } else {
 
-                    Log.d(TAG, "onSearchTextChanged: have something");
                     bottomSheetBehavior.setPeekHeight(UnitConversionUtil.convertDpToPx(300));
 
                     title.setText("Hawker Centres Nearby");
                 }
             }
         });
+    }
+
+    /**
+     * called whenever user returns back to page
+     */
+    @Override
+    public void onResume(){
+        super.onResume();
+
+        //call for device location
+        getLocationPermission();
+        getDeviceLocation();
+
     }
 
     public void startAsyncTask(){
@@ -213,6 +233,7 @@ public class MapsActivity extends FragmentActivity implements
             if(activity == null || activity.isFinishing()){
                 return;
             }
+
             activity.kindergartenArrayList = activity.localStorage.getFromSharedPreferences();
             activity.kindergartenAdapter = new KindergartenAdapter(activity.kindergartenArrayList, activity);
             activity.recyclerView.setAdapter(activity.kindergartenAdapter);
@@ -255,10 +276,12 @@ public class MapsActivity extends FragmentActivity implements
         updateLocationUI();
     }
 
+    /**
+     * when map is done loading calls this, call through onmapreadycallback
+     */
     public void onMapReady(GoogleMap map) {
         mMap = map;
-        getMarkers();
-
+        dropMarkers();
         // Prompt the user for permission.
         getLocationPermission();
         // Get the current location of the device and set the position of the map.
@@ -267,6 +290,9 @@ public class MapsActivity extends FragmentActivity implements
         updateLocationUI();
     }
 
+    /**
+     * Update google buttons
+     */
     private void updateLocationUI() {
         if (mMap == null) {
             return;
@@ -286,7 +312,9 @@ public class MapsActivity extends FragmentActivity implements
             Log.e("Exception: %s", e.getMessage());
         }
     }
-
+    /**
+     * get device location / get users location and calling sortDetails();
+     */
     private void getDeviceLocation() {
         /*
          * Get the best and most recent location of the device, which may be null in rare
@@ -304,6 +332,8 @@ public class MapsActivity extends FragmentActivity implements
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                                     new LatLng(mLastKnownLocation.getLatitude(),
                                             mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
+
+                            sortDetails();
                         } else {
                             Log.d(TAG, "Current location is null. Using defaults.");
                             Log.e(TAG, "Exception: %s", task.getException());
@@ -311,6 +341,7 @@ public class MapsActivity extends FragmentActivity implements
                                     .newLatLngZoom(mDefaultLocation, DEFAULT_ZOOM));
                             mMap.getUiSettings().setMyLocationButtonEnabled(false);
                         }
+
                     }
                 });
             }
@@ -319,7 +350,10 @@ public class MapsActivity extends FragmentActivity implements
         }
     }
 
-    public void getMarkers() {
+    /**
+     * Drop markers into google map
+     */
+    public void dropMarkers() {
         if (mMap == null) {
             return;
         }
@@ -335,9 +369,9 @@ public class MapsActivity extends FragmentActivity implements
                     mMap.setOnMarkerClickListener((GoogleMap.OnMarkerClickListener) this);
                 }
             } else
-                Log.d(TAG, "getMarkers: empty kindergartenArraylist");
+                Log.d(TAG, "dropMarkers: empty kindergartenArraylist");
         } catch (SecurityException e) {
-            Log.d(TAG, "getMarkers: unable to store markers");
+            Log.d(TAG, "dropMarkers: unable to store markers");
         }
     }
     /**
@@ -347,11 +381,11 @@ public class MapsActivity extends FragmentActivity implements
     public boolean onMarkerClick(final Marker marker) {
 
         // Retrieve the centrecode from the marker.
-        String centreCode = (String) marker.getTag();
+        String centreName = (String) marker.getTitle();
 
-        if (centreCode != null) {
-            Toast.makeText(this, "the centre code is " + centreCode,
-                    Toast.LENGTH_SHORT).show();
+        if (centreName != null) {
+            pSearchView.setSearchText(centreName);
+            kindergartenAdapter.getFilter().filter(centreName);
         }
 
         // Return false to indicate that we have not consumed the event and that we wish
@@ -366,6 +400,31 @@ public class MapsActivity extends FragmentActivity implements
             outState.putParcelable(KEY_CAMERA_POSITION, mMap.getCameraPosition());
             outState.putParcelable(KEY_LOCATION, mLastKnownLocation);
             super.onSaveInstanceState(outState);
+        }
+    }
+
+    /**
+     * Sort details of kindergarten arraylist by distance with current location
+     */
+    private void sortDetails() {
+        if (kindergartenArrayList != null && mLastKnownLocation != null) {
+            Location currLocation = new Location("");
+            currLocation.setLatitude(mLastKnownLocation.getLatitude());
+            currLocation.setLongitude(mLastKnownLocation.getLongitude());
+
+            for (Kindergarten k : kindergartenArrayList) {
+                Location location = new Location("");
+                location.setLatitude(k.getLatitude());
+                location.setLongitude(k.getLongtitude());
+                k.setDistance(currLocation.distanceTo(location));
+            }
+
+            Collections.sort(kindergartenArrayList);
+
+            if (kindergartenAdapter != null) {
+                kindergartenAdapter.setKindergartens(kindergartenArrayList);
+                kindergartenAdapter.notifyDataSetChanged();
+            }
         }
     }
 
