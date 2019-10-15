@@ -1,7 +1,10 @@
-package com.example.kinderfind.adapters;
+package com.example.kinderfind.controller;
 
 import android.content.Context;
 import android.util.Log;
+
+import com.example.kinderfind.adapters.FirebaseSuccessListener;
+import com.example.kinderfind.adapters.LocalStorage;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -13,14 +16,14 @@ import java.util.ArrayList;
 
 import com.example.kinderfind.models.Kindergarten;
 
-public class DbAdapter {
+public class DbController {
 
     private DatabaseReference dbRef;
     private FirebaseDatabase database;
     private static final String TAG = "Firebase";
     private static ArrayList<Kindergarten> kindergartenArrayList = new ArrayList<Kindergarten>();
 
-    public DbAdapter(){
+    public DbController(){
 
         database = FirebaseDatabase.getInstance();
 
@@ -58,7 +61,7 @@ public class DbAdapter {
                     lat = (double) messageSnapshot.child("latitude").getValue();
                     longt = (double) messageSnapshot.child("longtitude").getValue();
                     cOrganisation = (String) messageSnapshot.child("organisation_type").getValue();
-                    cPlaceId= (String) messageSnapshot.child("place_id").getValue();
+                    cPlaceId= (String) messageSnapshot.child("placeId").getValue();
                     cPostalcode = messageSnapshot.child("postal_code").getValue().toString();
                     cIsSpark = (String) messageSnapshot.child("spark_certified").getValue();
 

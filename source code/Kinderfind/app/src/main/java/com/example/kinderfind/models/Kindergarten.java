@@ -1,6 +1,6 @@
 package com.example.kinderfind.models;
 
-public class Kindergarten {
+public class Kindergarten implements Comparable<Kindergarten>{
 
     private String center_code;
     private String center_address;
@@ -15,6 +15,7 @@ public class Kindergarten {
     private String placeId;
     private String postal_code;
     private String spark_certified;
+    private float distance;
 
     public Kindergarten(){
 
@@ -37,6 +38,7 @@ public class Kindergarten {
         this.placeId = placeId;
         this.postal_code = postal_code;
         this.spark_certified = spark_certified;
+        this.distance = 0;
 
     }
 
@@ -144,4 +146,21 @@ public class Kindergarten {
         this.spark_certified = spark_certified;
     }
 
+    public float getDistance() {
+        return distance;
+    }
+
+    public void setDistance(float distance) {
+        this.distance = distance;
+    }
+
+    @Override
+    public int compareTo(Kindergarten k) {
+        if (distance < k.getDistance())
+            return -1;
+        else if (distance > k.getDistance())
+            return 1;
+
+        return 0;
+    }
 }

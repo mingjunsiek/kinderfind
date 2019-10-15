@@ -32,6 +32,14 @@
             android:maxLines="1"
             android:ellipsize="end"
             android:textColor="@color/black"/>
+        <TextView
+            android:id="@+id/kindergarten_dist_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0.0km"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="@color/black"/>
         </LinearLayout>
     </RelativeLayout>
 
