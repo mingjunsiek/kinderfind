@@ -343,7 +343,6 @@ public class MapsActivity extends FragmentActivity implements
                                     .newLatLngZoom(mDefaultLocation, DEFAULT_ZOOM));
                             mMap.getUiSettings().setMyLocationButtonEnabled(false);
                         }
-
                     }
                 });
             }

@@ -61,7 +61,7 @@ public class KindergartenAdapter extends RecyclerView.Adapter <KindergartenAdapt
 
     public void setKindergartens(ArrayList<Kindergarten> kindergartens){
         this.originalArrayList = kindergartens;
-        this.filteredArrayList = kindergartens;
+        //this.filteredArrayList = kindergartens;
         notifyDataSetChanged();
     }
 
@@ -85,7 +85,7 @@ public class KindergartenAdapter extends RecyclerView.Adapter <KindergartenAdapt
         }
         @Override
         public void onClick(View v) {
-            InformationActivity.kindergarten = originalArrayList.get(getAdapterPosition());
+            InformationActivity.kindergarten = filteredArrayList.get(getAdapterPosition());
             activity.startActivity(new Intent(activity, InformationActivity.class));
         }
     }

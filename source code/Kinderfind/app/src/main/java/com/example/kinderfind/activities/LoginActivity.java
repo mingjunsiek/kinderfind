@@ -139,9 +139,9 @@ public class LoginActivity extends AppCompatActivity {
                 // Check if user is signed in (non-null) and update UI accordingly.
                 FirebaseUser user = auth.getCurrentUser();
                 if(user!=null){
-                    hideProgressBar();
                     Intent intent = new Intent(LoginActivity.this, MapsActivity.class);
                     startActivity(intent);
+                    hideProgressBar();
                     finish();
                 }else{
                     hideProgressBar();
