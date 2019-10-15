@@ -149,7 +149,6 @@ public class MapsActivity extends FragmentActivity implements
                 startActivity(intent);
                 finish();
                 Log.d(TAG, "onClick: profilebtn");
-                ;
             }
         });
 
@@ -203,6 +202,7 @@ public class MapsActivity extends FragmentActivity implements
             if(activity == null || activity.isFinishing()){
                 return "Null or Empty";
             }
+            System.out.println("doInBackground");
             return "Loaded Data";
         }
 
@@ -213,6 +213,7 @@ public class MapsActivity extends FragmentActivity implements
             if(activity == null || activity.isFinishing()){
                 return;
             }
+            System.out.println("onPostExecute");
             activity.kindergartenArrayList = activity.localStorage.getFromSharedPreferences();
             activity.kindergartenAdapter = new KindergartenAdapter(activity.kindergartenArrayList, activity);
             activity.recyclerView.setAdapter(activity.kindergartenAdapter);
@@ -256,6 +257,7 @@ public class MapsActivity extends FragmentActivity implements
     }
 
     public void onMapReady(GoogleMap map) {
+        System.out.println("IN GOOGLE MAP");
         mMap = map;
         getMarkers();
 
@@ -293,6 +295,7 @@ public class MapsActivity extends FragmentActivity implements
          * cases when a location is not available.
          */
         try {
+            System.out.println("getDeviceLocation");
             if (mLocationPermissionGranted) {
                 Task<Location> locationResult = mFusedLocationProviderClient.getLastLocation();
                 locationResult.addOnCompleteListener(this, new OnCompleteListener<Location>() {

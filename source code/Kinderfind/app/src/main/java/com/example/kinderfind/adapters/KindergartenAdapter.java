@@ -75,7 +75,7 @@ public class KindergartenAdapter extends RecyclerView.Adapter <KindergartenAdapt
         }
         @Override
         public void onClick(View v) {
-            InformationActivity.kindergarten = filteredArrayList.get(getAdapterPosition());
+            InformationActivity.kindergarten = originalArrayList.get(getAdapterPosition());
             activity.startActivity(new Intent(activity, InformationActivity.class));
         }
     }

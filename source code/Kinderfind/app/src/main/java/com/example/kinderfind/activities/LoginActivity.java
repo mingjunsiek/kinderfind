@@ -10,11 +10,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
@@ -53,7 +55,10 @@ public class LoginActivity extends AppCompatActivity {
         emailTb = findViewById(R.id.loginEmailTxt);
         passwordTb = findViewById(R.id.loginPassTxt);
         registerBtn = findViewById(R.id.registerBtn);
+
         progressBar = findViewById(R.id.loginProgressBar);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(100, 100);
+        params.addRule(RelativeLayout.CENTER_IN_PARENT);
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,23 +83,24 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
 
-                progressBar.setVisibility(View.VISIBLE);
+                setProgressBar();
                 //authenticate user
                 auth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                progressBar.setVisibility(View.INVISIBLE);
+                                hideProgressBar();
                                 if (!task.isSuccessful()) {
                                     Toast.makeText(LoginActivity.this, getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
                                 } else {
+                                    hideProgressBar();
                                     Intent intent = new Intent(LoginActivity.this, MapsActivity.class);
                                     startActivity(intent);
                                     finish();
                                 }
                             }
                         });
-                progressBar.setVisibility(View.INVISIBLE);
+
 
             }
         });
@@ -106,11 +112,22 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+    }
 
+    public void setProgressBar(){
+        progressBar.setVisibility(View.VISIBLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+    }
+
+    public void hideProgressBar(){
+        progressBar.setVisibility(View.INVISIBLE);
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
 
     public void onStart() {
         super.onStart();
+        setProgressBar();
         DbAdapter dbAdapter = new DbAdapter();
         dbAdapter.readDataFromKindergarten(getApplicationContext(), new FirebaseSuccessListener() {
 
@@ -119,19 +136,18 @@ public class LoginActivity extends AppCompatActivity {
 
                 // Check if user is signed in (non-null) and update UI accordingly.
                 FirebaseUser user = auth.getCurrentUser();
-                progressBar.setVisibility(View.VISIBLE);
                 if(user!=null){
-                    progressBar.setVisibility(View.INVISIBLE);
+                    hideProgressBar();
                     Intent intent = new Intent(LoginActivity.this, MapsActivity.class);
                     startActivity(intent);
                     finish();
                 }else{
-                    progressBar.setVisibility(View.INVISIBLE);
+                    hideProgressBar();
+                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                     Log.d(TAG, "onKindergartenDataCompleted: data is loaded but user is null");
                 }
             }
         });
-
     }
 
     public static void hideSoftKeyboard(Activity activity) {

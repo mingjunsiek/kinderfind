@@ -1,9 +1,212 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
     tools:context=".activities.InformationActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:descendantFocusability="blocksDescendants">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="INFORMATION"
+                android:textColor="@color/colorPrimary"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+            <androidx.cardview.widget.CardView
+                android:id="@+id/information_cardview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="4dp"
+                app:cardBackgroundColor="@color/colorPrimary">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+<!--                        <ImageView-->
+<!--                            android:layout_width="20dp"-->
+<!--                            android:layout_height="20dp"-->
+<!--                            android:src="@drawable/ic_info"/>-->
+                        <TextView
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:text="Center Name:"
+                            android:textColor="@color/colorWhite"/>
+                        <TextView
+                            android:id="@+id/center_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorWhite"
+                            android:layout_marginLeft="10dp"
+                            android:text="MOE Kindergarten @ Frontier"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="16dp">
+<!--                        <ImageView-->
+<!--                            android:layout_width="20dp"-->
+<!--                            android:layout_height="20dp"-->
+<!--                            android:src="@drawable/ic_home"/>-->
+                        <TextView
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:text="Organization:"
+                            android:textColor="@color/colorWhite"/>
+                        <TextView
+                            android:id="@+id/organization"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorWhite"
+                            android:layout_marginLeft="10dp"
+                            android:text="MOE"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="16dp">
+
+<!--                        <ImageView-->
+<!--                            android:layout_width="20dp"-->
+<!--                            android:layout_height="20dp"-->
+<!--                            android:src="@drawable/ic_location"/>-->
+                        <TextView
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:text="Center Address:"
+                            android:textColor="@color/colorWhite"/>
+                        <TextView
+                            android:id="@+id/center_address"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorWhite"
+                            android:layout_marginLeft="10dp"
+                            android:text="Frontier Primary School 20 Jurong West Street 61 S(648200)"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="16dp">
+                        <TextView
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:text="Spark Certified?"
+                            android:textColor="@color/colorWhite"/>
+                        <TextView
+                            android:id="@+id/center_certified"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorWhite"
+                            android:layout_marginLeft="10dp"
+                            android:text="Yes"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="16dp">
+<!--                        <ImageView-->
+<!--                            android:layout_width="20dp"-->
+<!--                            android:layout_height="20dp"-->
+<!--                            android:src="@drawable/ic_phone"/>-->
+                        <TextView
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:text="Center Contact:"
+                            android:textColor="@color/colorWhite"/>
+                        <TextView
+                            android:id="@+id/center_contact"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorWhite"
+                            android:layout_marginLeft="10dp"
+                            android:text="99889988"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="16dp">
+<!--                        <ImageView-->
+<!--                            android:layout_width="20dp"-->
+<!--                            android:layout_height="20dp"-->
+<!--                            android:src="@drawable/ic_email"/>-->
+                        <TextView
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:text="Center Email:"
+                            android:textColor="@color/colorWhite"/>
+                        <TextView
+                            android:id="@+id/center_email"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorWhite"
+                            android:layout_marginLeft="10dp"
+                            android:text="Center Email"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="16dp">
+<!--                        <ImageView-->
+<!--                            android:layout_width="20dp"-->
+<!--                            android:layout_height="20dp"-->
+<!--                            android:src="@drawable/ic_web"/>-->
+                        <TextView
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:text="Center Website:"
+                            android:textColor="@color/colorWhite"/>
+                        <TextView
+                            android:id="@+id/center_website"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorWhite"
+                            android:layout_marginLeft="10dp"
+                            android:text="Center Website"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="PROGRAMMES OFFERED"
+                android:textColor="@color/colorPrimary"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/services_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/kindergarten_services_item"/>
+        </LinearLayout>
+    </ScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:text="Levels Offered:"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+            <TextView
+                android:id="@+id/levels_offered"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Playgroup"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:text="Program Hour"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+            <TextView
+                android:id="@+id/program_hour"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="08:00 - 11:00"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:text="Registration Fee"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+            <TextView
+                android:id="@+id/registration_fee"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="16.00"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:text="Second Language Offered"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+            <TextView
+                android:id="@+id/second_language"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chinese"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:text="Fees SG"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+            <TextView
+                android:id="@+id/fee_sg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="150"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:text="Fees PR"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+            <TextView
+                android:id="@+id/fee_pr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="200"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
