@@ -13,8 +13,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-
-        <activity android:name=".activities.InformationActivity"
+        <activity android:name=".activities.RatingReviewActivity"
+            android:parentActivityName=".activities.InformationActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.InformationActivity"/>
+        </activity>
+        <activity
+            android:name=".activities.InformationActivity"
             android:parentActivityName=".activities.MapsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -50,7 +56,7 @@
         -->
         <activity
             android:name=".activities.MapsActivity"
-            android:label="@string/title_activity_maps"></activity>
+            android:label="@string/title_activity_maps" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

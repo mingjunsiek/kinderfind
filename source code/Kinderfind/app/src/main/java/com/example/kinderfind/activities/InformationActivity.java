@@ -1,10 +1,17 @@
 package com.example.kinderfind.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.media.Rating;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.example.kinderfind.R;
@@ -65,7 +72,28 @@ public class InformationActivity extends AppCompatActivity {
 
             }
         });
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.rating_review, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.rating_review_menu:
+                RatingReviewActivity.centre_code = kindergarten.getCenter_code();
+                startActivity(new Intent(this, RatingReviewActivity.class));
+                //InformationActivity.this.startActivity(new Intent(InformationActivity.this, RatingReviewActivity.class));
+                return true;
+            case R.id.share_menu:
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
 
     }
 }
