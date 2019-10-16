@@ -171,7 +171,7 @@ public class MapsActivity extends FragmentActivity implements
                     title.setText("No Results Available");
                 } else {
 
-                    bottomSheetBehavior.setPeekHeight(UnitConversionUtil.convertDpToPx(250));
+                    bottomSheetBehavior.setPeekHeight(UnitConversionUtil.convertDpToPx(260));
 
                     title.setText("Hawker Centres Nearby");
                 }
@@ -287,6 +287,8 @@ public class MapsActivity extends FragmentActivity implements
         getDeviceLocation();
         // Turn on the My Location layer and the related control on the map.
         updateLocationUI();
+        // Set a listener for marker click.
+        mMap.setOnMarkerClickListener((GoogleMap.OnMarkerClickListener) this);
     }
 
     /**
@@ -359,6 +361,7 @@ public class MapsActivity extends FragmentActivity implements
         String centreName = (String) marker.getTitle();
 
         if (centreName != null) {
+            pSearchView.setSearchText(centreName);
             kindergartenAdapter.getFilter().filter(centreName);
         }
 
@@ -379,7 +382,7 @@ public class MapsActivity extends FragmentActivity implements
 
             BitmapDrawable bitmapdraw=(BitmapDrawable)ContextCompat.getDrawable(getApplicationContext(), R.drawable.kmarker);
             Bitmap b=bitmapdraw.getBitmap();
-            Bitmap smallMarker = Bitmap.createScaledBitmap(b, 74, 100, false);
+            Bitmap smallMarker = Bitmap.createScaledBitmap(b, 59, 80, false);
 
             kindergartenArrayList = localStorage.getFromSharedPreferences();
             if (kindergartenArrayList.size() != 0) {
@@ -389,8 +392,6 @@ public class MapsActivity extends FragmentActivity implements
                             .title(k.getCentre_name())
                             .icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
                 }
-                // Set a listener for marker click.
-                mMap.setOnMarkerClickListener((GoogleMap.OnMarkerClickListener) this);
             } else
                 Log.d(TAG, "dropMarkers: empty kindergartenArraylist");
         } catch (SecurityException e) {

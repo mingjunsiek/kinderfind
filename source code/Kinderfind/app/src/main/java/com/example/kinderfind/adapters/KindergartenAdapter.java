@@ -61,7 +61,7 @@ public class KindergartenAdapter extends RecyclerView.Adapter <KindergartenAdapt
 
     public void setKindergartens(ArrayList<Kindergarten> kindergartens){
         this.originalArrayList = kindergartens;
-        //this.filteredArrayList = kindergartens;
+        this.filteredArrayList = kindergartens;
         notifyDataSetChanged();
     }
 
