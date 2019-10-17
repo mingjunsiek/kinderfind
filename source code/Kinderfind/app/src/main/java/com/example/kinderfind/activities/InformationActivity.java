@@ -4,11 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.media.Rating;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -24,6 +26,8 @@ import com.example.kinderfind.models.RatingReview;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +42,12 @@ public class InformationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_information);
         auth = FirebaseAuth.getInstance();
 
-        final FirebaseUser user = auth.getCurrentUser();
+        //final FirebaseUser user = auth.getCurrentUser();
+
+        final MaterialRatingBar cleanlinessRatingBar = findViewById(R.id.info_cleaniness);
+        final MaterialRatingBar manpowerRatingBar = findViewById(R.id.info_manpower);
+        final MaterialRatingBar curriculumRatingBar = findViewById(R.id.info_curriculum);
+        final MaterialRatingBar amenitiesRatingBar = findViewById(R.id.info_facilities);
 
         setTitle(kindergarten.getCentre_name());
         centerNameTV = findViewById(R.id.center_name);
@@ -67,6 +76,7 @@ public class InformationActivity extends AppCompatActivity {
                 recyclerView.setAdapter(adapter);
             }
         });
+
         informationController.readRatingReview(new InformationController.RatingReviewDataStatus() {
             @Override
             public void DataIsLoaded(List<RatingReview> ratingReviews, List<String> keys) {
@@ -76,6 +86,35 @@ public class InformationActivity extends AppCompatActivity {
                 recyclerView.setHasFixedSize(true);
                 RatingReviewAdapter adapter = new RatingReviewAdapter(ratingReviews, keys, InformationActivity.this);
                 recyclerView.setAdapter(adapter);
+
+                double amenities_rating = 0;
+                double cleaniness_rating = 0;
+                double manpower_rating = 0;
+                double curriculum_rating = 0;
+                int ratingSize = ratingReviews.size();
+                TextView avgTv = findViewById(R.id.info_avg);
+
+                for(RatingReview rating: ratingReviews){
+                    amenities_rating += rating.getAmenities_rating();
+                    cleaniness_rating += rating.getCleanliness_rating();
+                    manpower_rating += rating.getManpower_rating();
+                    curriculum_rating += rating.getCurriculum_rating();
+                }
+                amenities_rating /= ratingSize;
+                cleaniness_rating /= ratingSize;
+                manpower_rating /= ratingSize;
+                curriculum_rating /= ratingSize;
+
+                cleanlinessRatingBar.setRating((float)(cleaniness_rating));
+                amenitiesRatingBar.setRating((float)(amenities_rating));
+                manpowerRatingBar.setRating((float)(manpower_rating));
+                curriculumRatingBar.setRating((float)(curriculum_rating));
+
+
+                avgTv.setText( String.format("%.1f", (amenities_rating+cleaniness_rating+manpower_rating+curriculum_rating)/4));
+
+
+
             }
         });
     }
@@ -93,7 +132,6 @@ public class InformationActivity extends AppCompatActivity {
             case R.id.rating_review_menu:
                 RatingReviewActivity.centre_code = kindergarten.getCenter_code();
                 startActivity(new Intent(this, RatingReviewActivity.class));
-                //InformationActivity.this.startActivity(new Intent(InformationActivity.this, RatingReviewActivity.class));
                 return true;
             case R.id.share_menu:
                 return true;

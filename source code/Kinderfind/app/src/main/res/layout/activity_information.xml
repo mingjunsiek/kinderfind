@@ -223,6 +223,8 @@
                     android:layout_height="match_parent"
                     app:cardCornerRadius="4dp"/>
             </androidx.cardview.widget.CardView>
+
+            <!--ratings -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -233,10 +235,128 @@
                 android:textSize="14sp"
                 android:textStyle="bold" />
             <androidx.cardview.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                card_view:cardBackgroundColor="@android:color/transparent"
+                card_view:cardElevation="0dp"
                 android:layout_width="match_parent"
-                android:layout_height="200dp">
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/profile_linear"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="15dp"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_bold"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="16dp"
+                            android:text="Cleaniness"/>
+                        <me.zhanghai.android.materialratingbar.MaterialRatingBar
+                            android:id="@+id/info_cleaniness"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:numStars="5"
+                            android:isIndicator="true"
+                            android:minHeight="25dp"
+                            android:maxHeight="25dp"
+                            app:mrb_progressTint="@color/colorStar"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="@font/roboto_bold"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="16dp"
+                            android:text="Facilities"/>
+                        <me.zhanghai.android.materialratingbar.MaterialRatingBar
+                            android:id="@+id/info_facilities"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:numStars="5"
+                            android:isIndicator="true"
+                            android:minHeight="25dp"
+                            android:maxHeight="25dp"
+                            app:mrb_progressTint="@color/colorStar"/>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_bold"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="16dp"
+                            android:text="Manpower"/>
+                        <me.zhanghai.android.materialratingbar.MaterialRatingBar
+                            android:id="@+id/info_manpower"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:numStars="5"
+                            android:isIndicator="true"
+                            android:minHeight="25dp"
+                            android:maxHeight="25dp"
+                            app:mrb_progressTint="@color/colorStar"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_bold"
+                            android:layout_marginTop="8dp"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="16dp"
+                            android:text="Curriculum"/>
+                        <me.zhanghai.android.materialratingbar.MaterialRatingBar
+                            android:id="@+id/info_curriculum"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:numStars="5"
+                            android:isIndicator="true"
+                            android:minHeight="25dp"
+                            android:maxHeight="25dp"
+                            app:mrb_progressTint="@color/colorStar"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="30dp"
+                        android:paddingTop="15dp"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_bold"
+                            android:layout_alignParentRight="true"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="24dp"
+                            android:text="AVG"/>
+                        <TextView
+                            android:id="@+id/info_avg"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto"
+                            android:layout_alignParentRight="true"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="40dp"
+                            android:text="3.5"/>
+                    </LinearLayout>
+                </LinearLayout>
 
             </androidx.cardview.widget.CardView>
+
+            <!--comments -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -250,14 +370,19 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                card_view:cardBackgroundColor="@android:color/transparent"
+                card_view:cardElevation="0dp"
                 app:cardCornerRadius="4dp">
                 <ScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="200dp">
+                    android:layout_height="500dp">
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/review_recycler_view"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
                         tools:listitem="@layout/review_item">
                     </androidx.recyclerview.widget.RecyclerView>
                 </ScrollView>
