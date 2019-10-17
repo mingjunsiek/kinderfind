@@ -50,17 +50,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/profileUsernameTxt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Ken Lim"/>
                 <TextView
                     android:id="@+id/profileEmailTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="kenisbest@gmail.com"/>
+                <TextView
+                    android:id="@+id/profileUsernameTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ken Lim"/>
                 <TextView
                     android:id="@+id/profileVerifiedTxt"
                     android:layout_width="wrap_content"

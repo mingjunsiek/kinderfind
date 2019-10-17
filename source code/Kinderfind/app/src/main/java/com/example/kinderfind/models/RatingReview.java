@@ -1,5 +1,7 @@
 package com.example.kinderfind.models;
 
+import android.net.Uri;
+
 import java.util.Map;
 
 public class RatingReview {
@@ -11,7 +13,7 @@ public class RatingReview {
     private String user_id;
     private String username;
     private String review;
-    //private String kindergarten_id;
+    private String user_image;
     private long timestamp;
 
     public RatingReview(){
@@ -19,7 +21,8 @@ public class RatingReview {
     }
 
     public RatingReview(double cleanliness_rating, double manpower_rating, double curriculum_rating,
-                        double amenities_rating, double total_rating, String user_id, String username, String review, long timestamp) {
+                        double amenities_rating, double total_rating, String user_id, String username,
+                        String review, String user_image, long timestamp) {
         this.cleanliness_rating = cleanliness_rating;
         this.manpower_rating = manpower_rating;
         this.curriculum_rating = curriculum_rating;
@@ -28,7 +31,16 @@ public class RatingReview {
         this.user_id = user_id;
         this.username = username;
         this.review = review;
+        this.user_image = user_image;
         this.timestamp = timestamp;
+    }
+
+    public String getUser_image() {
+        return user_image;
+    }
+
+    public void setUser_image(String user_image) {
+        this.user_image = user_image;
     }
 
     public double getCleanliness_rating() {
@@ -102,4 +114,5 @@ public class RatingReview {
     public void setTotal_rating(double total_rating) {
         this.total_rating = total_rating;
     }
+
 }

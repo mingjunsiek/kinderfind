@@ -31,6 +31,8 @@ public class InformationController {
 
     public interface RatingReviewDataStatus{
         void DataIsLoaded(List<RatingReview> ratingReviews, List<String> keys);
+//        void DataIsInserted();
+//        void DataIsUpdated();
     }
 
     public InformationController(String center_code){
