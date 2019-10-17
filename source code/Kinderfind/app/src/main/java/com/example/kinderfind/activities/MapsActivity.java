@@ -1,31 +1,24 @@
 package com.example.kinderfind.activities;
 
 
-import com.example.kinderfind.adapters.KindergartenAdapter;
-import com.example.kinderfind.adapters.LocalStorage;
-
-import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.kinderfind.models.Kindergarten;
-
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.location.Location;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.arlib.floatingsearchview.FloatingSearchView;
 import com.example.kinderfind.R;
+import com.example.kinderfind.adapters.KindergartenAdapter;
+import com.example.kinderfind.adapters.LocalStorage;
+import com.example.kinderfind.models.Kindergarten;
 import com.example.kinderfind.utils.UnitConversionUtil;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -33,21 +26,26 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import com.google.android.gms.maps.model.MarkerOptions;
-
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.firebase.auth.FirebaseAuth;
-import com.arlib.floatingsearchview.FloatingSearchView;
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class MapsActivity extends FragmentActivity implements
         OnMapReadyCallback,
@@ -169,7 +167,7 @@ public class MapsActivity extends FragmentActivity implements
                     title.setText("No Results Available");
                 } else {
 
-                    bottomSheetBehavior.setPeekHeight(UnitConversionUtil.convertDpToPx(300));
+                    bottomSheetBehavior.setPeekHeight(UnitConversionUtil.convertDpToPx(260));
 
                     title.setText("Hawker Centres Nearby");
                 }
@@ -285,6 +283,8 @@ public class MapsActivity extends FragmentActivity implements
         getDeviceLocation();
         // Turn on the My Location layer and the related control on the map.
         updateLocationUI();
+        // Set a listener for marker click.
+        mMap.setOnMarkerClickListener((GoogleMap.OnMarkerClickListener) this);
     }
 
     /**
@@ -348,30 +348,6 @@ public class MapsActivity extends FragmentActivity implements
     }
 
     /**
-     * Drop markers into google map
-     */
-    public void dropMarkers() {
-        if (mMap == null) {
-            return;
-        }
-        try {
-
-            kindergartenArrayList = localStorage.getFromSharedPreferences();
-            if (kindergartenArrayList.size() != 0) {
-                for (Kindergarten k : kindergartenArrayList) {
-                    mMap.addMarker(new MarkerOptions()
-                            .position(new LatLng(k.getLatitude(), k.getLongtitude()))
-                            .title(k.getCentre_name())).setTag(k.getCenter_code());
-                    // Set a listener for marker click.
-                    mMap.setOnMarkerClickListener((GoogleMap.OnMarkerClickListener) this);
-                }
-            } else
-                Log.d(TAG, "dropMarkers: empty kindergartenArraylist");
-        } catch (SecurityException e) {
-            Log.d(TAG, "dropMarkers: unable to store markers");
-        }
-    }
-    /**
      * Called when the user clicks a marker.
      */
     @Override
@@ -389,6 +365,34 @@ public class MapsActivity extends FragmentActivity implements
         // for the default behavior to occur (which is for the camera to move such that the
         // marker is centered and for the marker's info window to open, if it has one).
         return false;
+    }
+
+    /**
+     * Drop markers into google map
+     */
+    public void dropMarkers() {
+        if (mMap == null) {
+            return;
+        }
+        try {
+
+            BitmapDrawable bitmapdraw=(BitmapDrawable)ContextCompat.getDrawable(getApplicationContext(), R.drawable.kmarker);
+            Bitmap b=bitmapdraw.getBitmap();
+            Bitmap smallMarker = Bitmap.createScaledBitmap(b, 59, 80, false);
+
+            kindergartenArrayList = localStorage.getFromSharedPreferences();
+            if (kindergartenArrayList.size() != 0) {
+                for (Kindergarten k : kindergartenArrayList) {
+                    mMap.addMarker(new MarkerOptions()
+                            .position(new LatLng(k.getLatitude(), k.getLongtitude()))
+                            .title(k.getCentre_name())
+                            .icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
+                }
+            } else
+                Log.d(TAG, "dropMarkers: empty kindergartenArraylist");
+        } catch (SecurityException e) {
+            Log.d(TAG, "dropMarkers: unable to store markers");
+        }
     }
 
     @Override
