@@ -60,7 +60,7 @@ public class RatingReviewActivity extends AppCompatActivity {
                 ratingReview.setManpower_rating(manpowerRatingBar.getRating());
                 ratingReview.setReview(reviewEditText.getText().toString().trim());
                 ratingReview.setTotal_rating((amenitiesRatingBar.getRating() + cleanlinessRatingBar.getRating()
-                        + curriculumRatingBar.getRating() + manpowerRatingBar.getRating()));
+                        + curriculumRatingBar.getRating() + manpowerRatingBar.getRating())/4);
                 ratingReview.setUser_id(user.getUid());
                 ratingReview.setUsername(user.getDisplayName());
                 ratingReview.setTimestamp(Calendar.getInstance().getTimeInMillis());

@@ -151,12 +151,8 @@ public class MapsActivity extends FragmentActivity implements
         profileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(MapsActivity.this, LoginActivity.class);
+                Intent intent = new Intent(MapsActivity.this, UserProfileActivity.class);
                 startActivity(intent);
-                finish();
-                Log.d(TAG, "onClick: profilebtn");
             }
         });
 

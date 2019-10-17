@@ -19,6 +19,7 @@ import com.example.kinderfind.adapters.KindergartenServicesAdapter;
 import com.example.kinderfind.controller.InformationController;
 import com.example.kinderfind.models.Kindergarten;
 import com.example.kinderfind.models.KindergartenServices;
+import com.example.kinderfind.models.RatingReview;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +48,7 @@ public class InformationActivity extends AppCompatActivity {
         centerWebsiteTV.setText(kindergarten.getCentre_website());
         centerCertifiedTV.setText(kindergarten.getSpark_certified());
 
-        new InformationController(kindergarten.getCenter_code()).readKindergarten(new InformationController.DataStatus() {
+        new InformationController(kindergarten.getCenter_code()).readKindergarten(new InformationController.KindergartenDataStatus() {
             @Override
             public void DataIsLoaded(List<KindergartenServices> kindergartens, List<String> keys) {
                 RecyclerView recyclerView = findViewById(R.id.services_recycler_view);
@@ -56,22 +57,15 @@ public class InformationActivity extends AppCompatActivity {
                 KindergartenServicesAdapter adapter = new KindergartenServicesAdapter(kindergartens, keys);
                 recyclerView.setAdapter(adapter);
             }
+        });
 
+        new InformationController(kindergarten.getCenter_code()).readRatingReview(new InformationController.RatingReviewDataStatus() {
             @Override
-            public void DataIsInserted() {
-
-            }
-
-            @Override
-            public void DataIsUpdated() {
-
-            }
-
-            @Override
-            public void DataIsDeleted() {
+            public void DataIsLoaded(List<RatingReview> ratingReviews, List<String> keys) {
 
             }
         });
+
     }
 
     @Override

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:orientation="vertical"
+    app:cardCornerRadius="4dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp">
+        <ImageView
+            android:id="@+id/review_image"
+            android:layout_width="48dp"
+            android:layout_height="48dp"/>
+        <LinearLayout
+            android:id="@+id/rating_linear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginStart="16dp"
+            android:layout_toRightOf="@+id/review_image">
+            <TextView
+                android:id="@+id/review_info_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:text="Adam"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+            <me.zhanghai.android.materialratingbar.MaterialRatingBar
+                android:id="@+id/review_info_stars"
+                style="@style/Widget.MaterialRatingBar.RatingBar.Indicator.Small"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:numStars="5"
+                android:minHeight="20dp"
+                android:maxHeight="20dp"
+                app:mrb_progressTint="@color/colorStar"/>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/review_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:text="16/10/2019"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+        <TextView
+            android:id="@+id/review_info_review"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rating_linear"
+            android:text="Really Loving teachers and the environment there"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/profile_change_password"
+        android:title="Change Password"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/profile_change_image"
+        android:title="Change Profile Picture"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/profile_log_out"
+        android:title="Log Out"
+        app:showAsAction="never" />
+</menu>

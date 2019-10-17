@@ -27,7 +27,7 @@
             android:numStars="5"
             android:minHeight="48dp"
             android:maxHeight="48dp"
-            app:mrb_progressTint="@color/colorPrimary"/>
+            app:mrb_progressTint="@color/colorStar"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -42,7 +42,7 @@
             android:numStars="5"
             android:minHeight="48dp"
             android:maxHeight="48dp"
-            app:mrb_progressTint="@color/colorPrimary"/>
+            app:mrb_progressTint="@color/colorStar"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -57,7 +57,7 @@
             android:numStars="5"
             android:minHeight="48dp"
             android:maxHeight="48dp"
-            app:mrb_progressTint="@color/colorPrimary"/>
+            app:mrb_progressTint="@color/colorStar"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -72,7 +72,7 @@
             android:numStars="5"
             android:minHeight="48dp"
             android:maxHeight="48dp"
-            app:mrb_progressTint="@color/colorPrimary"/>
+            app:mrb_progressTint="@color/colorStar"/>
         <EditText
             android:id="@+id/review_edit_text"
             android:layout_width="match_parent"

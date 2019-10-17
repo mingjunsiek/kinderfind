@@ -1,146 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.RegisterActivity">
+    android:padding="16dp">
 
-    <ScrollView
+    <LinearLayout
+        android:id="@+id/register_linear"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="48dp"
-        tools:layout_editor_absoluteY="156dp">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp" >
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/eTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp" >
+            android:fontFamily="@font/roboto_bold"
+            android:gravity="center_vertical"
+            android:text="Email"
+            android:layout_marginTop="16sp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="16sp" />
 
-            <TextView
-                android:id="@+id/eTV"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto_bold"
-                android:gravity="center_vertical"
-                android:text="Email"
-                android:layout_marginTop="16sp"
-                android:layout_centerVertical="true"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="16sp" />
+        <EditText
+            android:id="@+id/regEmailText"
+            android:layout_width="match_parent"
+            android:layout_height="45sp"
+            android:layout_marginStart="0sp"
+            android:layout_marginEnd="0sp"
+            android:layout_marginTop="8sp"
+            android:background="@color/colorWhite"
+            android:ems="10"
+            android:hint="@string/email_tb"
+            android:inputType="textEmailAddress"
+            android:textAlignment="gravity"
+            android:padding="10dp"
+            android:textSize="16sp"/>
 
-            <EditText
-                android:id="@+id/regEmailText"
-                android:layout_width="match_parent"
-                android:layout_height="45sp"
-                android:layout_marginStart="0sp"
-                android:layout_marginEnd="0sp"
-                android:layout_marginTop="8sp"
-                android:background="@color/colorWhite"
-                android:ems="10"
-                android:hint="@string/email_tb"
-                android:inputType="textEmailAddress"
-                android:textAlignment="gravity"
-                android:padding="10dp"
-                android:textSize="16sp"
-                android:layout_below="@id/eTV"/>
+        <TextView
+            android:id="@+id/pwdTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_bold"
+            android:gravity="center_vertical"
+            android:text="Password (8-16 characters)"
+            android:layout_marginTop="16sp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="16sp" />
 
-            <TextView
-                android:id="@+id/pwdTV"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto_bold"
-                android:gravity="center_vertical"
-                android:text="Password (8-16 characters) "
-                android:layout_marginTop="16sp"
-                android:layout_centerVertical="true"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="16sp" />
+        <EditText
+            android:id="@+id/regPwdText"
+            android:layout_width="match_parent"
+            android:layout_height="45sp"
+            android:layout_marginStart="0sp"
+            android:layout_marginEnd="0sp"
+            android:layout_marginTop="8sp"
+            android:background="@color/colorWhite"
+            android:ems="10"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:padding="10dp"
+            android:textAlignment="gravity"/>
 
-            <EditText
-                android:id="@+id/regPwdText"
-                android:layout_width="match_parent"
-                android:layout_height="45sp"
-                android:layout_marginStart="0sp"
-                android:layout_marginEnd="0sp"
-                android:layout_marginTop="8sp"
-                android:background="@color/colorWhite"
-                android:ems="10"
-                android:hint="Password"
-                android:inputType="textPassword"
-                android:padding="10dp"
-                android:textAlignment="gravity"
-                android:layout_below="@id/pwdTV"/>
+        <EditText
+            android:id="@+id/regRepwdText"
+            android:layout_width="match_parent"
+            android:layout_height="45sp"
+            android:layout_marginStart="0sp"
+            android:layout_marginEnd="0sp"
+            android:layout_marginTop="8sp"
+            android:background="@color/colorWhite"
+            android:ems="10"
+            android:hint="Retype password"
+            android:inputType="textPassword"
+            android:padding="10dp"
+            android:textAlignment="gravity"/>
 
-            <EditText
-                android:id="@+id/regRepwdText"
-                android:layout_width="match_parent"
-                android:layout_height="45sp"
-                android:layout_marginStart="0sp"
-                android:layout_marginEnd="0sp"
-                android:layout_marginTop="8sp"
-                android:background="@color/colorWhite"
-                android:ems="10"
-                android:hint="Retype password"
-                android:inputType="textPassword"
-                android:padding="10dp"
-                android:textAlignment="gravity"
-                android:layout_below="@id/regPwdText"/>
+        <TextView
+            android:id="@+id/usernameTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_bold"
+            android:gravity="center_vertical"
+            android:text="Username"
+            android:layout_marginTop="16sp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="16sp" />
 
-            <TextView
-                android:id="@+id/usernameTV"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto_bold"
-                android:gravity="center_vertical"
-                android:text="Username"
-                android:layout_marginTop="16sp"
-                android:layout_centerVertical="true"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="16sp" />
+        <EditText
+            android:id="@+id/regUserNameTxt"
+            android:layout_width="match_parent"
+            android:layout_height="45sp"
+            android:layout_marginStart="0sp"
+            android:layout_marginEnd="0sp"
+            android:layout_marginTop="8sp"
+            android:background="@color/colorWhite"
+            android:ems="10"
+            android:hint="Username"
+            android:inputType="text"
+            android:padding="10dp"
+            android:textAlignment="gravity"/>
+    </LinearLayout>
+    <ImageView
+        android:id="@+id/register_image_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/register_linear"
+        android:layout_above="@+id/register_image_upload"
+        android:layout_marginTop="16dp"/>
 
-            <EditText
-                android:id="@+id/regUserNameTxt"
-                android:layout_width="match_parent"
-                android:layout_height="45sp"
-                android:layout_marginStart="0sp"
-                android:layout_marginEnd="0sp"
-                android:layout_marginTop="8sp"
-                android:background="@color/colorWhite"
-                android:ems="10"
-                android:hint="Username"
-                android:inputType="text"
-                android:padding="10dp"
-                android:textAlignment="gravity"
-                android:layout_below="@id/usernameTV"/>
+    <Button
+        android:id="@+id/register_image_upload"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/regRegisterBtn"
+        android:layout_marginTop="16dp"
+        android:text="Choose File" />
 
-            <Button
-                android:id="@+id/regRegisterBtn"
-                android:layout_width="match_parent"
-                android:layout_height="45sp"
-                android:layout_marginEnd="35sp"
-                android:layout_marginTop="50dp"
-                android:layout_marginBottom="50dp"
-                android:layout_marginStart="35sp"
-                android:background="@color/colorPrimary"
-                android:textAlignment="center"
-                android:textColor="@color/colorWhite"
-                android:text="Register"
-                android:layout_below="@id/usernameTV"/>
+    <Button
+        android:id="@+id/regRegisterBtn"
+        android:layout_width="match_parent"
+        android:layout_height="45sp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="35sp"
+        android:layout_marginEnd="35sp"
+        android:background="@color/colorPrimary"
+        android:text="Register"
+        android:textAlignment="center"
+        android:textColor="@color/colorWhite" />
 
-            <ProgressBar
-                android:id="@+id/regProgressBar"
-                style="?android:attr/progressBarStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:visibility="gone"/>
-
-        </LinearLayout>
-
-    </ScrollView>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ProgressBar
+        android:id="@+id/regProgressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="gone"/>
+</RelativeLayout>

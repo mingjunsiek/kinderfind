@@ -39,27 +39,11 @@ public class RatingReviewController {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<String> keys = new ArrayList<>();
                 if(dataSnapshot.exists()) {
-//                    RatingReviewService.clear();
-//                    keys.add(dataSnapshot.getKey());
                     ratingReview = dataSnapshot.child(userid).getValue(RatingReview.class);
-//                    RatingReviewService.add(ratingReview);
                 }
                 else
                     ratingReview = null;
-//                List<String> keys = new ArrayList<>();
-//                for(DataSnapshot keyNode : dataSnapshot.getChildren()){
-//                    keys.add(keyNode.getKey());
-//                    System.out.println("readRatingReview "+keyNode.getValue());
-//                    //RatingReview ratingReview = keyNode.getValue(RatingReview.class);
-//                    RatingReview ratingReview = new RatingReview();
-//                    //keyNode.getKey().
-//                    //ratingReview.setManpower_rating(keyNode.child("manpower_rating").getValue(Double.class));
-//                    System.out.println("Manpower: "+ratingReview.getManpower_rating());
-//
-//                    ratingReview.setTimestamp(keyNode.child("timestamp").getValue(Long.class));
-//                    System.out.println("Manpower: "+ratingReview.getManpower_rating());
-//                    RatingReviewService.add(ratingReview);
-//                }
+
                 System.out.println("RatingReview: "+ ratingReview);
                 dataStatus.DataIsLoaded(ratingReview, keys);
             }
@@ -80,6 +64,7 @@ public class RatingReviewController {
                         dataStatus.DataIsInserted();
                     }
                 });
+        //mReferenceRatingReview.child(user_id).put
     }
 
     public void updateRatingReview(RatingReview ratingReview, String user_id, final DataStatus dataStatus){
