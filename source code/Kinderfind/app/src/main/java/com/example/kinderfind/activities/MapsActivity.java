@@ -169,7 +169,7 @@ public class MapsActivity extends FragmentActivity implements
 
                     bottomSheetBehavior.setPeekHeight(UnitConversionUtil.convertDpToPx(260));
 
-                    title.setText("Hawker Centres Nearby");
+                    title.setText("Kindergartens Nearby");
                 }
             }
         });
