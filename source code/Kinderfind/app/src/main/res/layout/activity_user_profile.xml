@@ -60,23 +60,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-
                 <TextView
-                    android:id="@+id/profileUsernameTxt"
+                    android:id="@+id/profileEmailTxt"
                     android:layout_width="wrap_content"
                     android:textSize="16dp"
                     android:fontFamily="@font/roboto"
                     android:textColor="@color/colorPrimaryDark"
                     android:layout_height="wrap_content"
-                    android:text="Ken Lim"/>
+                    android:text="kenisbest@gmail.com"/>
                 <TextView
-                    android:id="@+id/profileEmailTxt"
+                    android:id="@+id/profileUsernameTxt"
                     android:layout_width="wrap_content"
                     android:textSize="16dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto"
                     android:textColor="@color/colorPrimaryDark"
                     android:text="kenisbest@gmail.com"/>
+
                 <TextView
                     android:id="@+id/profileVerifiedTxt"
                     android:textSize="16dp"

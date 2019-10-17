@@ -64,6 +64,7 @@ public class RatingReviewActivity extends AppCompatActivity {
                 ratingReview.setUser_id(user.getUid());
                 ratingReview.setUsername(user.getDisplayName());
                 ratingReview.setTimestamp(Calendar.getInstance().getTimeInMillis());
+                ratingReview.setUser_image(user.getPhotoUrl().toString());
 
                 if(amenitiesRatingBar.getRating() == 0 || cleanlinessRatingBar.getRating() == 0
                         || curriculumRatingBar.getRating() == 0 || manpowerRatingBar.getRating() == 0)

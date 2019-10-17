@@ -16,10 +16,13 @@ import android.widget.TextView;
 
 import com.example.kinderfind.R;
 import com.example.kinderfind.adapters.KindergartenServicesAdapter;
+import com.example.kinderfind.adapters.RatingReviewAdapter;
 import com.example.kinderfind.controller.InformationController;
 import com.example.kinderfind.models.Kindergarten;
 import com.example.kinderfind.models.KindergartenServices;
 import com.example.kinderfind.models.RatingReview;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,11 +30,15 @@ import java.util.List;
 public class InformationActivity extends AppCompatActivity {
     public static Kindergarten kindergarten;
     private TextView centerNameTV, centerAddressTV, centerContactTV, centerEmailTV, centerWebsiteTV, centerCertifiedTV;
+    private FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_information);
+        auth = FirebaseAuth.getInstance();
+
+        final FirebaseUser user = auth.getCurrentUser();
 
         setTitle(kindergarten.getCentre_name());
         centerNameTV = findViewById(R.id.center_name);
@@ -48,7 +55,9 @@ public class InformationActivity extends AppCompatActivity {
         centerWebsiteTV.setText(kindergarten.getCentre_website());
         centerCertifiedTV.setText(kindergarten.getSpark_certified());
 
-        new InformationController(kindergarten.getCenter_code()).readKindergarten(new InformationController.KindergartenDataStatus() {
+        InformationController informationController = new InformationController(kindergarten.getCenter_code());
+
+        informationController.readKindergarten(new InformationController.KindergartenDataStatus() {
             @Override
             public void DataIsLoaded(List<KindergartenServices> kindergartens, List<String> keys) {
                 RecyclerView recyclerView = findViewById(R.id.services_recycler_view);
@@ -58,14 +67,17 @@ public class InformationActivity extends AppCompatActivity {
                 recyclerView.setAdapter(adapter);
             }
         });
-
-        new InformationController(kindergarten.getCenter_code()).readRatingReview(new InformationController.RatingReviewDataStatus() {
+        informationController.readRatingReview(new InformationController.RatingReviewDataStatus() {
             @Override
             public void DataIsLoaded(List<RatingReview> ratingReviews, List<String> keys) {
-
+                System.out.println("Rating: "+ratingReviews);
+                RecyclerView recyclerView = findViewById(R.id.review_recycler_view);
+                recyclerView.setLayoutManager(new LinearLayoutManager(InformationActivity.this));
+                recyclerView.setHasFixedSize(true);
+                RatingReviewAdapter adapter = new RatingReviewAdapter(ratingReviews, keys, InformationActivity.this);
+                recyclerView.setAdapter(adapter);
             }
         });
-
     }
 
     @Override

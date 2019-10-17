@@ -7,8 +7,9 @@ public class User {
     private String userImageUrl;
     private boolean verified;
 
-    public User(String userID, String email, String userImageUrl, boolean verified) {
+    public User(String userID, String username, String email, String userImageUrl, boolean verified) {
         this.userID = userID;
+        this.username = username;
         this.email = email;
         this.userImageUrl = userImageUrl;
         this.verified = verified;
