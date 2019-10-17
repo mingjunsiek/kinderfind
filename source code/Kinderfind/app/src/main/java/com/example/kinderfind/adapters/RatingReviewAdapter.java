@@ -48,8 +48,8 @@ public class RatingReviewAdapter extends RecyclerView.Adapter<RatingReviewAdapte
     public void onBindViewHolder(@NonNull RatingReviewHolder holder, int position) {
         RatingReview currentRatingReview = ratingReviewsList.get(position);
         holder.username.setText(currentRatingReview.getUsername());
-        holder.review.setText(currentRatingReview.getUsername());
-        holder.date.setText(currentRatingReview.getUsername());
+        holder.review.setText(currentRatingReview.getReview());
+        holder.date.setText(String.valueOf(currentRatingReview.getTimestamp()));
         holder.ratingBar.setRating((float)(currentRatingReview.getTotal_rating()));
         Glide.with(context)
                 .load(Uri.parse(currentRatingReview.getUser_image()))
