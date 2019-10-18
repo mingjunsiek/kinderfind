@@ -19,8 +19,10 @@ import com.example.kinderfind.R;
 import com.example.kinderfind.activities.InformationActivity;
 import com.example.kinderfind.activities.RegisterActivity;
 import com.example.kinderfind.models.RatingReview;
+import org.ocpsoft.prettytime.PrettyTime;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import me.zhanghai.android.materialratingbar.MaterialRatingBar;
@@ -46,11 +48,12 @@ public class RatingReviewAdapter extends RecyclerView.Adapter<RatingReviewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull RatingReviewHolder holder, int position) {
+        PrettyTime dateTime = new PrettyTime();
         RatingReview currentRatingReview = ratingReviewsList.get(position);
         holder.username.setText(currentRatingReview.getUsername());
         holder.review.setText(currentRatingReview.getReview());
-        holder.date.setText(String.valueOf(currentRatingReview.getTimestamp()));
         holder.ratingBar.setRating((float)(currentRatingReview.getTotal_rating()));
+        holder.date.setText(dateTime.format(new Date(currentRatingReview.getTimestamp())));
         Glide.with(context)
                 .load(Uri.parse(currentRatingReview.getUser_image()))
                 .apply(RequestOptions.circleCropTransform())

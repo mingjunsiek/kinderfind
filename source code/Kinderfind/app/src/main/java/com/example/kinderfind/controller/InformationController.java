@@ -1,5 +1,7 @@
 package com.example.kinderfind.controller;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.example.kinderfind.models.Kindergarten;
@@ -12,6 +14,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class InformationController {
@@ -74,6 +77,7 @@ public class InformationController {
                     RatingReview ratingReview = keyNode.getValue(RatingReview.class);
                     ratingReviewsList.add(ratingReview);
                 }
+                Collections.reverse(ratingReviewsList);
                 ratingReviewDataStatus.DataIsLoaded(ratingReviewsList, keys);
             }
 

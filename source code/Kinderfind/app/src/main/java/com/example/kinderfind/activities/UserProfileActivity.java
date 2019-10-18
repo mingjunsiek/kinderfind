@@ -12,8 +12,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -29,6 +32,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
     private TextView profileEmail, profileUsername, profileVerifiedTxt;
+    private Button verificationBtn;
     private ImageView profileImageView;
     private static final int READ_REQUEST_CODE = 42;
     private Uri imageUri;
@@ -46,6 +50,7 @@ public class UserProfileActivity extends AppCompatActivity {
         profileUsername = findViewById(R.id.profileUsernameTxt);
         profileVerifiedTxt = findViewById(R.id.profileVerifiedTxt);
         profileImageView = findViewById(R.id.profile_image_view);
+        verificationBtn = findViewById(R.id.profile_send_verification);
 
         profileEmail.setText(user.getEmail());
         profileUsername.setText(user.getDisplayName());
@@ -60,8 +65,25 @@ public class UserProfileActivity extends AppCompatActivity {
         System.out.println("Photo: "+user.getPhotoUrl());
         if(user.isEmailVerified())
             profileVerifiedTxt.setText("True");
-        else
+        else {
             profileVerifiedTxt.setText("False");
+            verificationBtn.setVisibility(View.VISIBLE);
+        }
+
+        verificationBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful()){
+                            Toast.makeText(UserProfileActivity.this, "Verification Email Sent. Please check your email."
+                                    , Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+        });
 
     }
 
