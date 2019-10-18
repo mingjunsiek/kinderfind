@@ -102,16 +102,18 @@ public class UserProfileActivity extends AppCompatActivity {
                 intent = new Intent(UserProfileActivity.this, PasswordActivity.class);
                 startActivity(intent);
                 return true;
+
             case R.id.profile_change_image:
                 openFileChooser();
-
                 return true;
+
             case R.id.profile_log_out:
                 FirebaseAuth.getInstance().signOut();
                 intent = new Intent(UserProfileActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
                 return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
