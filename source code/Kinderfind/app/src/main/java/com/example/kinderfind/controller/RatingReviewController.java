@@ -32,7 +32,7 @@ public class RatingReviewController {
         mDatabase = FirebaseDatabase.getInstance();
         mReferenceRatingReview = mDatabase.getReference("rating_review").child(center_code);
     }
-
+    
     public void readRatingReview(final String userid, final DataStatus dataStatus){
         mReferenceRatingReview.addValueEventListener(new ValueEventListener() {
             @Override
