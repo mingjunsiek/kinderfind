@@ -29,7 +29,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class RegisterActivity extends AppCompatActivity {
-    private static final int PICK_IMAGE_REQUEST = 1;
+
     private static final int READ_REQUEST_CODE = 42;
     private static final String TAG = "EmailPassword";
     private EditText inputEmail, inputPassword, inputRePassword, inputUsername;
