@@ -15,6 +15,7 @@ public class Kindergarten implements Comparable<Kindergarten>{
     private String placeId;
     private String postal_code;
     private String spark_certified;
+    private float distance;
 
     public Kindergarten(){
 
