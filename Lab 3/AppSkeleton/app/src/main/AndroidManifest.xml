@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.appskeleton">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".View.UserProfileActivity"></activity>
+        <activity android:name=".View.RateReviewActivity" />
+        <activity android:name=".View.KindergartenInformationActivity" />
+        <activity android:name=".View.ListViewActivity" />
+        <activity android:name=".View.SearchActivity" />
+        <activity android:name=".View.MapActivity" />
+        <activity android:name=".View.RegistrationActivity" />
+        <activity android:name=".View.LoginActivity" />
+    </application>
+
+</manifest>
