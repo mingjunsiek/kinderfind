@@ -17,8 +17,9 @@ import com.example.appskeleton.R;
 public class LoginActivity extends AppCompatActivity {
 
     /**
-     * This function will create the fields for email and password.
-     * Login and Registration button will be created here as well.
+     * This function will create the following:
+     * 2 text fields for email and password.
+     * Login and Registration button will be created.
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +28,11 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * This method passes the user's email and password to the LoginController to authenticate the user
+     * This method called the validateField() to validate the field.
+     * If it is valid, it passes the user's email and password to the LoginController.
+     * authenticateUser() is called to validate the user.
+     * If function returns true, send the user to the MapActivity page.
+     * Else, showError() is called.
      * @param email refers to user's email address
      * @param password refers to user's password
      */

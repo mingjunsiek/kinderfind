@@ -22,8 +22,12 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     /**
-     * This function checks if the field is valid. If it is not, an error will pop up.
-     * Else, it will call the RegistrationController to register the user to the database
+     * This function calls validateField() to check if field is valid.
+     *      If it is not valid, showError() is called.
+     * It then calls registerAccount() from RegistrationController.
+     *      If it returns true, displayTutorial() is called.
+     *          After that, user will be sent to MapActivity.
+     *      else, showError() is called.
      */
     public void submitRegistration(){
         validateField();
