@@ -1,5 +1,12 @@
 package com.example.appskeleton.Model;
 
+/**
+ * This class implements the RateReview entity with the following attributes:
+ *      cleanliness_rating, manpower_rating, curriculum_rating, ameneties_rating,
+ *         total_rating, user_id, user_name, review, user_image, time_stamp.
+ * @author Ming Jun
+ */
+
 public class RateReview {
     private double cleanliness_rating, manpower_rating, curriculum_rating, ameneties_rating,
         total_rating;
@@ -19,6 +26,10 @@ public class RateReview {
         this.user_image = user_image;
         this.time_stamp = time_stamp;
     }
+
+    /**
+     * Below are the Getters and Setters for each attribute.
+     */
 
     public double getCleanliness_rating() {
         return cleanliness_rating;

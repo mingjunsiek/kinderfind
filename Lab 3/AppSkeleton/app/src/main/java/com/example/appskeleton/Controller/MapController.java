@@ -28,7 +28,7 @@ public class MapController {
      */
     private double currentLatitude,currentLongitude;
     /**
-     * stores the marker if the current location of the device
+     * stores the marker of the current location of the device
      */
     private Marker currentLocationMarker;
 

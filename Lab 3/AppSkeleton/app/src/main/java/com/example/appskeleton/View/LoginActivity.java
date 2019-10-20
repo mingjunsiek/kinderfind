@@ -28,16 +28,16 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * This method called the validateField() to validate the field.
+     * This method calls the validateField() to validate the field.
      * If it is valid, it passes the user's email and password to the LoginController.
-     * authenticateUser() is called to validate the user.
-     * If function returns true, send the user to the MapActivity page.
-     * Else, showError() is called.
+     * authenticateUser() in LoginController is called to validate the user.
+         * If function returns true, send the user to the MapActivity page.
+         * Else, showError() is called.
      * @param email refers to user's email address
      * @param password refers to user's password
      */
     public void submitLogin(String email, String password){
-
+        validateField();
     }
 
     /**
@@ -46,7 +46,8 @@ public class LoginActivity extends AppCompatActivity {
      *
      */
     public void validateField(){
-
+        if(true) // If field is not valid
+            showError();
     }
 
     /**

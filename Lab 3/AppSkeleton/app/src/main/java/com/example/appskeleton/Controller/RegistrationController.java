@@ -25,6 +25,7 @@ public class RegistrationController {
      */
     public boolean registerAccount(String email, String password, String username, Image picture){
         if(true) { //Insertion success
+            // Call startSession()
             return true;
         }
         else //Insertion failed
