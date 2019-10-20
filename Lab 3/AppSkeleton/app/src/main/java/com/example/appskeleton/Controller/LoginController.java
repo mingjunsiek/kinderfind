@@ -20,7 +20,7 @@ public class LoginController {
      *  Else, it return false.
      * @param email User's email address
      * @param password User's password
-     * @return
+     * @return boolean
      */
     public boolean authenticateUser(String email, String password){
 
