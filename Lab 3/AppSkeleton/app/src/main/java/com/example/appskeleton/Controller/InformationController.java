@@ -25,6 +25,12 @@ public class InformationController {
      */
     private Kindergarten kindergarten;
 
+    public InformationController(Kindergarten kindergarten){
+        this.kindergarten = kindergarten;
+        this.readKindergartenServices(kindergarten.getCentre_code());
+        this.readRatingsReview(kindergarten.getCentre_code());
+    }
+
     /**
      * This function will read in the KindergartenServices data stored in our database and each kindergarten
      * service will become a kindergartenService object with their various attributes like centre name,

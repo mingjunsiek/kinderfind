@@ -17,6 +17,13 @@ public class KindergartenController {
     private ArrayList<Kindergarten> kindergartenArrayList = new ArrayList<>();
 
     /**
+     * default constructor of kindergarten controller
+     */
+    public KindergartenController(){
+        this.readKindergartenData();
+    }
+
+    /**
      * This function will read in the Kindergarten data stored in our database and each kindergarten will
      * become a kindergarten object with their various attributes like centre code, address, contact no. etc
      * These kindergarten objects will then be stored in kindergartenArrayList

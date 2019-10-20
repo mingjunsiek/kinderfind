@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import com.example.appskeleton.Controller.InformationController;
 import com.example.appskeleton.Model.Kindergarten;
 import com.example.appskeleton.Model.KindergartenServices;
 import com.example.appskeleton.Model.RateReview;
@@ -37,6 +38,18 @@ public class KindergartenInformationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kindergarten_information);
+    }
+
+    /**
+     * default constructor of KindergartenInformationActivity taking in Kindergarten object as argument
+     * @param kindergarten
+     */
+    public KindergartenInformationActivity(Kindergarten kindergarten){
+        this.kindergarten = kindergarten;
+        InformationController informationController = new InformationController(kindergarten);
+        kindergartenServicesArrayList = informationController.getKindergartenServicesArrayList();
+        rateReviewArrayList = informationController.getRateReviewArrayList();
+
     }
 
     /**

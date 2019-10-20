@@ -33,6 +33,14 @@ public class MapController {
     private Marker currentLocationMarker;
 
     /**
+     * default constructor of MapController
+     */
+    public MapController(){
+        this.generateMarkers();
+        this.getCurrentLocation();
+    }
+
+    /**
      * this function is used to generate markers to be displayed on the map interface to show the locations
      * of the kindergartens on the map
      */

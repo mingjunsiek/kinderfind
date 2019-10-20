@@ -16,7 +16,7 @@ public class RateReviewActivity extends AppCompatActivity {
      * The current SessionController is initialized to sessionController.
      */
     private static SessionController sessionController;
-    private RateReviewController rateReviewController;
+    private RateReview rateReview;
     /**
      * This function creates the following:
      * 4 rating bars for amenities, cleanliness, manpower and curriculum.
@@ -31,6 +31,13 @@ public class RateReviewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_rate_review);
     }
 
+    public RateReviewActivity(String centreCode){
+        RateReviewController rateReviewController = new RateReviewController(centreCode);
+        this.rateReview=rateReviewController.getRateReview(this.getCurrentUser().getUsername());
+        this.displayRatings();
+        this.displayReviewTextBox();
+    }
+
     /**
      * This function retrieves the current user from session. This is used to identify the user
      * when they are submitting the ratings and review.
@@ -38,6 +45,20 @@ public class RateReviewActivity extends AppCompatActivity {
      */
     public User getCurrentUser(){
         return sessionController.getCurrentUser();
+    }
+
+    /**
+     * displays the 4 rating bars for amenities, cleanliness, manpower and curriculum.
+     */
+    public void displayRatings(){
+
+    }
+
+    /**
+     * displays the 1 text field for review.
+     */
+    public void displayReviewTextBox(){
+
     }
 
     /**

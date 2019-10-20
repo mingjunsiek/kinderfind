@@ -49,6 +49,15 @@ public class MapActivity extends AppCompatActivity {
     }
 
     /**
+     * default constructor of MapActivity
+     */
+    public MapActivity(){
+        MapController mapController = new MapController();
+        mapController.getMarkers();
+        mapController.getCurrentLocationMarker();
+    }
+
+    /**
      * This function plots and display the Markers stored in markers ArrayList on the map
      */
     public void displayMarkers(){

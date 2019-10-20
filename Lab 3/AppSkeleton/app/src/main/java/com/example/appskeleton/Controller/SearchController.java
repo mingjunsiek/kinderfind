@@ -1,6 +1,7 @@
 package com.example.appskeleton.Controller;
 
 import com.example.appskeleton.Model.Kindergarten;
+import com.example.appskeleton.Controller.KindergartenController;
 import java.util.ArrayList;
 
 /**
@@ -25,6 +26,8 @@ public class SearchController {
      * @return an ArrayList of Kindergarten objects filtered based on search string by user
      */
     public ArrayList<Kindergarten> searchKindergarten(String searchString){
+        KindergartenController kindergartenController = new KindergartenController();
+        kindergartenController.filterKindergartenList(searchResults);
         return searchResults;
     }
 

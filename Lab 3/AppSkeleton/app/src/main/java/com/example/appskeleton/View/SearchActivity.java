@@ -4,8 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import com.example.appskeleton.Model.Kindergarten;
 import com.example.appskeleton.R;
 import com.example.appskeleton.Controller.SearchController;
+
+import java.util.ArrayList;
 
 /**
  * This interface is embedded inside of MapActivity and ListViewActivity as a search bar for users to
@@ -19,11 +22,22 @@ public class SearchActivity extends AppCompatActivity {
      * string to store the user input typed into search bar
      */
     private String searchString;
+    /**
+     * Stores a filtered ArrayList of kindergarten objects that is filtered based on search string
+     */
+    private ArrayList<Kindergarten> searchResults = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+    }
+
+    /**
+     * default constructor of search activity interface
+     */
+    public SearchActivity(){
+        this.displaySearchBar();
     }
 
     /**
@@ -46,6 +60,8 @@ public class SearchActivity extends AppCompatActivity {
      * kindergartens based on input search string
      */
     public void filterResults(){
-
+        SearchController searchController = new SearchController();
+        searchResults = searchController.searchKindergarten(searchString);
+        this.displaySearchResults();
     }
 }
