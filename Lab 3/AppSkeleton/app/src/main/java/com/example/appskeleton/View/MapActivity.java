@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * the user is brought to this interface which displays the map of Singapore with location markers of
  * various kindergartens in Singapore. The map also displays the current location of the user if user's
  * location permission is granted. This is the default main interface of the app.
- * @author Shearman 
+ * @author Shearman
  */
 
 public class MapActivity extends AppCompatActivity {
