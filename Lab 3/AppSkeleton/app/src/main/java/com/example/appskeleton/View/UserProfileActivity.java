@@ -15,7 +15,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
     /**
      * This function will create the text to display user's information.
-     * The send verification button is created here.
+     * If user is not verified, the Send Verification button will be displayed
      * The change user's password button is created here
      */
     @Override
@@ -23,8 +23,14 @@ public class UserProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
     }
-    
+
+    /**
+     * This function will call the controller's sendVerificationEmail()
+     */
     public void tapOnSendVerificationEmail(){}
 
-    public void submiteChangePassword(){}
+    /**
+     * This function will call the controller's changePassword()
+     */
+    public void submitChangePassword(){}
 }
