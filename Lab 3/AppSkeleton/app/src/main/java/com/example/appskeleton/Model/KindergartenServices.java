@@ -1,5 +1,12 @@
 package com.example.appskeleton.Model;
 
+/**
+ * This class implements the KindergartenServices entity with the following attributes:
+ *      centre_name, fee_sc, fee_pr, levels_offered, programme_hours,
+ *         registration_fee, second_language_offered, vacancy.
+ * @author Ming Jun
+ */
+
 public class KindergartenServices {
     private String centre_name, fee_sc, fee_pr, levels_offered, programme_hours,
         registration_fee, second_language_offered, vacancy;
@@ -16,6 +23,10 @@ public class KindergartenServices {
         this.second_language_offered = second_language_offered;
         this.vacancy = vacancy;
     }
+
+    /**
+     * Below are the Getters and Setters for each attribute.
+     */
 
     public String getCentre_name() {
         return centre_name;

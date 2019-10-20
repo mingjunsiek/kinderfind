@@ -4,6 +4,7 @@ import com.example.appskeleton.Model.User;
 
 /**
  * This controller handles sending validation email and changing of password for user.
+ * @author Ming Jun
  */
 
 public class UserController {
@@ -11,7 +12,7 @@ public class UserController {
     /**
      * Stores the current user object
      */
-    private User user;
+    private static User user;
 
     /**
      * Default constructor for UserController

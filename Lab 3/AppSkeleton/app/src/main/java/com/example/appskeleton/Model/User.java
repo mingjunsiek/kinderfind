@@ -2,6 +2,12 @@ package com.example.appskeleton.Model;
 
 import android.graphics.Picture;
 
+/**
+ * This class implements the User entity with the following attributes:
+ *      email, username, password, profile_picture, verified_user.
+ * @author Ming Jun
+ */
+
 public class User {
     private String email, username, password;
     private Picture profile_picture;
@@ -14,6 +20,10 @@ public class User {
         this.profile_picture = profile_picture;
         this.verified_user = verified_user;
     }
+
+    /**
+     * Below are the Getters and Setters for each attribute.
+     */
 
     public String getEmail() {
         return email;

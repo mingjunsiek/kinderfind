@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import com.example.appskeleton.Controller.MapController;
 import com.example.appskeleton.R;
 
 import com.example.appskeleton.Model.Marker;
@@ -20,10 +21,27 @@ import java.util.ArrayList;
 public class MapActivity extends AppCompatActivity {
 
     /**
-     * stores an ArrayList of markers to be displayed on the map generated from map controller.
+     * Stores an ArrayList of markers to be displayed on the map generated from map controller.
      */
     private ArrayList<Marker> markers = new ArrayList<>();
 
+    /**
+     * Stores the SearchActivity to display the search bar.
+     */
+    private SearchActivity searchActivity;
+
+    /**
+     * Stores the ListViewActivity to display the list view.
+     */
+    private ListViewActivity listViewActivity;
+
+    /**
+     * This function initialize the following:
+     *      searchActivity, listViewActivity.
+     * displayMarkers() and displayCurrentLocation() is called.
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

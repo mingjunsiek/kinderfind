@@ -1,5 +1,12 @@
 package com.example.appskeleton.Model;
 
+/**
+ * This class implements the Kindergarten entity with the following attributes:
+ *      entre_code, centre_address, centre_contact_no,
+ *      centre_email_address, centre_name, centre_website, last_updated,
+ *      organization_type, placeid, postal_code, sparkCertified, latitude, longtitude.
+ * @author Ming Jun
+ */
 public class Kindergarten {
     private String centre_code, centre_address, centre_contact_no,
         centre_email_address, centre_name, centre_website, last_updated,
@@ -24,6 +31,10 @@ public class Kindergarten {
         this.latitude = latitude;
         this.longtitude = longtitude;
     }
+
+    /**
+     * Below are the Getters and Setters for each attribute.
+     */
 
     public String getCentre_code() {
         return centre_code;

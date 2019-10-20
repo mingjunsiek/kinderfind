@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.appskeleton.R;
+import com.example.appskeleton.Controller.SearchController;
 
 /**
  * This interface is embedded inside of MapActivity and ListViewActivity as a search bar for users to
