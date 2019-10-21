@@ -27,16 +27,15 @@ public class SearchActivity extends AppCompatActivity {
      */
     private ArrayList<Kindergarten> searchResults = new ArrayList<>();
 
+    /**
+     * function initializes SearchActivity and creates SearchController on initialization and calls
+     * displaySearchBar() to display the search bar on the interface
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-    }
-
-    /**
-     * default constructor of search activity interface
-     */
-    public SearchActivity(){
+        SearchController searchController = new SearchController();
         this.displaySearchBar();
     }
 

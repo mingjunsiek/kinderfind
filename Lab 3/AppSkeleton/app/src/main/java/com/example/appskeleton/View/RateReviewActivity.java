@@ -30,10 +30,7 @@ public class RateReviewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rate_review);
-    }
-
-    public RateReviewActivity(String centreCode){
-        RateReviewController rateReviewController = new RateReviewController(centreCode);
+        RateReviewController rateReviewController = new RateReviewController(centre_code);
         this.rateReview=rateReviewController.getRateReview(this.getCurrentUser().getUsername());
         this.displayRatings();
         this.displayReviewTextBox();
