@@ -32,24 +32,20 @@ public class KindergartenInformationActivity extends AppCompatActivity {
     /**
      * Stores a Kindergarten object
      */
-    private Kindergarten kindergarten;
+    public static Kindergarten kindergarten;
 
+    /**
+     *
+     *
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kindergarten_information);
-    }
 
-    /**
-     * default constructor of KindergartenInformationActivity taking in Kindergarten object as argument
-     * @param kindergarten
-     */
-    public KindergartenInformationActivity(Kindergarten kindergarten){
-        this.kindergarten = kindergarten;
         InformationController informationController = new InformationController(kindergarten);
         kindergartenServicesArrayList = informationController.getKindergartenServicesArrayList();
         rateReviewArrayList = informationController.getRateReviewArrayList();
-
     }
 
     /**
@@ -75,9 +71,11 @@ public class KindergartenInformationActivity extends AppCompatActivity {
     }
 
     /**
-     * Allows the user to share the kindergarten with others through social media platforms
+     * Allows the user to share the kindergarten with others through social media platforms.
+     * This function calls the shareKindergartenSequence() in InformationController which returns a boolean.
+     * After that, displayShareResult() is called, displaying different result based result of shareKindergartenSequence().
      */
-    public void shareKindergarten(){
+    public void tapOnShareKindergarten(){
 
     }
 
@@ -90,5 +88,10 @@ public class KindergartenInformationActivity extends AppCompatActivity {
     public void tapOnRateReview(String centreCode){
 
     }
+
+    /**
+     * This function notifies the user if the Share is successful or not.
+     */
+    public void displayShareResult(){}
 
 }
