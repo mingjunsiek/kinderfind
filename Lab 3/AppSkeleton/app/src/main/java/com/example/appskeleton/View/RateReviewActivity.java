@@ -17,13 +17,14 @@ public class RateReviewActivity extends AppCompatActivity {
      */
     private static SessionController sessionController;
     private RateReview rateReview;
+    public static String centre_code;
     /**
      * This function creates the following:
      * 4 rating bars for amenities, cleanliness, manpower and curriculum.
      * 1 text field for review
      * 2 buttons: 1 for submit and 1 for update.
      * Only 1 button will appear depending on the context of the situation
-     * This function initialize
+     * 
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {

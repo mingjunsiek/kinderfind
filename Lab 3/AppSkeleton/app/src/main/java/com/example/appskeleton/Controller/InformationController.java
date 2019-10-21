@@ -67,4 +67,16 @@ public class InformationController {
         return rateReviewArrayList;
     }
 
+    /**
+     * This function allows user to share the selected Kindergarten with their preferred social media platform
+     * @return if share is successful, returns true
+     *          else, returns false
+     */
+    public boolean shareKindergartenSequence(){
+        if(true) // If share succeeds
+            return true;
+        else // If share fails
+            return false;
+    }
+
 }
