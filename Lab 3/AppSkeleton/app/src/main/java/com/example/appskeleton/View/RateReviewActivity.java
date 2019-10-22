@@ -24,7 +24,7 @@ public class RateReviewActivity extends AppCompatActivity {
      * 1 text field for review
      * 2 buttons: 1 for submit and 1 for update.
      * Only 1 button will appear depending on the context of the situation
-     * 
+     *
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
