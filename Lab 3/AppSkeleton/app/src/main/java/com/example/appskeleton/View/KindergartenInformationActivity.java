@@ -35,8 +35,10 @@ public class KindergartenInformationActivity extends AppCompatActivity {
     public static Kindergarten kindergarten;
 
     /**
-     *
-     *
+     * Function initializes KindergartenInformationActivity interface as well as creates an informationController
+     * to handle control logic for this interface. It also initializes the variables kindergartenServicesArrayList
+     * and rateReviewArrayList.
+     * It then calls displayRatingReviews(), displayLocation(), displayKindergartenInformation()
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,9 @@ public class KindergartenInformationActivity extends AppCompatActivity {
         InformationController informationController = new InformationController(kindergarten);
         kindergartenServicesArrayList = informationController.getKindergartenServicesArrayList();
         rateReviewArrayList = informationController.getRateReviewArrayList();
+        this.displayKindergartenInformation();
+        this.displayLocation();
+        this.displayRatingReviews();
     }
 
     /**

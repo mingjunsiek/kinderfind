@@ -18,18 +18,17 @@ public class ListViewActivity extends AppCompatActivity {
      */
     private ArrayList<Kindergarten> kindergartenList = new ArrayList<>();
 
+    /**
+     * this function initializes the ListViewActivity and calls it own function generateKindergartenList
+     * to initialize the ArrayList of Kindergartens to be displayed. It also calls displayKindergartenList
+     * on create.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_view);
-    }
-
-    /**
-     * default constructor of ListViewActivity to retrieve ArrayList of Kindergarten from Kindergarten
-     * Controller.
-     */
-    public ListViewActivity(){
         this.generateKindergartenList();
+        this.displayKindergartenList();
     }
 
     /**

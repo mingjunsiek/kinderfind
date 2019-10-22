@@ -38,6 +38,7 @@ public class MapActivity extends AppCompatActivity {
     /**
      * This function initialize the following:
      *      searchActivity, listViewActivity.
+     * The function also creates the MapController to generate location markers for the map interface.
      * displayMarkers() and displayCurrentLocation() is called.
      *
      * @param savedInstanceState
@@ -46,15 +47,11 @@ public class MapActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
-    }
-
-    /**
-     * default constructor of MapActivity
-     */
-    public MapActivity(){
         MapController mapController = new MapController();
         mapController.getMarkers();
         mapController.getCurrentLocationMarker();
+        this.displayMarkers();
+        this.displayCurrentLocation();
     }
 
     /**
