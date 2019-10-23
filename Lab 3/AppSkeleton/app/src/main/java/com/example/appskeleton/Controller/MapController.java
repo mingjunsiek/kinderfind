@@ -36,6 +36,7 @@ public class MapController {
      * default constructor of MapController
      */
     public MapController(){
+        KindergartenController kc = new KindergartenController();
         this.generateMarkers();
         this.getCurrentLocation();
     }

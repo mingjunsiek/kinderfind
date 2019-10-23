@@ -48,7 +48,6 @@ public class KindergartenController {
      * @return kindergartenArrayList ArrayList of kindergartens
      */
     public ArrayList<Kindergarten> getKindergartenArrayList(){
-
         return kindergartenArrayList;
     }
 }

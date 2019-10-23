@@ -33,4 +33,10 @@ public class UserProfileActivity extends AppCompatActivity {
      * This function will call the controller's changePassword()
      */
     public void submitChangePassword(){}
+
+    /**
+     * This function will be used to display the result based on the message parameter passed to it.
+     * @param message The message to use in the Toast message.
+     */
+    public void displayMessage(String message){}
 }
