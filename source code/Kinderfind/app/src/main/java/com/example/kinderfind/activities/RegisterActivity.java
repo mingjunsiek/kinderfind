@@ -22,11 +22,17 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.kinderfind.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -38,6 +44,7 @@ public class RegisterActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private ImageView imageView;
     private Uri imageUri;
+    private StorageReference mStorageRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +52,7 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         auth = FirebaseAuth.getInstance();
+        mStorageRef = FirebaseStorage.getInstance().getReference("profile_pic");
 
         btnRegister = findViewById(R.id.regRegisterBtn);
         inputEmail = findViewById(R.id.regEmailText);
@@ -121,10 +129,9 @@ public class RegisterActivity extends AppCompatActivity {
                                 } else {
                                     Log.d(TAG, "createUserWithEmail:success");
                                     final FirebaseUser user = auth.getCurrentUser();
-
+                                    uploadFile(user);
                                     UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                                             .setDisplayName(username)
-                                            .setPhotoUri(imageUri)
                                             .build();
 
                                     user.updateProfile(profileUpdates)
@@ -190,7 +197,26 @@ public class RegisterActivity extends AppCompatActivity {
             }
         }
     }
+    private void uploadFile(FirebaseUser user){
+        if(imageUri == null)
+            imageUri = Uri.parse("android.resource://"+ R.class.getPackage().getName()+"/"+R.drawable.ic_default_pic);
 
+        StorageReference fileReference = mStorageRef.child(user.getUid());
+
+        fileReference.putFile(imageUri)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(RegisterActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+    }
 //    private String getFileExtension(Uri uri){
 //        ContentResolver cr = getContentResolver();
 //        MimeTypeMap mime = MimeTypeMap.getSingleton();

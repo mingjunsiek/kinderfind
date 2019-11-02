@@ -23,10 +23,15 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.kinderfind.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 public class UserProfileActivity extends AppCompatActivity {
 
@@ -37,6 +42,7 @@ public class UserProfileActivity extends AppCompatActivity {
     private static final int READ_REQUEST_CODE = 42;
     private Uri imageUri;
     private FirebaseUser user;
+    private StorageReference mStorageRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +51,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
+        mStorageRef = FirebaseStorage.getInstance().getReference("profile_pic");
 
         profileEmail = findViewById(R.id.profileEmailTxt);
         profileUsername = findViewById(R.id.profileUsernameTxt);
@@ -55,14 +62,25 @@ public class UserProfileActivity extends AppCompatActivity {
         profileEmail.setText(user.getEmail());
         profileUsername.setText(user.getDisplayName());
 
-        Glide.with(UserProfileActivity.this)
-                .load(user.getPhotoUrl())
-                .placeholder(R.mipmap.ic_launcher)
-                .apply(RequestOptions.circleCropTransform())
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(profileImageView);
+        mStorageRef.child(user.getUid()).getDownloadUrl()
+                .addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        Glide.with(UserProfileActivity.this)
+                                .load(uri)
+                                .placeholder(R.mipmap.ic_launcher)
+                                .apply(RequestOptions.circleCropTransform())
+                                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                .into(profileImageView);
+                        Log.d("Get Profile Pic", "Profile Pic Retrieval Success");
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d("Get Profile Pic", "Profile Pic Retrieval Failed");
+            }
+        });
 
-        System.out.println("Photo: "+user.getPhotoUrl());
         if(user.isEmailVerified())
             profileVerifiedTxt.setText("True");
         else {
@@ -143,21 +161,32 @@ public class UserProfileActivity extends AppCompatActivity {
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(profileImageView);
 
-
-                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                        .setPhotoUri(imageUri)
-                        .build();
-
-                user.updateProfile(profileUpdates)
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    Log.d("Profile update", "User profile updated.");
-                                }
-                            }
-                        });
+                uploadFile();
             }
+        }
+    }
+
+    private void uploadFile(){
+        if(imageUri != null){
+            StorageReference fileReference = mStorageRef.child(user.getUid());
+
+            fileReference.putFile(imageUri)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            Toast.makeText(UserProfileActivity.this, "Profile Updated", Toast.LENGTH_SHORT).show();
+                            Log.d("Profile update", "User profile updated.");
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(UserProfileActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }
+        else{
+            Toast.makeText(this, "No File Selected", Toast.LENGTH_SHORT).show();
         }
     }
 

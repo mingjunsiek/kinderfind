@@ -13,7 +13,6 @@ public class RatingReview {
     private String user_id;
     private String username;
     private String review;
-    private String user_image;
     private long timestamp;
 
     public RatingReview(){
@@ -31,16 +30,7 @@ public class RatingReview {
         this.user_id = user_id;
         this.username = username;
         this.review = review;
-        this.user_image = user_image;
         this.timestamp = timestamp;
-    }
-
-    public String getUser_image() {
-        return user_image;
-    }
-
-    public void setUser_image(String user_image) {
-        this.user_image = user_image;
     }
 
     public double getCleanliness_rating() {

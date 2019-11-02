@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "454180296763-642munchk3bqtqff8q1d2chmtsggdakp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.kinderfind",
+            "certificate_hash": "4df869d31ee43854efa8ca78329782059bf0dfb1"
+          }
+        },
+        {
           "client_id": "454180296763-lkgq6fhili721c1pma728q9lf0gkgb1j.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

@@ -2,6 +2,7 @@ package com.example.kinderfind.adapters;
 
 import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,13 @@ import com.example.kinderfind.R;
 import com.example.kinderfind.activities.InformationActivity;
 import com.example.kinderfind.activities.RegisterActivity;
 import com.example.kinderfind.models.RatingReview;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
 import org.ocpsoft.prettytime.PrettyTime;
 
 import java.util.ArrayList;
@@ -31,11 +39,13 @@ public class RatingReviewAdapter extends RecyclerView.Adapter<RatingReviewAdapte
     private List<RatingReview> ratingReviewsList = new ArrayList<>();
     private List<String> mkeys;
     Context context;
+    private StorageReference mStorageRef;
 
     public RatingReviewAdapter(List<RatingReview> ratingReviews, List<String> mkeys, Context context) {
         this.ratingReviewsList = ratingReviews;
         this.mkeys = mkeys;
         this.context = context;
+        mStorageRef = FirebaseStorage.getInstance().getReference("profile_pic");
     }
 
     @NonNull
@@ -47,18 +57,33 @@ public class RatingReviewAdapter extends RecyclerView.Adapter<RatingReviewAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RatingReviewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final RatingReviewHolder holder, int position) {
         PrettyTime dateTime = new PrettyTime();
         RatingReview currentRatingReview = ratingReviewsList.get(position);
         holder.username.setText(currentRatingReview.getUsername());
         holder.review.setText(currentRatingReview.getReview());
         holder.ratingBar.setRating((float)(currentRatingReview.getTotal_rating()));
         holder.date.setText(dateTime.format(new Date(currentRatingReview.getTimestamp())));
-        Glide.with(context)
-                .load(Uri.parse(currentRatingReview.getUser_image()))
-                .apply(RequestOptions.circleCropTransform())
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(holder.image);
+
+        mStorageRef.child(currentRatingReview.getUser_id()).getDownloadUrl()
+                .addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        Glide.with(context)
+                                .load(uri)
+                                .placeholder(R.mipmap.ic_launcher)
+                                .apply(RequestOptions.circleCropTransform())
+                                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                .into(holder.image);
+                        Log.d("Get Profile Pic", "Profile Pic Retrieval Success");
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d("Get Profile Pic", "Profile Pic Retrieval Failed");
+            }
+        });
+
     }
 
     @Override
@@ -86,4 +111,5 @@ public class RatingReviewAdapter extends RecyclerView.Adapter<RatingReviewAdapte
 
         }
     }
+
 }
