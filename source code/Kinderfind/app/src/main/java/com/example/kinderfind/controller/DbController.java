@@ -3,7 +3,6 @@ package com.example.kinderfind.controller;
 import android.content.Context;
 import android.util.Log;
 
-import com.example.kinderfind.adapters.FirebaseSuccessListener;
 import com.example.kinderfind.adapters.LocalStorage;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,6 +21,11 @@ public class DbController {
     private FirebaseDatabase database;
     private static final String TAG = "Firebase";
     private static ArrayList<Kindergarten> kindergartenArrayList = new ArrayList<Kindergarten>();
+
+    public interface FirebaseSuccessListener {
+        //this is to listen for kindergarten data
+        void onKindergartenDataCompleted(boolean isDataCompleted);
+    }
 
     public DbController(){
 

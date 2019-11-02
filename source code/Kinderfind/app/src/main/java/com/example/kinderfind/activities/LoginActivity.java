@@ -1,7 +1,7 @@
 package com.example.kinderfind.activities;
 
+import com.example.kinderfind.adapters.LocalStorage;
 import com.example.kinderfind.controller.DbController;
-import com.example.kinderfind.adapters.FirebaseSuccessListener;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,6 +22,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.ActionBar;
 
 import com.example.kinderfind.R;
+import com.example.kinderfind.utils.InternetConnection;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -65,8 +66,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String email = emailTb.getText().toString();
                 final String password = passwordTb.getText().toString();
-
-                //hideSoftKeyboard(LoginActivity.this);
+                hideSoftKeyboard(LoginActivity.this);
 
                 if (TextUtils.isEmpty(email)) {
                     Toast.makeText(getApplicationContext(), getString(R.string.no_email), Toast.LENGTH_SHORT).show();
@@ -84,22 +84,29 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
                 setProgressBar();
-                //authenticate user
-                auth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                hideProgressBar();
-                                if (!task.isSuccessful()) {
-                                    Toast.makeText(LoginActivity.this, getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
-                                } else {
+                if(InternetConnection.checkConnection(getApplicationContext())){
+                    //authenticate user
+                    auth.signInWithEmailAndPassword(email, password)
+                            .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
                                     hideProgressBar();
-                                    Intent intent = new Intent(LoginActivity.this, MapsActivity.class);
-                                    startActivity(intent);
-                                    finish();
+                                    if (!task.isSuccessful()) {
+                                        Toast.makeText(LoginActivity.this, getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
+                                    } else {
+                                        hideProgressBar();
+                                        Intent intent = new Intent(LoginActivity.this, MapsActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }
                                 }
-                            }
-                        });
+                            });
+
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), "There is no internet connection, please enable them", Toast.LENGTH_SHORT).show();
+                }
+
 
 
             }
@@ -127,29 +134,55 @@ public class LoginActivity extends AppCompatActivity {
 
     public void onStart() {
         super.onStart();
-        setProgressBar();
+//        if(!InternetConnection.checkConnection(getApplicationContext())){
+//            //there are no internet connection
+//            Log.d(TAG, "onStart: NO INTERNET");
+//            Toast.makeText(getApplicationContext(), "There is no internet connection, please enable them", Toast.LENGTH_SHORT).show();
+//        }
+//        else{
+//            Log.d(TAG, "onStart: DO HAVE INTERNET");
+//            LocalStorage localStorage = new LocalStorage(getApplicationContext());
+//            if(localStorage.getFromSharedPreferences().size() == 0 || localStorage.getFromSharedPreferences() == null){
+//                //if no data load data
+//                setProgressBar();
+//                Log.d("LOGIN", "THERE ARE NO DATA");
+//                DbController dbController = new DbController();
+//                dbController.readDataFromKindergarten(getApplicationContext(), new DbController.FirebaseSuccessListener() {
+//
+//                    @Override
+//                    public void onKindergartenDataCompleted(boolean isDataCompleted) {
+//
+//                        // Check if user is signed in (non-null) and update UI accordingly.
+//                        FirebaseUser user = auth.getCurrentUser();
+//                        if(user!=null){
+//                            hideProgressBar();
+//                            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+//                            Intent intent = new Intent(LoginActivity.this, MapsActivity.class);
+//                            startActivity(intent);
+//                            finish();
+//                        }
+//                    }
+//                });
+//
+//            }
+//            else{
+//                // data is already loaded
+//                // Check if user is signed in
+//
+//                Log.d("LOGIN", "DATA ALREADY EXIST");
+//                FirebaseUser user = auth.getCurrentUser();
+//                if(user!=null){
+//                    Log.d("LOGIN", "DATA ALREADY EXIST AND THERE IS USER");
+//                    hideProgressBar();
+//                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+//                    Intent intent = new Intent(LoginActivity.this, MapsActivity.class);
+//                    startActivity(intent);
+//                    finish();
+//                }
+//            }
+//
+//        }
 
-        DbController dbController = new DbController();
-        dbController.readDataFromKindergarten(getApplicationContext(), new FirebaseSuccessListener() {
-
-
-            @Override
-            public void onKindergartenDataCompleted(boolean isDataCompleted) {
-
-                // Check if user is signed in (non-null) and update UI accordingly.
-                FirebaseUser user = auth.getCurrentUser();
-                if(user!=null){
-                    Intent intent = new Intent(LoginActivity.this, MapsActivity.class);
-                    startActivity(intent);
-                    hideProgressBar();
-                    finish();
-                }else{
-                    hideProgressBar();
-                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                    Log.d(TAG, "onKindergartenDataCompleted: data is loaded but user is null");
-                }
-            }
-        });
     }
 
     public static void hideSoftKeyboard(Activity activity) {
