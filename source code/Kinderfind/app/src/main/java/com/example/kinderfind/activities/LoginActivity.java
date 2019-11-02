@@ -157,7 +157,7 @@ public class LoginActivity extends AppCompatActivity {
         else{
             Log.d(TAG, "onStart: DO HAVE INTERNET");
             LocalStorage localStorage = new LocalStorage(getApplicationContext());
-            if(localStorage.getFromSharedPreferences().size() == 0 || localStorage.getFromSharedPreferences() == null){
+            if(localStorage.getFromSharedPreferences() == null || localStorage.getFromSharedPreferences().size() == 0){
                 //if no data load data
                 setProgressBar();
                 Log.d("LOGIN", "THERE ARE NO DATA");
@@ -176,6 +176,8 @@ public class LoginActivity extends AppCompatActivity {
                             startActivity(intent);
                             finish();
                         }
+                        else
+                            hideProgressBar();
                     }
                 });
 

@@ -90,6 +90,7 @@ public class MapsActivity extends FragmentActivity implements
     private BottomSheetBehavior bottomSheetBehavior;
     private TextView title;
 
+    private View scrollView;
     private InternetReceiver internetReceiver;
     private IntentFilter intentFilter;
     private Uri data;
@@ -108,8 +109,8 @@ public class MapsActivity extends FragmentActivity implements
         String action = intent.getAction();
         data = intent.getData();
 
-        //Scroll View
-        View scrollView = findViewById(R.id.kindergarten_sv);
+        //scrollview
+        scrollView = findViewById(R.id.kindergarten_sv);
         bottomSheetBehavior = BottomSheetBehavior.from(scrollView);
 
         //Kindergarten Recycler View
@@ -119,6 +120,7 @@ public class MapsActivity extends FragmentActivity implements
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
+
 
         // Register InternetReceiver
         ConnectivityManager cm =
@@ -199,10 +201,13 @@ public class MapsActivity extends FragmentActivity implements
     @Override
     public void onResume(){
         super.onResume();
+        Log.d(TAG, "onResume: call on map ready");
         registerReceiver(internetReceiver, intentFilter);
+        // Prompt the user for permission.
+//        getLocationPermission();
         //call for device location
-        getLocationPermission();
-        getDeviceLocation();
+        if(mMap != null)
+            getDeviceLocation();
 
     }
 
@@ -288,17 +293,17 @@ public class MapsActivity extends FragmentActivity implements
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     mLocationPermissionGranted = true;
+                    updateLocationUI();
                 }
             }
         }
-        updateLocationUI();
     }
 
     /**
      * when map is done loading calls this, call through onmapreadycallback
      */
     public void onMapReady(GoogleMap map) {
-        System.out.println("IN GOOGLE MAP");
+        Log.d(TAG, "onMapReady: call on map ready");
         mMap = map;
         dropMarkers();
         // Prompt the user for permission.
@@ -337,7 +342,7 @@ public class MapsActivity extends FragmentActivity implements
                 mMap.setMyLocationEnabled(false);
                 mMap.getUiSettings().setMyLocationButtonEnabled(false);
                 mLastKnownLocation = null;
-                getLocationPermission();
+                //getLocationPermission();
             }
         } catch (SecurityException e) {
             Log.e("Exception: %s", e.getMessage());
@@ -370,11 +375,19 @@ public class MapsActivity extends FragmentActivity implements
                             Log.d(TAG, "Current location is null. Using defaults.");
                             Log.e(TAG, "Exception: %s", task.getException());
                             mMap.moveCamera(CameraUpdateFactory
-                                    .newLatLngZoom(mDefaultLocation, DEFAULT_ZOOM));
+                                    .newLatLngZoom(mDefaultLocation, 16));
                             mMap.getUiSettings().setMyLocationButtonEnabled(false);
+                            sortDetails();
                         }
                     }
                 });
+            }
+            else {
+                Log.d(TAG, "Current location is null. Using defaults.");
+                mMap.moveCamera(CameraUpdateFactory
+                        .newLatLngZoom(mDefaultLocation, DEFAULT_ZOOM));
+                mMap.getUiSettings().setMyLocationButtonEnabled(false);
+                sortDetails();
             }
         } catch (SecurityException e) {
             Log.e("Exception: %s", e.getMessage());
@@ -448,21 +461,22 @@ public class MapsActivity extends FragmentActivity implements
             Location currLocation = new Location("");
             currLocation.setLatitude(mLastKnownLocation.getLatitude());
             currLocation.setLongitude(mLastKnownLocation.getLongitude());
+            Location location;
 
             for (Kindergarten k : kindergartenArrayList) {
-                Location location = new Location("");
+                location = new Location("");
                 location.setLatitude(k.getLatitude());
                 location.setLongitude(k.getLongtitude());
                 k.setDistance(currLocation.distanceTo(location));
             }
 
             Collections.sort(kindergartenArrayList);
+            kindergartenAdapter.setKindergartens(kindergartenArrayList);
+            kindergartenAdapter.notifyDataSetChanged();
 
-            if (kindergartenAdapter != null) {
-                kindergartenAdapter.setKindergartens(kindergartenArrayList);
-                kindergartenAdapter.notifyDataSetChanged();
-            }
         }
+        scrollView.setVisibility(View.VISIBLE);
+
     }
 
 }
