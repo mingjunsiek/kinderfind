@@ -9,9 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.kinderfind.R;
-import com.example.kinderfind.models.KindergartenServices;
+import com.example.kinderfind.entities.KindergartenServices;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class KindergartenServicesAdapter extends RecyclerView.Adapter<KindergartenServicesAdapter.KindergartenServiceHolder> {

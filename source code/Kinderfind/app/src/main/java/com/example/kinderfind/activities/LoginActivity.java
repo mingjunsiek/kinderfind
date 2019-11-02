@@ -1,12 +1,15 @@
 package com.example.kinderfind.activities;
 
 import com.example.kinderfind.adapters.LocalStorage;
-import com.example.kinderfind.controller.DbController;
+import com.example.kinderfind.model.DbController;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -22,12 +25,14 @@ import android.widget.Toast;
 import androidx.appcompat.app.ActionBar;
 
 import com.example.kinderfind.R;
-import com.example.kinderfind.utils.InternetConnection;
+import com.example.kinderfind.utils.InternetReceiver;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import static android.net.ConnectivityManager.CONNECTIVITY_ACTION;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -36,6 +41,8 @@ public class LoginActivity extends AppCompatActivity {
     private EditText emailTb, passwordTb;
     private ProgressBar progressBar;
     private FirebaseAuth auth;
+    private InternetReceiver internetReceiver;
+    private IntentFilter intentFilter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +59,16 @@ public class LoginActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
+        // Register InternetReceiver
+        ConnectivityManager cm =
+                (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+        intentFilter = new IntentFilter();
+        intentFilter.addAction(CONNECTIVITY_ACTION);
+        internetReceiver = new InternetReceiver(cm);
+
+        if(!internetReceiver.checkForInternet())
+            Toast.makeText(this, R.string.no_internet, Toast.LENGTH_LONG).show();
+
         loginBtn = findViewById(R.id.loginBtn);
         emailTb = findViewById(R.id.loginEmailTxt);
         passwordTb = findViewById(R.id.loginPassTxt);
@@ -66,7 +83,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String email = emailTb.getText().toString();
                 final String password = passwordTb.getText().toString();
-                hideSoftKeyboard(LoginActivity.this);
+                //hideSoftKeyboard(LoginActivity.this);
 
                 if (TextUtils.isEmpty(email)) {
                     Toast.makeText(getApplicationContext(), getString(R.string.no_email), Toast.LENGTH_SHORT).show();
@@ -84,7 +101,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
                 setProgressBar();
-                if(InternetConnection.checkConnection(getApplicationContext())){
+                if(internetReceiver.checkForInternet()){
                     //authenticate user
                     auth.signInWithEmailAndPassword(email, password)
                             .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
@@ -103,12 +120,10 @@ public class LoginActivity extends AppCompatActivity {
                             });
 
                 }
-                else{
-                    Toast.makeText(getApplicationContext(), "There is no internet connection, please enable them", Toast.LENGTH_SHORT).show();
+                else {
+                    hideProgressBar();
+                    Toast.makeText(LoginActivity.this, R.string.no_internet, Toast.LENGTH_LONG).show();
                 }
-
-
-
             }
         });
 
@@ -134,55 +149,67 @@ public class LoginActivity extends AppCompatActivity {
 
     public void onStart() {
         super.onStart();
-//        if(!InternetConnection.checkConnection(getApplicationContext())){
-//            //there are no internet connection
-//            Log.d(TAG, "onStart: NO INTERNET");
-//            Toast.makeText(getApplicationContext(), "There is no internet connection, please enable them", Toast.LENGTH_SHORT).show();
-//        }
-//        else{
-//            Log.d(TAG, "onStart: DO HAVE INTERNET");
-//            LocalStorage localStorage = new LocalStorage(getApplicationContext());
-//            if(localStorage.getFromSharedPreferences().size() == 0 || localStorage.getFromSharedPreferences() == null){
-//                //if no data load data
-//                setProgressBar();
-//                Log.d("LOGIN", "THERE ARE NO DATA");
-//                DbController dbController = new DbController();
-//                dbController.readDataFromKindergarten(getApplicationContext(), new DbController.FirebaseSuccessListener() {
-//
-//                    @Override
-//                    public void onKindergartenDataCompleted(boolean isDataCompleted) {
-//
-//                        // Check if user is signed in (non-null) and update UI accordingly.
-//                        FirebaseUser user = auth.getCurrentUser();
-//                        if(user!=null){
-//                            hideProgressBar();
-//                            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-//                            Intent intent = new Intent(LoginActivity.this, MapsActivity.class);
-//                            startActivity(intent);
-//                            finish();
-//                        }
-//                    }
-//                });
-//
-//            }
-//            else{
-//                // data is already loaded
-//                // Check if user is signed in
-//
-//                Log.d("LOGIN", "DATA ALREADY EXIST");
-//                FirebaseUser user = auth.getCurrentUser();
-//                if(user!=null){
-//                    Log.d("LOGIN", "DATA ALREADY EXIST AND THERE IS USER");
-//                    hideProgressBar();
-//                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-//                    Intent intent = new Intent(LoginActivity.this, MapsActivity.class);
-//                    startActivity(intent);
-//                    finish();
-//                }
-//            }
-//
-//        }
+        if(!internetReceiver.checkForInternet()) {
+            //there are no internet connection
+            Log.d(TAG, "onStart: NO INTERNET");
+            Toast.makeText(LoginActivity.this, R.string.no_internet, Toast.LENGTH_LONG).show();
+        }
+        else{
+            Log.d(TAG, "onStart: DO HAVE INTERNET");
+            LocalStorage localStorage = new LocalStorage(getApplicationContext());
+            if(localStorage.getFromSharedPreferences().size() == 0 || localStorage.getFromSharedPreferences() == null){
+                //if no data load data
+                setProgressBar();
+                Log.d("LOGIN", "THERE ARE NO DATA");
+                DbController dbController = new DbController();
+                dbController.readDataFromKindergarten(getApplicationContext(), new DbController.FirebaseSuccessListener() {
 
+                    @Override
+                    public void onKindergartenDataCompleted(boolean isDataCompleted) {
+
+                        // Check if user is signed in (non-null) and update UI accordingly.
+                        FirebaseUser user = auth.getCurrentUser();
+                        if(user!=null){
+                            hideProgressBar();
+                            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                            Intent intent = new Intent(LoginActivity.this, MapsActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                    }
+                });
+
+            }
+            else{
+                // data is already loaded
+                // Check if user is signed in
+
+                Log.d("LOGIN", "DATA ALREADY EXIST");
+                FirebaseUser user = auth.getCurrentUser();
+                if(user!=null){
+                    Log.d("LOGIN", "DATA ALREADY EXIST AND THERE IS USER");
+                    hideProgressBar();
+                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                    Intent intent = new Intent(LoginActivity.this, MapsActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+
+        }
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerReceiver(internetReceiver, intentFilter);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(internetReceiver);
     }
 
     public static void hideSoftKeyboard(Activity activity) {

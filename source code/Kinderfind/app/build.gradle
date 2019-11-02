@@ -58,6 +58,8 @@ dependencies {
     //PrettyTime for date/time
     implementation 'org.ocpsoft.prettytime:prettytime:4.0.1.Final'
 
+    implementation 'com.google.firebase:firebase-dynamic-links:19.0.0'
+
 }
 
 apply plugin: 'com.google.gms.google-services'

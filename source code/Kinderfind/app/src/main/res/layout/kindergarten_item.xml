@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:padding="8dp">
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
@@ -26,11 +26,28 @@
             android:ellipsize="end"
             android:textStyle="bold"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
         <TextView
             android:id="@+id/kindergarten_add_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Kindergarten Address"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="@color/black"/>
+        <TextView
+            android:id="@+id/kindergarten_contact_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phone Number"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="@color/black"/>
+        <TextView
+            android:id="@+id/kindergarten_email_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Email"
             android:maxLines="1"
             android:ellipsize="end"
             android:textColor="@color/black"/>

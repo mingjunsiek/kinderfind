@@ -2,33 +2,41 @@ package com.example.kinderfind.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.kinderfind.R;
-import com.example.kinderfind.controller.RatingReviewController;
-import com.example.kinderfind.models.RatingReview;
+import com.example.kinderfind.model.RatingReviewController;
+import com.example.kinderfind.entities.RatingReview;
+import com.example.kinderfind.utils.InternetReceiver;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ServerValue;
 
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import me.zhanghai.android.materialratingbar.MaterialRatingBar;
+
+import static android.net.ConnectivityManager.CONNECTIVITY_ACTION;
 
 public class RatingReviewActivity extends AppCompatActivity {
     public static String centre_code;
     private MaterialRatingBar cleanlinessRatingBar, manpowerRatingBar, curriculumRatingBar, amenitiesRatingBar;
     private EditText reviewEditText;
     private Button submitButton;
+    private ProgressBar progressBar;
     private FirebaseAuth auth;
     private boolean ratingReviewExist = false;
+    private InternetReceiver internetReceiver;
+    private IntentFilter intentFilter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +48,7 @@ public class RatingReviewActivity extends AppCompatActivity {
         manpowerRatingBar = findViewById(R.id.rating_manpower);
         curriculumRatingBar = findViewById(R.id.rating_curriculum);
         amenitiesRatingBar = findViewById(R.id.rating_amenities);
+        progressBar = findViewById(R.id.rating_review_progress_bar);
 
         cleanlinessRatingBar.setMax(5);
         manpowerRatingBar.setMax(5);
@@ -49,10 +58,20 @@ public class RatingReviewActivity extends AppCompatActivity {
         reviewEditText = findViewById(R.id.review_edit_text);
         submitButton = findViewById(R.id.rating_submit);
 
+        // Register InternetReceiver
+        ConnectivityManager cm =
+                (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+        intentFilter = new IntentFilter();
+        intentFilter.addAction(CONNECTIVITY_ACTION);
+        internetReceiver = new InternetReceiver(cm);
+
+        if(!internetReceiver.checkForInternet())
+            Toast.makeText(this, R.string.no_internet, Toast.LENGTH_LONG).show();
+
         submitButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-
+                progressBar.setVisibility(View.VISIBLE);
                 RatingReview ratingReview = new RatingReview();
                 ratingReview.setAmenities_rating(amenitiesRatingBar.getRating());
                 ratingReview.setCleanliness_rating(cleanlinessRatingBar.getRating());
@@ -78,6 +97,7 @@ public class RatingReviewActivity extends AppCompatActivity {
                         @Override
                         public void DataIsInserted() {
                             Toast.makeText(RatingReviewActivity.this, "Ratings & Review has been inserted successfully", Toast.LENGTH_SHORT).show();
+                            progressBar.setVisibility(View.GONE);
                             finish();
                             return;
                         }
@@ -100,6 +120,7 @@ public class RatingReviewActivity extends AppCompatActivity {
                         @Override
                         public void DataIsUpdated() {
                             Toast.makeText(RatingReviewActivity.this, "Ratings & Review has been updated successfully", Toast.LENGTH_SHORT).show();
+                            progressBar.setVisibility(View.GONE);
                             finish();
                             return;
                         }
@@ -138,5 +159,17 @@ public class RatingReviewActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerReceiver(internetReceiver, intentFilter);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(internetReceiver);
     }
 }

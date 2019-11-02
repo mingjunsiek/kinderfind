@@ -3,7 +3,7 @@
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_login">Login</string>
     <string name="email_tb">Email</string>
-
+    <string name="no_internet">No internet is available, please check your connection before proceeding</string>
     <!-- REGISTER -->
     <string name="action_sign_in_short">Register</string>
     <string name="email">Email: </string>

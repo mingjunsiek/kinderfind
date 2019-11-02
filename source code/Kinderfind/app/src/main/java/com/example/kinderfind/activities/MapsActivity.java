@@ -1,11 +1,15 @@
 package com.example.kinderfind.activities;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
+import android.net.ConnectivityManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,12 +17,14 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.arlib.floatingsearchview.FloatingSearchView;
 import com.example.kinderfind.R;
 import com.example.kinderfind.adapters.KindergartenAdapter;
 import com.example.kinderfind.adapters.LocalStorage;
-import com.example.kinderfind.models.Kindergarten;
+import com.example.kinderfind.entities.Kindergarten;
+import com.example.kinderfind.utils.InternetReceiver;
 import com.example.kinderfind.utils.UnitConversionUtil;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -34,7 +40,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.firebase.auth.FirebaseAuth;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -46,6 +51,8 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import static android.net.ConnectivityManager.CONNECTIVITY_ACTION;
 
 public class MapsActivity extends FragmentActivity implements
         OnMapReadyCallback,
@@ -83,16 +90,23 @@ public class MapsActivity extends FragmentActivity implements
     private BottomSheetBehavior bottomSheetBehavior;
     private TextView title;
 
+    private InternetReceiver internetReceiver;
+    private IntentFilter intentFilter;
+    private Uri data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-
         //declaration of variable
         ImageButton profileBtn = findViewById(R.id.mainProfileBtn);
         localStorage = new LocalStorage(getApplicationContext());
         pSearchView = findViewById(R.id.floating_search_view);
+
+        //User share
+        Intent intent = getIntent();
+        String action = intent.getAction();
+        data = intent.getData();
 
         //Scroll View
         View scrollView = findViewById(R.id.kindergarten_sv);
@@ -105,6 +119,16 @@ public class MapsActivity extends FragmentActivity implements
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
+
+        // Register InternetReceiver
+        ConnectivityManager cm =
+                (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+        intentFilter = new IntentFilter();
+        intentFilter.addAction(CONNECTIVITY_ACTION);
+        internetReceiver = new InternetReceiver(cm);
+
+        if(!internetReceiver.checkForInternet())
+            Toast.makeText(this, R.string.no_internet, Toast.LENGTH_LONG).show();
 
         //------start calling functions--------
 
@@ -126,8 +150,6 @@ public class MapsActivity extends FragmentActivity implements
         //recyclerview
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
-        //kindergartenAdapter = new KindergartenAdapter(kindergartenArrayList, this);
-        //recyclerView.setAdapter(kindergartenAdapter);
 
         //googlemap
         if (savedInstanceState != null) {
@@ -168,24 +190,26 @@ public class MapsActivity extends FragmentActivity implements
                 } else {
 
                     bottomSheetBehavior.setPeekHeight(UnitConversionUtil.convertDpToPx(260));
-
                     title.setText("Kindergartens Nearby");
                 }
             }
         });
     }
 
-    /**
-     * called whenever user returns back to page
-     */
     @Override
     public void onResume(){
         super.onResume();
-
+        registerReceiver(internetReceiver, intentFilter);
         //call for device location
         getLocationPermission();
         getDeviceLocation();
 
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(internetReceiver);
     }
 
     public void startAsyncTask(){
@@ -231,11 +255,11 @@ public class MapsActivity extends FragmentActivity implements
             activity.kindergartenArrayList = activity.localStorage.getFromSharedPreferences();
             activity.kindergartenAdapter = new KindergartenAdapter(activity.kindergartenArrayList, activity);
             activity.recyclerView.setAdapter(activity.kindergartenAdapter);
+
         }
     }
 
     private void getLocationPermission() {
-
         /*
          * Request location permission, so that we can get the location of the
          * device. The result of the permission request is handled by a callback,
@@ -285,6 +309,16 @@ public class MapsActivity extends FragmentActivity implements
         updateLocationUI();
         // Set a listener for marker click.
         mMap.setOnMarkerClickListener((GoogleMap.OnMarkerClickListener) this);
+        if (data != null && data.getPathSegments() != null)
+        {
+            for (Kindergarten d : kindergartenArrayList)
+            {
+                if (d.getPlaceId().equals(data.getPathSegments().get(0))) {
+                    InformationActivity.kindergarten = d;
+                    startActivity(new Intent(MapsActivity.this, InformationActivity.class));
+                }
+            }
+        }
     }
 
     /**
@@ -359,6 +393,8 @@ public class MapsActivity extends FragmentActivity implements
         if (centreName != null) {
             pSearchView.setSearchText(centreName);
             kindergartenAdapter.getFilter().filter(centreName);
+            title.setText("Kindergartens Nearby");
+            bottomSheetBehavior.setPeekHeight(UnitConversionUtil.convertDpToPx(260));
         }
 
         // Return false to indicate that we have not consumed the event and that we wish

@@ -5,7 +5,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,6 +25,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.kinderfind.R;
+import com.example.kinderfind.utils.InternetReceiver;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -33,6 +37,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import static android.net.ConnectivityManager.CONNECTIVITY_ACTION;
+
 public class UserProfileActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
@@ -43,11 +49,23 @@ public class UserProfileActivity extends AppCompatActivity {
     private Uri imageUri;
     private FirebaseUser user;
     private StorageReference mStorageRef;
+    private InternetReceiver internetReceiver;
+    private IntentFilter intentFilter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
+
+        // Register InternetReceiver
+        ConnectivityManager cm =
+                (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+        intentFilter = new IntentFilter();
+        intentFilter.addAction(CONNECTIVITY_ACTION);
+        internetReceiver = new InternetReceiver(cm);
+
+        if(!internetReceiver.checkForInternet())
+            Toast.makeText(this, R.string.no_internet, Toast.LENGTH_LONG).show();
 
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
@@ -103,6 +121,18 @@ public class UserProfileActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerReceiver(internetReceiver, intentFilter);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(internetReceiver);
     }
 
     @Override

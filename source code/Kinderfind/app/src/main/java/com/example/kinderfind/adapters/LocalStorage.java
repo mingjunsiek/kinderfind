@@ -11,7 +11,7 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-import com.example.kinderfind.models.Kindergarten;
+import com.example.kinderfind.entities.Kindergarten;
 
 public class LocalStorage {
 

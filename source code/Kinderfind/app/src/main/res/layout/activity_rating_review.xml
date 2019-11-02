@@ -120,6 +120,13 @@
             android:textSize="16sp"
             android:layout_below="@id/loginBtn"
             android:layout_alignParentBottom="true"/>
+        <ProgressBar
+            android:id="@+id/rating_review_progress_bar"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center"/>
 
     </LinearLayout>
 </RelativeLayout>

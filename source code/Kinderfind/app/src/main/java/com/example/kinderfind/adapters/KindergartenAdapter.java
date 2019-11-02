@@ -2,7 +2,6 @@ package com.example.kinderfind.adapters;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,12 +12,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.kinderfind.R;
 import com.example.kinderfind.activities.InformationActivity;
-import com.example.kinderfind.models.Kindergarten;
+import com.example.kinderfind.entities.Kindergarten;
 import java.util.ArrayList;
-import java.util.Collections;
 
 import android.widget.Filter;
 import android.widget.Filterable;
+
+import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 
 public class KindergartenAdapter extends RecyclerView.Adapter <KindergartenAdapter.KindergartenHolder> implements Filterable {
 
@@ -47,7 +47,12 @@ public class KindergartenAdapter extends RecyclerView.Adapter <KindergartenAdapt
         Kindergarten currentKindergarten = filteredArrayList.get(position);
         holder.textViewName.setText(currentKindergarten.getCentre_name());
         holder.textViewAdd.setText((currentKindergarten.getCenter_address()));
+        holder.textViewContact.setText((currentKindergarten.getCentre_contact_no()));
         holder.textViewDist.setText(String.format("%.1fkm", currentKindergarten.getDistance() / 1000));
+        if(currentKindergarten.getCentre_email_address().equals("na"))
+            holder.textViewEmail.setText("No Email Information");
+        else
+            holder.textViewEmail.setText((currentKindergarten.getCentre_email_address()));
 
     }
 
@@ -71,9 +76,7 @@ public class KindergartenAdapter extends RecyclerView.Adapter <KindergartenAdapt
     }
 
     class KindergartenHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private TextView textViewName;
-        private TextView textViewAdd;
-        private TextView textViewDist;
+        private TextView textViewName, textViewAdd, textViewDist, textViewContact, textViewEmail;
 
         public KindergartenHolder(@NonNull View itemView) {
             super(itemView);
@@ -81,6 +84,8 @@ public class KindergartenAdapter extends RecyclerView.Adapter <KindergartenAdapt
             textViewName = itemView.findViewById(R.id.kindergarten_name_tv);
             textViewAdd = itemView.findViewById(R.id.kindergarten_add_tv);
             textViewDist = itemView.findViewById(R.id.kindergarten_dist_tv);
+            textViewContact = itemView.findViewById(R.id.kindergarten_contact_tv);
+            textViewEmail = itemView.findViewById(R.id.kindergarten_email_tv);
             itemView.setOnClickListener(this);
         }
         @Override
