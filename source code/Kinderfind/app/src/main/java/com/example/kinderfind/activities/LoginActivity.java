@@ -149,57 +149,6 @@ public class LoginActivity extends AppCompatActivity {
 
     public void onStart() {
         super.onStart();
-        if(!internetReceiver.checkForInternet()) {
-            //there are no internet connection
-            Log.d(TAG, "onStart: NO INTERNET");
-            Toast.makeText(LoginActivity.this, R.string.no_internet, Toast.LENGTH_LONG).show();
-        }
-        else{
-            Log.d(TAG, "onStart: DO HAVE INTERNET");
-            LocalStorage localStorage = new LocalStorage(getApplicationContext());
-            if(localStorage.getFromSharedPreferences() == null || localStorage.getFromSharedPreferences().size() == 0){
-                //if no data load data
-                setProgressBar();
-                Log.d("LOGIN", "THERE ARE NO DATA");
-                DbController dbController = new DbController();
-                dbController.readDataFromKindergarten(getApplicationContext(), new DbController.FirebaseSuccessListener() {
-
-                    @Override
-                    public void onKindergartenDataCompleted(boolean isDataCompleted) {
-
-                        // Check if user is signed in (non-null) and update UI accordingly.
-                        FirebaseUser user = auth.getCurrentUser();
-                        if(user!=null){
-                            hideProgressBar();
-                            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                            Intent intent = new Intent(LoginActivity.this, MapsActivity.class);
-                            startActivity(intent);
-                            finish();
-                        }
-                        else
-                            hideProgressBar();
-                    }
-                });
-
-            }
-            else{
-                // data is already loaded
-                // Check if user is signed in
-
-                Log.d("LOGIN", "DATA ALREADY EXIST");
-                FirebaseUser user = auth.getCurrentUser();
-                if(user!=null){
-                    Log.d("LOGIN", "DATA ALREADY EXIST AND THERE IS USER");
-                    hideProgressBar();
-                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                    Intent intent = new Intent(LoginActivity.this, MapsActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
-            }
-
-        }
-
     }
 
     @Override
