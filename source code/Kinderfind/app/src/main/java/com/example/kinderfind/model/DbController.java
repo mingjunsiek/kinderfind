@@ -3,7 +3,7 @@ package com.example.kinderfind.model;
 import android.content.Context;
 import android.util.Log;
 
-import com.example.kinderfind.adapters.LocalStorage;
+import com.example.kinderfind.utils.LocalStorage;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

@@ -22,7 +22,7 @@ import android.widget.Toast;
 import com.arlib.floatingsearchview.FloatingSearchView;
 import com.example.kinderfind.R;
 import com.example.kinderfind.adapters.KindergartenAdapter;
-import com.example.kinderfind.adapters.LocalStorage;
+import com.example.kinderfind.utils.LocalStorage;
 import com.example.kinderfind.entities.Kindergarten;
 import com.example.kinderfind.utils.InternetReceiver;
 import com.example.kinderfind.utils.UnitConversionUtil;
@@ -120,7 +120,6 @@ public class MapsActivity extends FragmentActivity implements
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
-
 
         // Register InternetReceiver
         ConnectivityManager cm =

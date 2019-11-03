@@ -90,7 +90,9 @@ public class RegisterActivity extends AppCompatActivity {
         btnChooseImage.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                openFileChooser();
+                Intent intent = new Intent(RegisterActivity.this, MapsActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -160,7 +162,7 @@ public class RegisterActivity extends AppCompatActivity {
                                                 progressBar.setVisibility(View.GONE);
                                                 Log.d(TAG, "User profile updated.");
                                                 sendVerification(user);
-                                                startActivity(new Intent(RegisterActivity.this, MapsActivity.class));
+                                                startActivity(new Intent(RegisterActivity.this, TutorialActivity.class));
                                                 finish();
                                                 }
                                             });

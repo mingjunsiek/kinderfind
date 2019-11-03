@@ -1,4 +1,4 @@
-package com.example.kinderfind.adapters;
+package com.example.kinderfind.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;

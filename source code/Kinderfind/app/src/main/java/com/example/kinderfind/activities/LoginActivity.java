@@ -1,6 +1,6 @@
 package com.example.kinderfind.activities;
 
-import com.example.kinderfind.adapters.LocalStorage;
+import com.example.kinderfind.utils.LocalStorage;
 import com.example.kinderfind.model.DbController;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;

@@ -1,6 +1,5 @@
 package com.example.kinderfind.activities;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -9,10 +8,8 @@ import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 
-import com.example.kinderfind.R;
-import com.example.kinderfind.adapters.LocalStorage;
+import com.example.kinderfind.utils.LocalStorage;
 import com.example.kinderfind.model.DbController;
 import com.example.kinderfind.utils.InternetReceiver;
 import com.google.firebase.auth.FirebaseAuth;
@@ -43,7 +40,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
 
-        if(!internetReceiver.checkForInternet()) {
+        if(internetReceiver.checkForInternet()) {
             LocalStorage localStorage = new LocalStorage(getApplicationContext());
             if (localStorage.getFromSharedPreferences() == null || localStorage.getFromSharedPreferences().size() == 0) {
                 //if no data load data
