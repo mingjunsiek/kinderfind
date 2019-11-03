@@ -43,7 +43,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
 
-        if(!internetReceiver.checkForInternet()) {
+        if(internetReceiver.checkForInternet()) {
             LocalStorage localStorage = new LocalStorage(getApplicationContext());
             if (localStorage.getFromSharedPreferences() == null || localStorage.getFromSharedPreferences().size() == 0) {
                 //if no data load data
