@@ -90,9 +90,7 @@ public class RegisterActivity extends AppCompatActivity {
         btnChooseImage.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Intent intent = new Intent(RegisterActivity.this, MapsActivity.class);
-                startActivity(intent);
-                finish();
+                openFileChooser();
             }
         });
 
@@ -141,7 +139,7 @@ public class RegisterActivity extends AppCompatActivity {
                         .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                Toast.makeText(RegisterActivity.this, "createUserWithEmail:onComplete:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(RegisterActivity.this, "Account has been successfully created", Toast.LENGTH_SHORT).show();
                                 if (!task.isSuccessful()) {
                                     progressBar.setVisibility(View.GONE);
                                     Log.w(TAG, "createUserWithEmail:failure", task.getException());
