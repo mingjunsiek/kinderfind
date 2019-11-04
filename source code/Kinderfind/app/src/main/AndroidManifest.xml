@@ -15,10 +15,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".interfaces.TutorialActivity"
+        <activity android:name=".activity.TutorialActivity"
             android:label="@string/title_activity_tutorial"></activity>
         <activity
-            android:name=".interfaces.SplashScreenActivity"
+            android:name=".activity.SplashScreenActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,43 +27,43 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".interfaces.PasswordActivity"
-            android:parentActivityName=".interfaces.UserProfileActivity">
+            android:name=".activity.PasswordActivity"
+            android:parentActivityName=".activity.UserProfileActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".interfaces.UserProfileActivity" />
+                android:value=".activity.UserProfileActivity" />
         </activity>
         <activity
-            android:name=".interfaces.RatingReviewActivity"
-            android:parentActivityName=".interfaces.InformationActivity">
+            android:name=".activity.RatingReviewActivity"
+            android:parentActivityName=".activity.InformationActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".interfaces.InformationActivity" />
+                android:value=".activity.InformationActivity" />
         </activity>
         <activity
-            android:name=".interfaces.InformationActivity"
-            android:parentActivityName=".interfaces.MapsActivity">
+            android:name=".activity.InformationActivity"
+            android:parentActivityName=".activity.MapsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".interfaces.MapsActivity" />
+                android:value=".activity.MapsActivity" />
         </activity>
         <activity
-            android:name=".interfaces.UserProfileActivity"
-            android:parentActivityName=".interfaces.MapsActivity">
+            android:name=".activity.UserProfileActivity"
+            android:parentActivityName=".activity.MapsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".interfaces.MapsActivity" />
+                android:value=".activity.MapsActivity" />
         </activity>
         <activity
-            android:name=".interfaces.RegisterActivity"
+            android:name=".activity.RegisterActivity"
             android:label="Registration"
-            android:parentActivityName=".interfaces.LoginActivity">
+            android:parentActivityName=".activity.LoginActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".interfaces.LoginActivity" />
+                android:value=".activity.LoginActivity" />
         </activity>
         <activity
-            android:name=".interfaces.LoginActivity"
+            android:name=".activity.LoginActivity"
             android:label="@string/title_activity_login"
             android:windowSoftInputMode="adjustResize" />
         <!--
@@ -75,7 +75,7 @@
              You can define the keys for the debug and release targets in src/debug/ and src/release/.
         -->
         <activity
-            android:name=".interfaces.MapsActivity"
+            android:name=".activity.MapsActivity"
             android:label="@string/title_activity_maps">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
