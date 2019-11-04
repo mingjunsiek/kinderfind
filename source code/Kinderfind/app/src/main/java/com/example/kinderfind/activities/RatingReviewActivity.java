@@ -13,7 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.kinderfind.R;
-import com.example.kinderfind.model.RatingReviewController;
+import com.example.kinderfind.model.ratingReviewModel;
 import com.example.kinderfind.entities.RatingReview;
 import com.example.kinderfind.utils.InternetReceiver;
 import com.google.firebase.auth.FirebaseAuth;
@@ -87,10 +87,10 @@ public class RatingReviewActivity extends AppCompatActivity {
                 if(amenitiesRatingBar.getRating() == 0 || cleanlinessRatingBar.getRating() == 0
                         || curriculumRatingBar.getRating() == 0 || manpowerRatingBar.getRating() == 0)
                     Toast.makeText(RatingReviewActivity.this, "Please fill up all ratings", Toast.LENGTH_SHORT).show();
-                else if(reviewEditText.getText().toString().trim() == "")
+                else if(reviewEditText.getText().toString().trim().isEmpty())
                     Toast.makeText(RatingReviewActivity.this, "Please fill up review", Toast.LENGTH_SHORT).show();
                 else if(!ratingReviewExist) {
-                    new RatingReviewController(centre_code).addRatingReview(ratingReview, user.getUid() ,new RatingReviewController.DataStatus() {
+                    new ratingReviewModel(centre_code).addRatingReview(ratingReview, user.getUid() ,new ratingReviewModel.DataStatus() {
                         @Override
                         public void DataIsLoaded(RatingReview ratingReviews, List<String> keys) {}
 
@@ -110,7 +110,7 @@ public class RatingReviewActivity extends AppCompatActivity {
                     });
                 }
                 else{
-                    new RatingReviewController(centre_code).updateRatingReview(ratingReview, user.getUid(), new RatingReviewController.DataStatus() {
+                    new ratingReviewModel(centre_code).updateRatingReview(ratingReview, user.getUid(), new ratingReviewModel.DataStatus() {
                         @Override
                         public void DataIsLoaded(RatingReview ratingReviews, List<String> keys) {}
 
@@ -132,7 +132,7 @@ public class RatingReviewActivity extends AppCompatActivity {
             }
         });
 
-        new RatingReviewController(centre_code).readRatingReview(user.getUid(), new RatingReviewController.DataStatus() {
+        new ratingReviewModel(centre_code).readRatingReview(user.getUid(), new ratingReviewModel.DataStatus() {
             @Override
             public void DataIsLoaded(RatingReview ratingReviews, List<String> keys) {
                 if(ratingReviews != null) {

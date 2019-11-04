@@ -13,7 +13,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RatingReviewController {
+public class ratingReviewModel {
     private List<RatingReview> RatingReviewService = new ArrayList<>();
     private RatingReview ratingReview;
     private FirebaseDatabase mDatabase;
@@ -30,7 +30,7 @@ public class RatingReviewController {
         void DataIsDeleted();
     }
 
-    public RatingReviewController(String center_code){
+    public ratingReviewModel(String center_code){
         mDatabase = FirebaseDatabase.getInstance();
         mReferenceRatingReview = mDatabase.getReference("rating_review").child(center_code);
     }

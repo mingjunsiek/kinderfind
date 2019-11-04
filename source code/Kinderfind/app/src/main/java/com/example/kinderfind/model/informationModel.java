@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class InformationController {
+public class informationModel {
 
     private List<KindergartenServices> kindergartenServices = new ArrayList<>();
     private List<RatingReview> ratingReviewsList = new ArrayList<>();
@@ -35,7 +35,7 @@ public class InformationController {
 //        void DataIsUpdated();
     }
 
-    public InformationController(String center_code){
+    public informationModel(String center_code){
         //mReferenceKindergarten = FirebaseDatabase.getInstance().getReference();
         mDatabase = FirebaseDatabase.getInstance();
         mReferenceKindergarten = mDatabase.getReference("kindergarten_services").child(center_code);
