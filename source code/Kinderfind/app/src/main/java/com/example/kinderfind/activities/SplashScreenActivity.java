@@ -10,7 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.example.kinderfind.utils.LocalStorage;
-import com.example.kinderfind.model.DbController;
+import com.example.kinderfind.model.kindergartenModel;
 import com.example.kinderfind.utils.InternetReceiver;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -46,8 +46,8 @@ public class SplashScreenActivity extends AppCompatActivity {
                 //if no data load data
 
                 Log.d("splashscreen", "THERE ARE NO DATA");
-                DbController dbController = new DbController();
-                dbController.readDataFromKindergarten(getApplicationContext(), new DbController.FirebaseSuccessListener() {
+                kindergartenModel kindergartenModel = new kindergartenModel();
+                kindergartenModel.readDataFromKindergarten(getApplicationContext(), new kindergartenModel.FirebaseSuccessListener() {
 
                     @Override
                     public void onKindergartenDataCompleted(boolean isDataCompleted) {

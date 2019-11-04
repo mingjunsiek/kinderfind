@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 import com.example.kinderfind.entities.Kindergarten;
 
-public class DbController {
+public class kindergartenModel {
 
     private DatabaseReference dbRef;
     private FirebaseDatabase database;
@@ -26,7 +26,7 @@ public class DbController {
         void onKindergartenDataCompleted(boolean isDataCompleted);
     }
 
-    public DbController(){
+    public kindergartenModel(){
 
         database = FirebaseDatabase.getInstance();
 

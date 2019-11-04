@@ -25,7 +25,7 @@ import android.widget.Toast;
 import com.example.kinderfind.R;
 import com.example.kinderfind.adapters.KindergartenServicesAdapter;
 import com.example.kinderfind.adapters.RatingReviewAdapter;
-import com.example.kinderfind.model.InformationController;
+import com.example.kinderfind.model.informationModel;
 import com.example.kinderfind.entities.Kindergarten;
 import com.example.kinderfind.entities.KindergartenServices;
 import com.example.kinderfind.entities.RatingReview;
@@ -37,7 +37,6 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -52,7 +51,7 @@ public class InformationActivity extends AppCompatActivity implements OnMapReady
     private CardView reviewCardView, ratingCardView;
     private FirebaseAuth auth;
     private FirebaseUser user;
-    private InformationController informationController;
+    private informationModel informationModel;
     private InternetReceiver internetReceiver;
     private IntentFilter intentFilter;
 
@@ -97,9 +96,9 @@ public class InformationActivity extends AppCompatActivity implements OnMapReady
         centerWebsiteTV.setText(kindergarten.getCentre_website());
         centerCertifiedTV.setText(kindergarten.getSpark_certified());
 
-        informationController = new InformationController(kindergarten.getCenter_code());
+        informationModel = new informationModel(kindergarten.getCenter_code());
 
-        informationController.readKindergarten(new InformationController.KindergartenDataStatus() {
+        informationModel.readKindergarten(new informationModel.KindergartenDataStatus() {
             @Override
             public void DataIsLoaded(List<KindergartenServices> kindergartens, List<String> keys) {
                 RecyclerView recyclerView = findViewById(R.id.services_recycler_view);
@@ -112,7 +111,7 @@ public class InformationActivity extends AppCompatActivity implements OnMapReady
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.info_map);
         mapFragment.getMapAsync(this);
 
-        informationController.readRatingReview(new InformationController.RatingReviewDataStatus() {
+        informationModel.readRatingReview(new informationModel.RatingReviewDataStatus() {
             @Override
             public void DataIsLoaded(List<RatingReview> ratingReviews, List<String> keys) {
 
