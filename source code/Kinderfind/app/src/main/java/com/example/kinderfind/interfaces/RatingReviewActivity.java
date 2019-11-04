@@ -1,4 +1,4 @@
-package com.example.kinderfind.activities;
+package com.example.kinderfind.interfaces;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -42,7 +42,7 @@ public class RatingReviewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle("Rate/Review");
-        setContentView(R.layout.activity_rating_review);
+        setContentView(R.layout.rating_review_interface);
         auth = FirebaseAuth.getInstance();
         final FirebaseUser user = auth.getCurrentUser();
         cleanlinessRatingBar = findViewById(R.id.rating_cleanliness);

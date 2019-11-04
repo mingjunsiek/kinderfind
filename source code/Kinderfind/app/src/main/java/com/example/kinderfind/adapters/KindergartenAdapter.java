@@ -12,14 +12,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.kinderfind.R;
-import com.example.kinderfind.activities.InformationActivity;
+import com.example.kinderfind.interfaces.InformationActivity;
 import com.example.kinderfind.entities.Kindergarten;
+
 import java.util.ArrayList;
 
 import android.widget.Filter;
 import android.widget.Filterable;
-
-import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 
 public class KindergartenAdapter extends RecyclerView.Adapter <KindergartenAdapter.KindergartenHolder> implements Filterable {
 

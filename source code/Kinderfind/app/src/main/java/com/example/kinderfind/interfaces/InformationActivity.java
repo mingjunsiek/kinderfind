@@ -1,4 +1,4 @@
-package com.example.kinderfind.activities;
+package com.example.kinderfind.interfaces;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -58,7 +58,7 @@ public class InformationActivity extends AppCompatActivity implements OnMapReady
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_information);
+        setContentView(R.layout.information_interface);
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         System.out.println("CHECK USER: "+user);

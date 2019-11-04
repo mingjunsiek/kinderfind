@@ -1,4 +1,4 @@
-package com.example.kinderfind.activities;
+package com.example.kinderfind.interfaces;
 
 import androidx.appcompat.app.AppCompatActivity;
 

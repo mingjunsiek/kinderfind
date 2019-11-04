@@ -1,4 +1,4 @@
-package com.example.kinderfind.activities;
+package com.example.kinderfind.interfaces;
 
 
 import android.content.Context;
@@ -98,7 +98,7 @@ public class MapsActivity extends FragmentActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maps);
+        setContentView(R.layout.map_interface);
         //declaration of variable
         ImageButton profileBtn = findViewById(R.id.mainProfileBtn);
         localStorage = new LocalStorage(getApplicationContext());

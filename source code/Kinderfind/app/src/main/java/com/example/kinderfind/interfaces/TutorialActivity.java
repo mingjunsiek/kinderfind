@@ -1,4 +1,4 @@
-package com.example.kinderfind.activities;
+package com.example.kinderfind.interfaces;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,7 +7,6 @@ import androidx.viewpager.widget.ViewPager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -15,7 +14,6 @@ import com.example.kinderfind.R;
 import com.example.kinderfind.adapters.TutorialAdapter;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 import me.relex.circleindicator.CircleIndicator;
 
@@ -29,7 +27,7 @@ public class TutorialActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tutorial);
+        setContentView(R.layout.tutorial_interface);
 
         View decorView = getWindow().getDecorView();
         // Hide the status bar.
