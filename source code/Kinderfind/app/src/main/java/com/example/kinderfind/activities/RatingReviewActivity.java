@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -84,11 +85,17 @@ public class RatingReviewActivity extends AppCompatActivity {
                 ratingReview.setUsername(user.getDisplayName());
                 ratingReview.setTimestamp(Calendar.getInstance().getTimeInMillis());
 
+                Log.d("rating and review", "onClick: " + reviewEditText.getText().toString().trim());
+
                 if(amenitiesRatingBar.getRating() == 0 || cleanlinessRatingBar.getRating() == 0
-                        || curriculumRatingBar.getRating() == 0 || manpowerRatingBar.getRating() == 0)
+                        || curriculumRatingBar.getRating() == 0 || manpowerRatingBar.getRating() == 0) {
                     Toast.makeText(RatingReviewActivity.this, "Please fill up all ratings", Toast.LENGTH_SHORT).show();
-                else if(reviewEditText.getText().toString().trim().isEmpty())
+    				progressBar.setVisibility(View.GONE);
+                }
+                else if(reviewEditText.getText().toString().trim().isEmpty()) {
                     Toast.makeText(RatingReviewActivity.this, "Please fill up review", Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.GONE);
+                }
                 else if(!ratingReviewExist) {
                     new ratingReviewModel(centre_code).addRatingReview(ratingReview, user.getUid() ,new ratingReviewModel.DataStatus() {
                         @Override

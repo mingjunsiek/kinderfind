@@ -166,7 +166,7 @@ public class MapsActivity extends FragmentActivity implements
         RelativeLayout.LayoutParams rlp = (RelativeLayout.LayoutParams) locationButton.getLayoutParams();
         rlp.addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE);
         rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, 0);
-        rlp.setMargins(0, 200, 50, 0);
+        rlp.setMargins(0, 300, 50, 0);
 
         //profile button
         profileBtn.setOnClickListener(new View.OnClickListener() {
@@ -184,6 +184,9 @@ public class MapsActivity extends FragmentActivity implements
 
                 kindergartenAdapter.getFilter().filter(newQuery.trim());
 
+                Log.d(TAG, "onSearchTextChanged: " + oldQuery + " " + newQuery);
+                Log.d(TAG, "onSearchTextChanged: "+ kindergartenAdapter.getItemCount());
+
                 if (kindergartenAdapter.getItemCount() == 0) {
                     bottomSheetBehavior.setPeekHeight(UnitConversionUtil.convertDpToPx(100));
 
@@ -193,6 +196,7 @@ public class MapsActivity extends FragmentActivity implements
                     bottomSheetBehavior.setPeekHeight(UnitConversionUtil.convertDpToPx(260));
                     title.setText("Kindergartens Nearby");
                 }
+
             }
         });
     }
