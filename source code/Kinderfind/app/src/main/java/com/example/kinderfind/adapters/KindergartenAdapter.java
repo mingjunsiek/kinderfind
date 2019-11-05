@@ -142,7 +142,6 @@ public class KindergartenAdapter extends RecyclerView.Adapter <KindergartenAdapt
             Log.d("publish results", "onSearchTextChanged: " + filteredArrayList.size());
             notifyDataSetChanged();
         }
-
     }
 
 }
