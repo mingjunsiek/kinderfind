@@ -15,7 +15,7 @@
     <string name="no_username">Please enter a username</string>
     <string name="no_password">Please enter a password</string>
     <string name="no_repassword">Please enter confirmation password</string>
-    <string name="minimum_password">Password too short. Please enter a password length of 8 to 16</string>
+    <string name="minimum_password">Please enter a password length of 8 to 16</string>
     <string name="auth_failed">Authentication failed, check your email and password or sign up</string>
     <string name="change_email">Change Email</string>
     <string name="change_password">Change Password</string>

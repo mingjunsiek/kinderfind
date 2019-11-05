@@ -12,6 +12,7 @@ import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -187,15 +188,23 @@ public class MapsActivity extends FragmentActivity implements
                 Log.d(TAG, "onSearchTextChanged: " + oldQuery + " " + newQuery);
                 Log.d(TAG, "onSearchTextChanged: "+ kindergartenAdapter.getItemCount());
 
-                if (kindergartenAdapter.getItemCount() == 0) {
-                    bottomSheetBehavior.setPeekHeight(UnitConversionUtil.convertDpToPx(100));
+                Handler h = new Handler();
+                h.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (kindergartenAdapter.getItemCount() == 0) {
+                            bottomSheetBehavior.setPeekHeight(UnitConversionUtil.convertDpToPx(100));
 
-                    title.setText("No Results Available");
-                } else {
+                            title.setText("No Results Available");
+                        } else {
 
-                    bottomSheetBehavior.setPeekHeight(UnitConversionUtil.convertDpToPx(260));
-                    title.setText("Kindergartens Nearby");
-                }
+                            bottomSheetBehavior.setPeekHeight(UnitConversionUtil.convertDpToPx(260));
+                            title.setText("Kindergartens Nearby");
+                        }
+                    }
+                },500);
+
+
             }
         });
     }

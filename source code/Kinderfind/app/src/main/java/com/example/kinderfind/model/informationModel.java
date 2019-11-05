@@ -12,6 +12,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 public class informationModel {
@@ -74,6 +76,13 @@ public class informationModel {
                     RatingReview ratingReview = keyNode.getValue(RatingReview.class);
                     ratingReviewsList.add(ratingReview);
                 }
+                Collections.sort(ratingReviewsList, new Comparator<RatingReview>() {
+                    public int compare(RatingReview o1, RatingReview o2) {
+                        if (new Date(o1.getTimestamp()) == null || new Date(o2.getTimestamp()) == null)
+                            return 0;
+                        return new Date(o1.getTimestamp()).compareTo(new Date(o2.getTimestamp()));
+                    }
+                });
                 Collections.reverse(ratingReviewsList);
                 ratingReviewDataStatus.DataIsLoaded(ratingReviewsList, keys);
             }
