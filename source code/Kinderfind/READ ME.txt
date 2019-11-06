@@ -1,0 +1,4 @@
+When opening the source code for the first time, please use Android Studio.
+Once the package has been built, please go to 
+"app/res/values/google_maps_api.xml"
+and insert your own Google Map API key. 
