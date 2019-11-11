@@ -5,7 +5,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
@@ -156,12 +158,24 @@ public class UserProfileActivity extends AppCompatActivity {
                 return true;
 
             case R.id.profile_log_out:
-                FirebaseAuth.getInstance().signOut();
-                intent = new Intent(UserProfileActivity.this, LoginActivity.class);
-                startActivity(intent);
-                finish();
+                new AlertDialog.Builder(this)
+                        .setTitle("Log Out")
+                        .setMessage("Are you sure you want to log out?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                FirebaseAuth.getInstance().signOut();
+                                startActivity(new Intent(UserProfileActivity.this, LoginActivity.class));
+                                finish();
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        })
+                        .show();
                 return true;
-
             default:
                 return super.onOptionsItemSelected(item);
         }

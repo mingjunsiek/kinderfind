@@ -106,6 +106,7 @@ public class LoginActivity extends AppCompatActivity {
                                     hideProgressBar();
                                     if (!task.isSuccessful()) {
                                         Toast.makeText(LoginActivity.this, getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
+                                        return;
                                     } else {
                                         hideProgressBar();
                                         Intent intent = new Intent(LoginActivity.this, MapsActivity.class);
@@ -119,6 +120,7 @@ public class LoginActivity extends AppCompatActivity {
                 else {
                     hideProgressBar();
                     Toast.makeText(LoginActivity.this, R.string.no_internet, Toast.LENGTH_LONG).show();
+                    return;
                 }
             }
         });

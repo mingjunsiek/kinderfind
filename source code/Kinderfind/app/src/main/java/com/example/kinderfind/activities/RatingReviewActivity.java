@@ -2,7 +2,10 @@ package com.example.kinderfind.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
@@ -72,70 +75,87 @@ public class RatingReviewActivity extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                progressBar.setVisibility(View.VISIBLE);
-                RatingReview ratingReview = new RatingReview();
-                ratingReview.setAmenities_rating(amenitiesRatingBar.getRating());
-                ratingReview.setCleanliness_rating(cleanlinessRatingBar.getRating());
-                ratingReview.setCurriculum_rating(curriculumRatingBar.getRating());
-                ratingReview.setManpower_rating(manpowerRatingBar.getRating());
-                ratingReview.setReview(reviewEditText.getText().toString().trim());
-                ratingReview.setTotal_rating((amenitiesRatingBar.getRating() + cleanlinessRatingBar.getRating()
-                        + curriculumRatingBar.getRating() + manpowerRatingBar.getRating())/4);
-                ratingReview.setUser_id(user.getUid());
-                ratingReview.setUsername(user.getDisplayName());
-                ratingReview.setTimestamp(Calendar.getInstance().getTimeInMillis());
 
-                Log.d("rating and review", "onClick: " + reviewEditText.getText().toString().trim());
+                new AlertDialog.Builder(RatingReviewActivity.this)
+                        .setTitle("Submit Rating & Review")
+                        .setMessage("Are you sure you want to submit?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                progressBar.setVisibility(View.VISIBLE);
+                                RatingReview ratingReview = new RatingReview();
+                                ratingReview.setAmenities_rating(amenitiesRatingBar.getRating());
+                                ratingReview.setCleanliness_rating(cleanlinessRatingBar.getRating());
+                                ratingReview.setCurriculum_rating(curriculumRatingBar.getRating());
+                                ratingReview.setManpower_rating(manpowerRatingBar.getRating());
+                                ratingReview.setReview(reviewEditText.getText().toString().trim());
+                                ratingReview.setTotal_rating((amenitiesRatingBar.getRating() + cleanlinessRatingBar.getRating()
+                                        + curriculumRatingBar.getRating() + manpowerRatingBar.getRating())/4);
+                                ratingReview.setUser_id(user.getUid());
+                                ratingReview.setUsername(user.getDisplayName());
+                                ratingReview.setTimestamp(Calendar.getInstance().getTimeInMillis());
 
-                if(amenitiesRatingBar.getRating() == 0 || cleanlinessRatingBar.getRating() == 0
-                        || curriculumRatingBar.getRating() == 0 || manpowerRatingBar.getRating() == 0) {
-                    Toast.makeText(RatingReviewActivity.this, "Please fill up all ratings", Toast.LENGTH_SHORT).show();
-    				progressBar.setVisibility(View.GONE);
-                }
-                else if(reviewEditText.getText().toString().trim().isEmpty()) {
-                    Toast.makeText(RatingReviewActivity.this, "Please fill up review", Toast.LENGTH_SHORT).show();
-                    progressBar.setVisibility(View.GONE);
-                }
-                else if(!ratingReviewExist) {
-                    new ratingReviewModel(centre_code).addRatingReview(ratingReview, user.getUid() ,new ratingReviewModel.DataStatus() {
-                        @Override
-                        public void DataIsLoaded(RatingReview ratingReviews, List<String> keys) {}
+                                Log.d("rating and review", "onClick: " + reviewEditText.getText().toString().trim());
 
-                        @Override
-                        public void DataIsInserted() {
-                            Toast.makeText(RatingReviewActivity.this, "Ratings & Review has been inserted successfully", Toast.LENGTH_SHORT).show();
-                            progressBar.setVisibility(View.GONE);
-                            finish();
-                            return;
-                        }
+                                if(amenitiesRatingBar.getRating() == 0 || cleanlinessRatingBar.getRating() == 0
+                                        || curriculumRatingBar.getRating() == 0 || manpowerRatingBar.getRating() == 0) {
+                                    Toast.makeText(RatingReviewActivity.this, "Please fill up all ratings", Toast.LENGTH_SHORT).show();
+                                    progressBar.setVisibility(View.GONE);
+                                }
+                                else if(reviewEditText.getText().toString().trim().isEmpty()) {
+                                    Toast.makeText(RatingReviewActivity.this, "Please fill up review", Toast.LENGTH_SHORT).show();
+                                    progressBar.setVisibility(View.GONE);
+                                }
+                                else if(!ratingReviewExist) {
+                                    new ratingReviewModel(centre_code).addRatingReview(ratingReview, user.getUid() ,new ratingReviewModel.DataStatus() {
+                                        @Override
+                                        public void DataIsLoaded(RatingReview ratingReviews, List<String> keys) {}
 
-                        @Override
-                        public void DataIsUpdated() {}
+                                        @Override
+                                        public void DataIsInserted() {
+                                            Toast.makeText(RatingReviewActivity.this, "Ratings & Review has been inserted successfully", Toast.LENGTH_SHORT).show();
+                                            progressBar.setVisibility(View.GONE);
+                                            finish();
+                                            return;
+                                        }
 
-                        @Override
-                        public void DataIsDeleted() {}
-                    });
-                }
-                else{
-                    new ratingReviewModel(centre_code).updateRatingReview(ratingReview, user.getUid(), new ratingReviewModel.DataStatus() {
-                        @Override
-                        public void DataIsLoaded(RatingReview ratingReviews, List<String> keys) {}
+                                        @Override
+                                        public void DataIsUpdated() {}
 
-                        @Override
-                        public void DataIsInserted() {}
+                                        @Override
+                                        public void DataIsDeleted() {}
+                                    });
+                                }
+                                else{
+                                    new ratingReviewModel(centre_code).updateRatingReview(ratingReview, user.getUid(), new ratingReviewModel.DataStatus() {
+                                        @Override
+                                        public void DataIsLoaded(RatingReview ratingReviews, List<String> keys) {}
 
-                        @Override
-                        public void DataIsUpdated() {
-                            Toast.makeText(RatingReviewActivity.this, "Ratings & Review has been updated successfully", Toast.LENGTH_SHORT).show();
-                            progressBar.setVisibility(View.GONE);
-                            finish();
-                            return;
-                        }
+                                        @Override
+                                        public void DataIsInserted() {}
 
-                        @Override
-                        public void DataIsDeleted() {}
-                    });
-                }
+                                        @Override
+                                        public void DataIsUpdated() {
+                                            Toast.makeText(RatingReviewActivity.this, "Ratings & Review has been updated successfully", Toast.LENGTH_SHORT).show();
+                                            progressBar.setVisibility(View.GONE);
+                                            finish();
+                                            return;
+                                        }
+
+                                        @Override
+                                        public void DataIsDeleted() {}
+                                    });
+                                }
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        })
+                        .show();
+
+
             }
         });
 
